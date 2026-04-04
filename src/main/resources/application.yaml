@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: DonorTrack
+  datasource:
+    url: jdbc:postgresql://localhost:5432/donortrack
+    username: postgres
+    password: 010909
+  mvc:
+    view:
+      prefix: /jsp/
+      suffix: .jsp
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+info:
+  app:
+    name: ${spring.application.name}
+    version: 0.0.1
+    description: DonorSearch fork

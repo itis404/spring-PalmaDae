@@ -1,6 +1,7 @@
 package org.palmadae.donortrack.controller;
 
 
+import org.palmadae.donortrack.entity.UserEntity;
 import org.palmadae.donortrack.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,7 @@ public class RegistrationController {
 
     @GetMapping("/registration")
     public String registrationModel(Model model) {
-        model.addAttribute();
+        model.addAttribute("userForm", new UserEntity());
         return "registration";
     }
 }
