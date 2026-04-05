@@ -2,8 +2,10 @@ package org.palmadae.donortrack.repository;
 
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import org.jspecify.annotations.NonNull;
 import org.palmadae.donortrack.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 
@@ -16,12 +18,18 @@ public class UserRepository {
         return entityManager.find(UserEntity.class, id);
     }
 
-    public UserEntity findByUsername(String username) {
-        return entityManager.find(UserEntity.class, username);
+    public UserEntity findByLogin(String login) {
+        try {
+            return entityManager.createQuery("SELECT u FROM UserEntity u WHERE u.login = :login", UserEntity.class)
+                    .setParameter("login", login)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     @Transactional
-    public void saveUser(UserEntity user) {
+    public void saveUser(@NonNull UserEntity user) {
         if (user.getId() == null) {
             entityManager.persist(user);
         } {

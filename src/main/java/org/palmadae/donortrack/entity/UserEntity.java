@@ -2,24 +2,28 @@ package org.palmadae.donortrack.entity;
 
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "users")
 @Data
-@Getter
-@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 
-    private String username;
+    @Column(name = "login")
+    private String login;
 
-    private String password;
+    @Column(name = "hash_pass")
+    private String hash_pass;
+
+    @Column(name = "email")
+    private String email;
 
     @Enumerated(EnumType.STRING)
     private UserRole role;

@@ -1,12 +1,19 @@
 package org.palmadae.donortrack.controller;
 
 
+import jakarta.validation.Valid;
+import org.palmadae.donortrack.dto.UserDto;
 import org.palmadae.donortrack.entity.UserEntity;
 import org.palmadae.donortrack.service.UserService;
+import org.palmadae.donortrack.util.HashUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class RegistrationController {
@@ -14,8 +21,40 @@ public class RegistrationController {
     private UserService userService;
 
     @GetMapping("/registration")
-    public String registrationModel(Model model) {
-        model.addAttribute("userForm", new UserEntity());
+    public String showForm(Model model) {
+        model.addAttribute("userForm", new UserDto());
         return "registration";
     }
+
+    @PostMapping("/registration")
+    public String registerUser(
+            @Valid @ModelAttribute("userForm") UserDto userDto,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes
+    ) {
+        if (!userDto.getPassword().equals(userDto.getPassCorrect())) {
+            bindingResult.rejectValue("passCorrect", "error.userForm",
+                    "Passwords do not match");
+        }
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
+
+        UserEntity user = new UserEntity().builder()
+                .login(userDto.getLogin())
+                .hash_pass(HashUtil.hashPassword(userDto.getPassword()))
+                .email(userDto.getEmail())
+        .build();
+
+        userService.createUser(
+            user
+        );
+
+        redirectAttributes.addFlashAttribute("successMessage",
+                "Registration successful!");
+
+
+        return "redirect:/registration";
+    }
+
 }
