@@ -9,6 +9,8 @@ import org.jspecify.annotations.NonNull;
 import org.palmadae.donortrack.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class UserRepository {
     @PersistenceContext
@@ -18,15 +20,23 @@ public class UserRepository {
         return entityManager.find(UserEntity.class, id);
     }
 
-    public UserEntity findByLogin(String login) {
+    public Optional<UserEntity> findByLogin(String login) {
         try {
-            return entityManager.createQuery("SELECT u FROM UserEntity u WHERE u.login = :login", UserEntity.class)
+            UserEntity user = entityManager.createQuery(
+                            "SELECT u FROM UserEntity u WHERE u.login = :login",
+                            UserEntity.class
+                    )
                     .setParameter("login", login)
                     .getSingleResult();
+
+            return Optional.of(user);
+
         } catch (NoResultException e) {
-            return null;
+            return Optional.empty();
         }
     }
+
+
 
     @Transactional
     public void saveUser(@NonNull UserEntity user) {

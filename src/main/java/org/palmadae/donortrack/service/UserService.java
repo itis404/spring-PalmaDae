@@ -12,24 +12,24 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
+    public boolean isUserExist(String login) {
+        return userRepository.findByLogin(login).isPresent();
+    }
 
     @Transactional
     public boolean createUser(UserEntity user) {
-        UserEntity existingUser = userRepository.findByLogin(user.getLogin());
 
-        if (existingUser != null) {
+        if (userRepository.findByLogin(user.getLogin()).isPresent()) {
             return false;
         }
+
         user.setRole(UserRole.USER);
         userRepository.saveUser(user);
+
         return true;
     }
-
-
 }

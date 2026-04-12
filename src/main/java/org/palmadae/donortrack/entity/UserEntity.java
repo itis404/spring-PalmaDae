@@ -16,13 +16,13 @@ public class UserEntity {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "login")
+    @Column(name = "login", nullable = false)
     private String login;
 
-    @Column(name = "hash_pass")
+    @Column(name = "hash_pass", nullable = false)
     private String hash_pass;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Enumerated(EnumType.STRING)
