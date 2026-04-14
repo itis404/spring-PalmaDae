@@ -36,6 +36,22 @@ public class UserRepository {
         }
     }
 
+    public boolean existsByEmail(String email) {
+        String jpql = "SELECT COUNT(u) FROM UserEntity u WHERE u.email = :email";
+        Long count = entityManager.createQuery(jpql, Long.class)
+                .setParameter("email", email)
+                .getSingleResult();
+        return count > 0;
+    }
+
+
+    public boolean existsByUsername(String username) {
+        String jpql = "SELECT COUNT(u) FROM UserEntity u WHERE u.username = :username";
+        Long count = entityManager.createQuery(jpql, Long.class)
+                .setParameter("username", username)
+                .getSingleResult();
+        return count > 0;
+    }
 
 
     @Transactional
