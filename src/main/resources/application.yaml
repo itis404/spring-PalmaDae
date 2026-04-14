@@ -7,7 +7,7 @@ spring:
     password: 010909
   mvc:
     view:
-      prefix: /jsp/
+      prefix: /WEB-INF/jsp/
       suffix: .jsp
   jpa:
     hibernate:

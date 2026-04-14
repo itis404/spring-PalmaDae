@@ -40,7 +40,8 @@
     </div>
 </c:if>
 
-<form action="${pageContext.request.contextPath}/login" method="post">
+<form:errors path="*" cssClass="error-block"/>
+<form action="${pageContext.request.contextPath}/auth/login" method="post">
 
     <div class="form-group">
         <label>Login:</label>

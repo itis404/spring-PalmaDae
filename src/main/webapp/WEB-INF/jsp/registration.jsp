@@ -38,7 +38,8 @@
 </head>
 
 <body>
-    <form:form method="post" modelAttribute="userForm" action="${pageContext.request.contextPath}/registration">
+    <form:errors path="*" cssClass="error-block"/>
+    <form:form method="post" modelAttribute="userForm" action="${pageContext.request.contextPath}/auth/registration">
         <h2>
             Registration Form
         </h2>
