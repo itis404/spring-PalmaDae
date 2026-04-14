@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!DOCTYPE html>
+<html>
 <head>
     <style>
         .form-group {
@@ -30,7 +31,6 @@
         }
     </style>
 </head>
-
 <body>
 
 <h2>Login Form</h2>
@@ -41,9 +41,7 @@
     </div>
 </c:if>
 
-<form:errors path="*" cssClass="error-block"/>
-<form action="<c:url value='/perform_login'/>" method="post">
-
+<form method="post" action="${pageContext.request.contextPath}/perform_login">
     <div class="form-group">
         <label>Login:</label>
         <input type="text" name="username"/>
@@ -54,10 +52,8 @@
         <input type="password" name="password"/>
     </div>
 
-    <button type="submit">
-        Login
-    </button>
-
+    <button type="submit">Login</button>
 </form>
 
 </body>
+</html>

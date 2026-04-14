@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/login", "/auth/registration",
                                 "/css/**", "/js/**", "/images/**",
-                                "/WEB-INF/jsp/**").permitAll()   // ← добавить эту строку
+                                "/WEB-INF/jsp/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

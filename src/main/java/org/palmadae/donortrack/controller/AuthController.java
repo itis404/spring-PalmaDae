@@ -23,9 +23,8 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/login")
-    @ResponseBody
     public String showLoginForm() {
-        return "Login page works";
+        return "login";
     }
 
     @GetMapping("/registration")
