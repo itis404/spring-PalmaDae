@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <head>
     <style>
         .form-group {
@@ -41,7 +42,7 @@
 </c:if>
 
 <form:errors path="*" cssClass="error-block"/>
-<form action="${pageContext.request.contextPath}/auth/login" method="post">
+<form action="<c:url value='/perform_login'/>" method="post">
 
     <div class="form-group">
         <label>Login:</label>

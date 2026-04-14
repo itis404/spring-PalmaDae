@@ -23,9 +23,9 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/login")
-    public String showLoginForm(Model model) {
-        model.addAttribute("userForm", new UserDto());
-        return "login";
+    @ResponseBody
+    public String showLoginForm() {
+        return "Login page works";
     }
 
     @GetMapping("/registration")
@@ -50,7 +50,7 @@ public class AuthController {
         }
 
         UserEntity user = UserEntity.builder()
-                .login(userDto.getLogin())
+                .username(userDto.getUsername())
                 .hash_pass(passwordEncoder.encode(userDto.getPassword()))
                 .email(userDto.getEmail())
                 .build();

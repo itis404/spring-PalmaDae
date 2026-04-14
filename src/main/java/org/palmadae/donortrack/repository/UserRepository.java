@@ -20,13 +20,13 @@ public class UserRepository {
         return entityManager.find(UserEntity.class, id);
     }
 
-    public Optional<UserEntity> findByLogin(String login) {
+    public Optional<UserEntity> findByUsername(String username) {
         try {
             UserEntity user = entityManager.createQuery(
-                            "SELECT u FROM UserEntity u WHERE u.login = :login",
+                            "SELECT u FROM UserEntity u WHERE u.username = :username",
                             UserEntity.class
                     )
-                    .setParameter("login", login)
+                    .setParameter("username", username)
                     .getSingleResult();
 
             return Optional.of(user);

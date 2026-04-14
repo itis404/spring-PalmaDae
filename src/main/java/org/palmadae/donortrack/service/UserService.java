@@ -16,14 +16,14 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public boolean isUserExist(String login) {
-        return userRepository.findByLogin(login).isPresent();
+    public boolean isUserExist(String username) {
+        return userRepository.findByUsername(username).isPresent();
     }
 
     @Transactional
     public boolean createUser(UserEntity user) {
 
-        if (userRepository.findByLogin(user.getLogin()).isPresent()) {
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             return false;
         }
 

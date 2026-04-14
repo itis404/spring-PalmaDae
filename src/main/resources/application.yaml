@@ -18,3 +18,10 @@ info:
     name: ${spring.application.name}
     version: 0.0.1
     description: DonorSearch fork
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security.web.access: DEBUG
+    org.springframework.security.web.util.matcher: DEBUG

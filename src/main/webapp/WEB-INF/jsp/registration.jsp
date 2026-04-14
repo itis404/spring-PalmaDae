@@ -45,8 +45,8 @@
         </h2>
         <div class="form-group">
             <label for="login">Login:</label>
-            <form:input path="login"/>
-            <form:errors path="login" cssClass="error"/>
+            <form:input path="username"/>
+            <form:errors path="username" cssClass="error"/>
         </div>
 
         <div class="form-group">

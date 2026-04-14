@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 @Setter
 public class UserDto {
 
-    @NotBlank(message = "Login in blank")
-    @Size(min = 3, max = 16, message = "Login must be between 3 and 16 chars")
+    @NotBlank(message = "Username in blank")
+    @Size(min = 3, max = 16, message = "Username must be between 3 and 16 chars")
     @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Username can only contain letters and numbers")
-    private String login;
+    private String username;
 
 
     @NotBlank(message = "Password in blank")

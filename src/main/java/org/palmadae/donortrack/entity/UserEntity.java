@@ -16,8 +16,8 @@ public class UserEntity {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "login", nullable = false)
-    private String login;
+    @Column(name = "username", nullable = false)
+    private String username;
 
     @Column(name = "hash_pass", nullable = false)
     private String hash_pass;
