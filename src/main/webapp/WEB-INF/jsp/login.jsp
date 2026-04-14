@@ -41,7 +41,7 @@
     </div>
 </c:if>
 
-<form method="post" action="${pageContext.request.contextPath}/perform_login">
+<form method="post" action="${pageContext.request.contextPath}/auth/login">
     <div class="form-group">
         <label>Login:</label>
         <input type="text" name="username"/>

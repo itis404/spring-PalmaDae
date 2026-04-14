@@ -31,6 +31,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
 
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
 
     runtimeOnly("org.postgresql:postgresql")
 
@@ -38,8 +39,8 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok")
 
     implementation("org.apache.tomcat.embed:tomcat-embed-jasper")
-    implementation("org.glassfish.web:jakarta.servlet.jsp.jstl")
-
+    implementation("org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1")
+    implementation("jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
