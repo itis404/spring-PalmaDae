@@ -2,12 +2,10 @@ package org.palmadae.donortrack.controller;
 
 import jakarta.validation.Valid;
 import org.palmadae.donortrack.dto.UserDto;
-import org.palmadae.donortrack.entity.UserEntity;
 import org.palmadae.donortrack.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,9 +18,6 @@ public class AuthRestController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/registration")
     public ResponseEntity<?> registerUser(@Valid @RequestBody UserDto userDto, BindingResult bindingResult) {
@@ -48,13 +43,11 @@ public class AuthRestController {
                     .body(Map.of("email", "Email already registered"));
         }
 
-        UserEntity user = UserEntity.builder()
-                .username(userDto.getUsername())
-                .hash_pass(passwordEncoder.encode(userDto.getPassword()))
-                .email(userDto.getEmail())
-                .build();
-
-        userService.createUser(user);
+        boolean created = userService.createUser(userDto);
+        if (!created) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "User could not be created"));
+        }
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Map.of("message", "User registered successfully"));

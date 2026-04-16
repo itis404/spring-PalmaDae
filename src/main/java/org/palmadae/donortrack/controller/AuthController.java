@@ -44,23 +44,28 @@ public class AuthController {
                     "Passwords do not match");
         }
 
+        if (userService.existsByUsername(userDto.getUsername())) {
+            bindingResult.rejectValue("username", "error.userForm",
+                    "Username already exists");
+        }
+
+        if (userService.existsByEmail(userDto.getEmail())) {
+            bindingResult.rejectValue("email", "error.userForm",
+                    "Email already registered");
+        }
+
         if (bindingResult.hasErrors()) {
             return "registration";
         }
 
-        UserEntity user = UserEntity.builder()
-                .username(userDto.getUsername())
-                .hash_pass(passwordEncoder.encode(userDto.getPassword()))
-                .email(userDto.getEmail())
-                .build();
+        boolean created = userService.createUser(userDto);
+        if (!created) {
+            bindingResult.rejectValue("username", "error.userForm",
+                    "Registration failed, please try again");
+            return "registration";
+        }
 
-        userService.createUser(user);
-
-        redirectAttributes.addFlashAttribute(
-                "successMessage",
-                "Registration successful!"
-        );
-
+        redirectAttributes.addFlashAttribute("successMessage", "Registration successful!");
         return "redirect:/auth/login";
     }
 

@@ -1,43 +1,51 @@
 package org.palmadae.donortrack.service;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
-import org.hibernate.boot.internal.Abstract;
+import org.palmadae.donortrack.dto.UserDto;
 import org.palmadae.donortrack.entity.UserEntity;
 import org.palmadae.donortrack.entity.UserRole;
-import org.palmadae.donortrack.repository.UserRepository;
+import org.palmadae.donortrack.repository.UserJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
+    @Autowired
+    private UserJpaRepository jpaRepository;
 
     @Autowired
-    private UserRepository userRepository;
-
-    public boolean isUserExist(String username) {
-        return userRepository.findByUsername(username).isPresent();
-    }
-
-    @Transactional
-    public boolean createUser(UserEntity user) {
-
-        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
-            return false;
-        }
-
-        user.setRole(UserRole.USER);
-        userRepository.saveUser(user);
-
-        return true;
-    }
+    private PasswordEncoder passwordEncoder;
 
     public boolean existsByUsername(String username) {
-        return userRepository.existsByUsername(username);
+        return jpaRepository.existsByUsername(username);
     }
 
     public boolean existsByEmail(String email) {
-        return userRepository.existsByEmail(email);
+        return jpaRepository.existsByEmail(email);
+    }
+
+    @Transactional
+    public boolean createUser(UserDto dto) {
+        if (jpaRepository.existsByUsername(dto.getUsername())) {
+            return false;
+        }
+
+        if (jpaRepository.existsByEmail(dto.getUsername())) {
+            return false;
+        }
+
+        String encodedPassword = passwordEncoder.encode(dto.getPassword());
+
+        UserEntity user = UserEntity.builder()
+                        .username(dto.getUsername())
+                        .email(dto.getEmail())
+                        .hash_pass(encodedPassword)
+                        .role(UserRole.USER)
+                                .build();
+
+
+        jpaRepository.save(user);
+        return true;
     }
 }
