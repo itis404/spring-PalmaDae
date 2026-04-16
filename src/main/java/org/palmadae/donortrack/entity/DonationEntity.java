@@ -6,9 +6,9 @@
     import lombok.Builder;
     import lombok.Data;
     import lombok.NoArgsConstructor;
+    import org.palmadae.donortrack.entity.enums.DonationType;
 
     import java.time.LocalDate;
-    import java.time.LocalDateTime;
 
     @Entity
     @Data

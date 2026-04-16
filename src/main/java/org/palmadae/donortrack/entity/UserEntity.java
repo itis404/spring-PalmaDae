@@ -3,6 +3,8 @@ package org.palmadae.donortrack.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.palmadae.donortrack.entity.enums.BloodType;
+import org.palmadae.donortrack.entity.enums.UserRole;
 
 @Entity
 @Table(name = "users")

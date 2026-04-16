@@ -1,4 +1,4 @@
-package org.palmadae.donortrack.entity;
+package org.palmadae.donortrack.entity.enums;
 
 public enum UserRole {
     ADMIN,

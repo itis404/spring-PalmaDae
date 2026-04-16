@@ -1,4 +1,4 @@
-package org.palmadae.donortrack.controller;
+package org.palmadae.donortrack.controller.auth;
 
 import jakarta.validation.Valid;
 import org.palmadae.donortrack.dto.UserDto;

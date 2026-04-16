@@ -9,5 +9,6 @@
 <p>Your role: ${role}</p>
 
 <a href="${pageContext.request.contextPath}/logout">Logout</a>
+<a href="${pageContext.request.contextPath}/profile">Go to Profile</a>
 </body>
 </html>

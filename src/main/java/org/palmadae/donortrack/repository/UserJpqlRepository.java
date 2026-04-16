@@ -4,7 +4,7 @@ package org.palmadae.donortrack.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
-import org.palmadae.donortrack.entity.BloodType;
+import org.palmadae.donortrack.entity.enums.BloodType;
 import org.springframework.stereotype.Repository;
 
 @Repository
