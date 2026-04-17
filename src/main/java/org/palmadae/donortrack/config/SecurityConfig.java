@@ -1,7 +1,7 @@
 package org.palmadae.donortrack.config;
 
 
-import org.palmadae.donortrack.service.CustomUserDetailsService;
+import org.palmadae.donortrack.service.user.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

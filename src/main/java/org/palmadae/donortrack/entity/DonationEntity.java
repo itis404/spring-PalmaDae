@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.palmadae.donortrack.entity.enums.DonationStatus;
 import org.palmadae.donortrack.entity.enums.DonationType;
 
 import java.time.LocalDate;
@@ -37,5 +38,6 @@ public class DonationEntity {
     private String certificate;
 
     @Column(name = "status")
-    private
+    @Enumerated(EnumType.STRING)
+    private DonationStatus donationStatus;
 }

@@ -12,5 +12,7 @@
 
 
         <p><a href="/profile/edit">Edit Profile</a></p>
+
+        <p><a href="/profile/add-donation">Add Donation</a></p>
     </body>
 </html>

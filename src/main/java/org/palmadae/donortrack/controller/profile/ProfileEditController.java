@@ -1,12 +1,12 @@
 package org.palmadae.donortrack.controller.profile;
 
 import jakarta.validation.Valid;
-import org.palmadae.donortrack.dto.profile.ChangeBloodTypeDto;
-import org.palmadae.donortrack.dto.profile.ChangeEmailDto;
-import org.palmadae.donortrack.dto.profile.ChangePasswordDto;
+import org.palmadae.donortrack.dto.profile.BloodTypeChangeDto;
+import org.palmadae.donortrack.dto.profile.EmailChangeDto;
+import org.palmadae.donortrack.dto.profile.PasswordChangeDto;
 import org.palmadae.donortrack.entity.UserEntity;
 import org.palmadae.donortrack.entity.enums.BloodType;
-import org.palmadae.donortrack.service.UserService;
+import org.palmadae.donortrack.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/profile/edit")
 public class ProfileEditController {
-
     @Autowired private UserService userService;
 
     @GetMapping
@@ -35,7 +34,7 @@ public class ProfileEditController {
     }
 
     @PostMapping("/email")
-    public String changeEmail(@Valid @ModelAttribute ChangeEmailDto dto,
+    public String changeEmail(@Valid @ModelAttribute EmailChangeDto dto,
                               BindingResult result,
                               RedirectAttributes redirectAttributes,
                               Authentication auth) {
@@ -54,7 +53,7 @@ public class ProfileEditController {
     }
 
     @PostMapping("/password")
-    public String changePassword(@Valid @ModelAttribute ChangePasswordDto dto,
+    public String changePassword(@Valid @ModelAttribute PasswordChangeDto dto,
                                  BindingResult result,
                                  RedirectAttributes redirectAttributes,
                                  Authentication auth) {
@@ -73,7 +72,7 @@ public class ProfileEditController {
     }
 
     @PostMapping("/bloodtype")
-    public String changeBloodType(@ModelAttribute ChangeBloodTypeDto dto,
+    public String changeBloodType(@ModelAttribute BloodTypeChangeDto dto,
                                   RedirectAttributes redirectAttributes,
                                   Authentication auth) {
         String username = auth.getName();

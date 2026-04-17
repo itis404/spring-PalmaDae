@@ -1,13 +1,13 @@
-package org.palmadae.donortrack.service;
+package org.palmadae.donortrack.service.user;
 
 import jakarta.transaction.Transactional;
 import org.palmadae.donortrack.dto.UserDto;
-import org.palmadae.donortrack.dto.profile.ChangeEmailDto;
-import org.palmadae.donortrack.dto.profile.ChangePasswordDto;
+import org.palmadae.donortrack.dto.profile.EmailChangeDto;
+import org.palmadae.donortrack.dto.profile.PasswordChangeDto;
 import org.palmadae.donortrack.entity.UserEntity;
 import org.palmadae.donortrack.entity.enums.BloodType;
 import org.palmadae.donortrack.entity.enums.UserRole;
-import org.palmadae.donortrack.repository.UserJpaRepository;
+import org.palmadae.donortrack.repository.user.UserJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class UserService {
         return jpaRepository.existsByEmail(email);
     }
 
-    public Optional<UserEntity>  findByUsername(String username) { return jpaRepository.findByUsername(username); }
+    public Optional<UserEntity> findByUsername(String username) { return jpaRepository.findByUsername(username); }
 
     @Transactional
     public boolean createUser(UserDto dto) {
@@ -58,7 +58,7 @@ public class UserService {
 
 
     @Transactional
-    public void changeEmail(String username, ChangeEmailDto dto) {
+    public void changeEmail(String username, EmailChangeDto dto) {
         UserEntity user = jpaRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         if (!user.getEmail().equals(dto.getNewEmail()) && jpaRepository.existsByEmail(dto.getNewEmail())) {
@@ -69,7 +69,7 @@ public class UserService {
     }
 
     @Transactional
-    public void changePassword(String username, ChangePasswordDto dto) {
+    public void changePassword(String username, PasswordChangeDto dto) {
         UserEntity user = jpaRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         if (!passwordEncoder.matches(dto.getOldPassword(), user.getHash_pass())) {

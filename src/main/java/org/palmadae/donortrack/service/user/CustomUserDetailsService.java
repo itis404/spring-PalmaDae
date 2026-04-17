@@ -1,7 +1,7 @@
-package org.palmadae.donortrack.service;
+package org.palmadae.donortrack.service.user;
 
 import org.palmadae.donortrack.entity.UserEntity;
-import org.palmadae.donortrack.repository.UserJpaRepository;
+import org.palmadae.donortrack.repository.user.UserJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

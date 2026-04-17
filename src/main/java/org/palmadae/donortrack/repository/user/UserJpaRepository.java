@@ -1,4 +1,4 @@
-package org.palmadae.donortrack.repository;
+package org.palmadae.donortrack.repository.user;
 
 import org.palmadae.donortrack.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

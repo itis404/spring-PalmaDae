@@ -1,4 +1,4 @@
-package org.palmadae.donortrack.repository;
+package org.palmadae.donortrack.repository.user;
 
 
 import jakarta.persistence.EntityManager;

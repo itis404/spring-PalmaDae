@@ -2,7 +2,7 @@ package org.palmadae.donortrack.controller.auth;
 
 import jakarta.validation.Valid;
 import org.palmadae.donortrack.dto.UserDto;
-import org.palmadae.donortrack.service.UserService;
+import org.palmadae.donortrack.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
