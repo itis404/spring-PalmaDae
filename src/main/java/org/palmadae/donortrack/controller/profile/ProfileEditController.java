@@ -24,7 +24,7 @@ public class ProfileEditController {
     @Autowired private UserService userService;
 
     @GetMapping
-    public String showEditPage(Model model, Authentication auth) {
+    public String showPage(Model model, Authentication auth) {
         String username = auth.getName();
         UserEntity user = userService.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));

@@ -1,6 +1,7 @@
 package org.palmadae.donortrack.service.donation;
 
 import org.palmadae.donortrack.entity.DonationEntity;
+import org.palmadae.donortrack.entity.enums.DonationStatus;
 import org.palmadae.donortrack.repository.donation.DonationJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,10 @@ public class DonationService {
         jpaRepository.save(donationEntity);
 
         return true;
+    }
+
+    public List<DonationEntity> getInProgress(DonationStatus donationStatus) {
+        return jpaRepository.findAllByDonationStatus(donationStatus);
     }
 
 }

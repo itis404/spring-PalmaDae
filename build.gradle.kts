@@ -42,6 +42,8 @@ dependencies {
     implementation("org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1")
     implementation("jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    implementation("com.squareup.okhttp3:okhttp:5.3.0")
 }
 
 tasks.withType<Test> {

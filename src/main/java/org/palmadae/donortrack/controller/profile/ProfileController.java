@@ -22,7 +22,7 @@ public class ProfileController {
 
 
     @GetMapping("")
-    public String showProfile(Model model) {
+    public String showPage(Model model) {
         Authentication auth =  SecurityContextHolder.getContext().getAuthentication();
 
         String username = auth.getName();
