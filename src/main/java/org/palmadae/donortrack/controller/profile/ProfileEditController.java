@@ -72,7 +72,6 @@ public class ProfileEditController {
         return "redirect:/profile/edit";
     }
 
-    // Блок 3: смена группы крови
     @PostMapping("/bloodtype")
     public String changeBloodType(@ModelAttribute ChangeBloodTypeDto dto,
                                   RedirectAttributes redirectAttributes,

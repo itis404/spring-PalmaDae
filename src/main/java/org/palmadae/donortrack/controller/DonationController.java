@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin")
-public class AdminController {
-    @GetMapping()
-    public String showAdminPanel() {
-        return "admin";
+@RequestMapping("/profile/add-donation")
+public class DonationController {
+    @GetMapping
+    public String showPage() {
+        return "add-donation";
     }
 }

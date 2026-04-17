@@ -3,17 +3,13 @@ package org.palmadae.donortrack.dto.profile;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
+import org.palmadae.donortrack.entity.enums.BloodType;
 import org.springframework.stereotype.Component;
-
 
 @Component
 @Getter
 @Setter
-public class ChangePasswordDto {
+public class BloodTypeChangeDto {
     @NotBlank
-    private String oldPassword;
-    @NotBlank
-    private String newPassword;
-    @NotBlank
-    private String confirmPassword;
+    private BloodType bloodType;
 }
