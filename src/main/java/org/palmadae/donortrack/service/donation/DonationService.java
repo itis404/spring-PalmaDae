@@ -42,8 +42,17 @@ public class DonationService {
         return true;
     }
 
-    public List<DonationEntity> getInProgress(DonationStatus donationStatus) {
-        return jpaRepository.findAllByDonationStatus(donationStatus);
+    public List<DonationEntity> getByStatus(DonationStatus status) {
+        return jpaRepository.findAllByDonationStatus(status);
+    }
+
+    public void updateStatus(Long id, DonationStatus status) {
+        DonationEntity donation = jpaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Donation not found"));
+
+        donation.setDonationStatus(status);
+
+        jpaRepository.save(donation);
     }
 
 }
