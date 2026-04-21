@@ -44,6 +44,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     implementation("com.squareup.okhttp3:okhttp:5.3.0")
+
+    implementation("org.springframework.boot:spring-boot-starter-mail")
 }
 
 tasks.withType<Test> {

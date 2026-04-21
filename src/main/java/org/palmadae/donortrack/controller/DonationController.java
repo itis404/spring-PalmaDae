@@ -12,10 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
@@ -40,6 +38,7 @@ public class DonationController {
     @PostMapping
     public String addDonation(
             @ModelAttribute DonationDto dto,
+            @RequestParam(value = "certificateFile", required = false) MultipartFile certificateFile,
             RedirectAttributes redirectAttributes,
             Authentication auth
     ) {
@@ -52,11 +51,10 @@ public class DonationController {
                 .date(dto.getDate())
                 .donationStatus(DonationStatus.IN_PROGRESS)
                 .donationType(dto.getDonationType())
-                .certificate(dto.getCertificate())
                 .user(user)
                 .build();
 
-        donationService.saveDonation(donationEntity);
+        donationService.saveDonation(donationEntity, certificateFile);
 
         return "redirect:/profile";
     }

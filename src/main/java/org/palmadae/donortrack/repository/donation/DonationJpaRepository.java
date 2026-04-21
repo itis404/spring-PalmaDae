@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface DonationJpaRepository extends JpaRepository<DonationEntity, Long> {
     List<DonationEntity> findAllByDate(LocalDate date);
-
     List<DonationEntity> findAllByDonationStatus(DonationStatus donationStatus);
+
+
 }

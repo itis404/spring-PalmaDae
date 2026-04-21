@@ -17,7 +17,6 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
-
     @GetMapping()
     public String showAdminPanel() {
         return "admin";

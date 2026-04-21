@@ -14,7 +14,7 @@
 
         <div class="block">
             <h3>Add donation</h3>
-            <form action="/profile/add-donation" method="post">
+            <form action="/profile/add-donation" method="post" enctype="multipart/form-data">
                 <label>
                     Date of donation
                 </label>
@@ -23,13 +23,14 @@
                     Donation type
                 </label>
                 <select name="donationType">
-                    <option value="">-- Not specified --</option>
+                    <option value="">Не выбрано</option>
                     <c:forEach items="${donationTypes}" var="type">
                         <option value="${type}" ${type == currentDonationType ? 'selected' : ''}>${type}</option>
                     </c:forEach>
                 </select>
 
-
+                <label>Certificate (optional)</label>
+                <input type="file" name="certificateFile">
 
 
                 <button type="submit">Add donation</button>

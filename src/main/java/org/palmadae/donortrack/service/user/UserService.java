@@ -45,11 +45,11 @@ public class UserService {
         String encodedPassword = passwordEncoder.encode(dto.getPassword());
 
         UserEntity user = UserEntity.builder()
-                        .username(dto.getUsername())
-                        .email(dto.getEmail())
-                        .hash_pass(encodedPassword)
-                        .role(UserRole.USER)
-                                .build();
+                .username(dto.getUsername())
+                .email(dto.getEmail())
+                .hash_pass(encodedPassword)
+                .role(UserRole.USER)
+                .build();
 
 
         jpaRepository.save(user);

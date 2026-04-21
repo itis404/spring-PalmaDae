@@ -34,7 +34,7 @@ public class DonationEntity {
     @Enumerated(EnumType.STRING)
     private DonationType donationType;
 
-    @Column(name = "cetificate")
+    @Column(name = "certificate")
     private String certificate;
 
     @Column(name = "status")
