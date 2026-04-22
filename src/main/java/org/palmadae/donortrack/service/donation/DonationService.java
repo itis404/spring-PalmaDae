@@ -25,7 +25,9 @@ public class DonationService {
             try {
                 String uploadDir = "src/main/resources/images/certificates/";
 
-                String fileName = LocalDate.now() + certificateFile.getOriginalFilename();
+
+
+                String fileName = LocalDate.now() + "-0" +  donationEntity.getUser().getId().toString() + donationEntity.getDonationType().toString() + ".jpg";
 
                 java.nio.file.Path path = java.nio.file.Paths.get(uploadDir + fileName);
                 java.nio.file.Files.createDirectories(path.getParent());

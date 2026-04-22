@@ -38,6 +38,8 @@
                             <option value="WITHOUT" ${d.donationStatus == 'WITHOUT' ? 'selected' : ''}>WITHOUT</option>
                         </select>
 
+                        <img src="">
+
                         <button type="submit">Update</button>
                     </form>
 
