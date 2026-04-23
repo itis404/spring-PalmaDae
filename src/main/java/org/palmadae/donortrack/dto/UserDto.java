@@ -9,11 +9,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-@Component
 @Getter
 @Setter
 public class UserDto {
-
     @NotBlank(message = "Username in blank")
     @Size(min = 3, max = 16, message = "Username must be between 3 and 16 chars")
     @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Username can only contain letters and numbers")

@@ -38,6 +38,12 @@ public class ProfileController {
         model.addAttribute("role", role);
         model.addAttribute("email", user.getEmail());
         model.addAttribute("bloodType", user.getBloodType() != null ? user.getBloodType().name() : "не указана");
+        model.addAttribute("city", user.getCity() != null ? user.getCity() : "не указан");
+
+
+        System.out.println("AUTH NAME = " + username);
+        System.out.println("USER FROM DB = " + user.getUsername());
+        System.out.println("CITY FROM DB = " + user.getCity());
 
         return "profile";
     }

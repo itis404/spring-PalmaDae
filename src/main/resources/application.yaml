@@ -12,6 +12,17 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+#  mail:
+#    username: donortrack@outlook.com
+#    password: Gxa-JbT-dzX-Nem
+#    host: smtp-mail.outlook.com
+#    port: 587
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
 
 info:
   app:

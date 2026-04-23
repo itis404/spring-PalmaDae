@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
-@Component
 @Getter
 @Setter
 public class DonationDto {

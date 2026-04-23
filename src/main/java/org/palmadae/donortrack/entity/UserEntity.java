@@ -32,4 +32,7 @@ public class UserEntity {
 
     @Enumerated
     private BloodType bloodType;
+
+    @Column(name = "city", nullable = true)
+    private String city;
 }

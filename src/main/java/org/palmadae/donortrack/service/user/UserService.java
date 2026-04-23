@@ -86,4 +86,12 @@ public class UserService {
         user.setBloodType(bloodType);
         jpaRepository.save(user);
     }
+
+    @Transactional
+    public void changeCity(String username, String city) {
+        UserEntity user = jpaRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setCity(city);
+    }
 }

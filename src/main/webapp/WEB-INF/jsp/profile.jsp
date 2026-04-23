@@ -9,7 +9,7 @@
         <h1>${username}</h1>
         <h1>${email}</h1>
         <h1>${bloodType}</h1>
-
+        <h1>${city}</h1>
 
         <p><a href="/profile/edit">Edit Profile</a></p>
 

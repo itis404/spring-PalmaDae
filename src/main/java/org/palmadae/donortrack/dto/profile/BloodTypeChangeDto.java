@@ -6,7 +6,6 @@ import lombok.Setter;
 import org.palmadae.donortrack.entity.enums.BloodType;
 import org.springframework.stereotype.Component;
 
-@Component
 @Getter
 @Setter
 public class BloodTypeChangeDto {
