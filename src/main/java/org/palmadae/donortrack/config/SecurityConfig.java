@@ -49,6 +49,12 @@ public class SecurityConfig {
                         .permitAll()
                         .defaultSuccessUrl("/home", true)
                 )
+                .rememberMe(  rm ->
+                        rm
+                            .key("donortrack-remember-me")
+                            .tokenValiditySeconds(60*60*24*30)
+                            .rememberMeParameter("remember-me")
+                )
                 .csrf(csrf -> csrf.disable());
         return http.build();
     }

@@ -52,6 +52,11 @@
         <input type="password" name="password"/>
     </div>
 
+    <label>
+        <input type="checkbox" name="remember-me"/>
+        Remember me
+    </label>
+
     <button type="submit">Login</button>
 </form>
 
