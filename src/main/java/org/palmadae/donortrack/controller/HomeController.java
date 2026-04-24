@@ -1,5 +1,6 @@
 package org.palmadae.donortrack.controller;
 
+import org.palmadae.donortrack.dto.donorsearch.BloodStationDto;
 import org.palmadae.donortrack.entity.UserEntity;
 import org.palmadae.donortrack.service.DonorSearchService;
 import org.palmadae.donortrack.service.user.UserService;
@@ -11,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
@@ -36,10 +39,15 @@ public class HomeController {
 
         String citySlug = toCitySlug(user.getCity());
 
-        var stations = donorSearchService.getStations(citySlug);
+        List<BloodStationDto> stations = null;
+        try {
+            stations = donorSearchService.getStations(citySlug);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         stations = stations.stream()
-                .filter(s -> s.closed == null || !s.closed)
+                .filter(s -> s.getClosed() == null || !s.getClosed())
                 .toList();
 
         model.addAttribute("username", username);

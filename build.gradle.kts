@@ -49,6 +49,7 @@ dependencies {
     implementation("com.ibm.icu:icu4j:75.1")
 
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
 }
 
 tasks.withType<Test> {

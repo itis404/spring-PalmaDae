@@ -47,7 +47,7 @@ public class UserService {
         UserEntity user = UserEntity.builder()
                 .username(dto.getUsername())
                 .email(dto.getEmail())
-                .hash_pass(encodedPassword)
+                .hashPass(encodedPassword)
                 .role(UserRole.USER)
                 .build();
 
@@ -72,10 +72,10 @@ public class UserService {
     public void changePassword(String username, PasswordChangeDto dto) {
         UserEntity user = jpaRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        if (!passwordEncoder.matches(dto.getOldPassword(), user.getHash_pass())) {
+        if (!passwordEncoder.matches(dto.getOldPassword(), user.getHashPass())) {
             throw new RuntimeException("Old password is incorrect");
         }
-        user.setHash_pass(passwordEncoder.encode(dto.getNewPassword()));
+        user.setHashPass(passwordEncoder.encode(dto.getNewPassword()));
         jpaRepository.save(user);
     }
 

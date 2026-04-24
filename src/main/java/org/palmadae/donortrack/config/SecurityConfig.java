@@ -38,10 +38,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/login", "/auth/registration",
-                                "/css/**", "/js/**", "/images/**",
-                                "/WEB-INF/jsp/**",
-                                "/api/auth/**").permitAll()
+                        .requestMatchers("/auth/login", "/auth/registration", "/auth/registration/confirm", "/auth/confirm").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/images/**", "/assets/**").permitAll()
+                        .requestMatchers("/WEB-INF/jsp/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

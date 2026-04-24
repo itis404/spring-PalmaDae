@@ -14,5 +14,7 @@
         <p><a href="/profile/edit">Edit Profile</a></p>
 
         <p><a href="/profile/add-donation">Add Donation</a></p>
+        <p><a href="/home">Go Home</a></p>
+        <p><a href="/events/create">Create event</a></p>
     </body>
 </html>

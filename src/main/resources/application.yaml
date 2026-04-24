@@ -56,3 +56,10 @@ logging:
     org.springframework.web: DEBUG
     org.springframework.security.web.access: DEBUG
     org.springframework.security.web.util.matcher: DEBUG
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method

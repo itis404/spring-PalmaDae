@@ -1,10 +1,12 @@
-package org.palmadae.donortrack.entity;
+package org.palmadae.donortrack.entity.event;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.palmadae.donortrack.entity.UserEntity;
+import org.palmadae.donortrack.entity.enums.EventStatus;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -44,6 +46,11 @@ public class EventEntity {
     @Builder.Default
     private Boolean isActive = true;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private EventStatus status = EventStatus.PENDING;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organizer_id", nullable = false)
     private UserEntity organizer;
@@ -56,4 +63,24 @@ public class EventEntity {
     )
     @Builder.Default
     private List<UserEntity> participants = new ArrayList<>();
+
+    @OneToOne(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private EventChat chat;
+
+    public void addParticipant(UserEntity user) {
+        if (!participants.contains(user)) {
+            participants.add(user);
+            currentParticipants++;
+        }
+    }
+
+    public void removeParticipant(UserEntity user) {
+        if (participants.remove(user)) {
+            currentParticipants--;
+        }
+    }
+
+    public boolean hasFreeSlots() {
+        return maxParticipants == null || currentParticipants < maxParticipants;
+    }
 }
