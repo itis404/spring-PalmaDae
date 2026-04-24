@@ -1,5 +1,8 @@
 package org.palmadae.donortrack.service.user;
 
+import jakarta.annotation.PostConstruct;
+import org.palmadae.donortrack.config.api.DadataConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -11,10 +14,19 @@ import java.util.List;
 @Service
 public class DadataService {
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    private DadataConfig dadataConfig;
 
-    private final String apiKey = "ec00a2192ae81fa6ae42043b223c7ede21e932ea";
-    private final String secret = "0748dd0ccdbddb2657542fabf1dce88554ff9bc";
+    private RestTemplate restTemplate;
+    private String apiKey;
+    private String secret;
+
+    @PostConstruct
+    public void init() {
+        this.restTemplate = new RestTemplate();
+        this.apiKey = dadataConfig.getApiToken();
+        this.secret = dadataConfig.getSecretKey();
+    }
 
     public List<String> suggestCities(String query) {
 

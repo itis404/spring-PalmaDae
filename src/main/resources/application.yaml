@@ -24,6 +24,17 @@ spring:
           starttls:
             enable: true
 
+donorsearch:
+  api:
+    base-url: https://api2.donorsearch.org/api/
+    end-points:
+      stations: /api/blood_stations/?city_slug=
+
+
+dadata:
+  api-token: ec00a2192ae81fa6ae42043b223c7ede21e932ea
+  secret-key: 0748dd0ccdbddb2657542fabf1dce88554ff9bc
+
 info:
   app:
     name: ${spring.application.name}

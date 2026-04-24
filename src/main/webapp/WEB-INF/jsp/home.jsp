@@ -22,14 +22,8 @@
         <div>
             <c:forEach items="${s.bloodGroup}" var="bg">
 
-                <span style="
-                        padding:4px 8px;
-                        margin:2px;
-                        display:inline-block;
-                        color:white;
-                        border-radius:5px;
-                        background:${bg == 'o_plus' || bg == 'o_minus' ? 'red' : 'green'};">
-                        ${bg}
+                <span>
+                    ${bg}
                 </span>
 
             </c:forEach>

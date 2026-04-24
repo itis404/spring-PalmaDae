@@ -1,7 +1,7 @@
 package org.palmadae.donortrack.service.mail;
 
 import org.palmadae.donortrack.entity.EmailVerification;
-import org.palmadae.donortrack.repository.email.EmailJpaRepository;
+import org.palmadae.donortrack.repository.email.EmailVerificationJpaRepository;
 import org.palmadae.donortrack.util.CodeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class EmailVerificationService {
 
     @Autowired
-    private EmailJpaRepository repository;
+    private EmailVerificationJpaRepository repository;
 
     @Autowired
     private MailService mailService;

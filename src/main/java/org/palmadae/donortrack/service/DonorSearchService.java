@@ -10,7 +10,6 @@ import java.util.List;
 
 @Service
 public class DonorSearchService {
-
     private final RestTemplate restTemplate = new RestTemplate();
 
     public List<BloodStationDto> getStations(String citySlug) {

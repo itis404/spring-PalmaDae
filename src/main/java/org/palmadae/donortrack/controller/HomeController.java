@@ -34,7 +34,6 @@ public class HomeController {
 
         String role = String.valueOf(user.getRole());
 
-
         String citySlug = toCitySlug(user.getCity());
 
         var stations = donorSearchService.getStations(citySlug);

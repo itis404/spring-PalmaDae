@@ -76,7 +76,7 @@
         </div>
     </c:if>
 
-    <form action="${pageContext.request.contextPath}/auth/registration/confirm" method="post">
+    <form action="/auth/registration/confirm" method="post">
         <input type="hidden" name="email" value="${pendingUser.email}">
 
         <div class="form-group">
