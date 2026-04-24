@@ -5,6 +5,9 @@ spring:
     url: jdbc:postgresql://localhost:5432/donortrack
     username: postgres
     password: 010909
+  redis:
+    host: localhost
+    port: 6379
   mvc:
     view:
       prefix: /WEB-INF/jsp/

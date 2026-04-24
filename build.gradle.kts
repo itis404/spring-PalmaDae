@@ -47,6 +47,8 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-mail")
     implementation("com.ibm.icu:icu4j:75.1")
+
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
 }
 
 tasks.withType<Test> {

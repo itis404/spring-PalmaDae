@@ -3,6 +3,7 @@ package org.palmadae.donortrack.service.user;
 import jakarta.annotation.PostConstruct;
 import org.palmadae.donortrack.config.api.DadataConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -10,12 +11,16 @@ import tools.jackson.databind.JsonNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class DadataService {
 
     @Autowired
     private DadataConfig dadataConfig;
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     private RestTemplate restTemplate;
     private String apiKey;
@@ -28,7 +33,17 @@ public class DadataService {
         this.secret = dadataConfig.getSecretKey();
     }
 
+    @SuppressWarnings("unchecked")
     public List<String> suggestCities(String query) {
+        String cacheKey = "city:" + query.toLowerCase();
+
+        List<String> cached = (List<String>) redisTemplate.opsForValue().get(cacheKey);
+        if (cached != null) {
+            System.out.println("Взято из Redis: " + query);
+            return cached;
+        }
+
+        System.out.println("Запрос к API DaData: " + query);
 
         String url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address";
 
@@ -67,6 +82,11 @@ public class DadataService {
                     result.add(s.get("value").asText().replace("г ", ""));
                 }
             });
+        }
+
+
+        if (!result.isEmpty()) {
+            redisTemplate.opsForValue().set(cacheKey, result, 24, TimeUnit.HOURS);
         }
 
         return result;
