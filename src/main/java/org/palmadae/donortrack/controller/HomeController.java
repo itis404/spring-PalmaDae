@@ -46,7 +46,7 @@ public class HomeController {
         model.addAttribute("role", role);
         model.addAttribute("stations", stations);
 
-        return "home";
+        return "main/home";
     }
 
     private String toCitySlug(String city) {

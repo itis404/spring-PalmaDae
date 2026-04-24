@@ -9,6 +9,12 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
+  web:
+    resources:
+      static-locations:
+        - classpath:/static/
+        - file:./src/main/webapp/
+      add-mappings: true
   jpa:
     hibernate:
       ddl-auto: update

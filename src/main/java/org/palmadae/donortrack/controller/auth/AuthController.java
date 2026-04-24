@@ -24,13 +24,13 @@ public class AuthController {
 
     @GetMapping("/login")
     public String showLoginForm() {
-        return "login";
+        return "auth/login";
     }
 
     @GetMapping("/registration")
     public String showRegistrationForm(Model model) {
         model.addAttribute("userForm", new UserDto());
-        return "registration";
+        return "auth/registration";
     }
 
     @PostMapping("/registration")
@@ -58,7 +58,7 @@ public class AuthController {
         }
 
         if (bindingResult.hasErrors()) {
-            return "registration";
+            return "auth/registration";
         }
 
         emailVerificationService.sendCode(userDto.getEmail());
@@ -67,7 +67,7 @@ public class AuthController {
 
         model.addAttribute("pendingUser", userDto);
 
-        return "confirm-code";
+        return "auth/confirm-code";
     }
 
     @PostMapping("/registration/confirm")
@@ -87,7 +87,7 @@ public class AuthController {
             if (pendingUser != null) {
                 model.addAttribute("pendingUser", pendingUser);
             }
-            return "confirm-code";
+            return "auth/confirm-code";
         }
 
         UserDto userDto = (UserDto) session.getAttribute("pendingUser");

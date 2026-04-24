@@ -45,6 +45,6 @@ public class ProfileController {
         System.out.println("USER FROM DB = " + user.getUsername());
         System.out.println("CITY FROM DB = " + user.getCity());
 
-        return "profile";
+        return "profile/profile";
     }
 }

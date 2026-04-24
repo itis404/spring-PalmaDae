@@ -28,7 +28,7 @@ public class AdminController {
                 donationService.getByStatus(DonationStatus.IN_PROGRESS)
         );
 
-        return "admin";
+        return "admin/admin";
     }
 
     @PostMapping("/date")
@@ -42,7 +42,7 @@ public class AdminController {
                 "donations",
                 donationService.getByStatus(DonationStatus.IN_PROGRESS)
         );
-        return "admin";
+        return "admin/admin";
     }
 
     @PostMapping("/update-status")

@@ -35,7 +35,7 @@ public class ProfileEditController {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         model.addAttribute("currentBloodType", user.getBloodType());
         model.addAttribute("bloodTypes", BloodType.values());
-        return "edit-profile";
+        return "profile/edit-profile";
     }
 
     @PostMapping("/email")

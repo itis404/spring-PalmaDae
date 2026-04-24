@@ -1,0 +1,28 @@
+.block { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+.error { color: red; font-size: 12px; }
+.success { color: green; }
+label { display: block; margin-top: 10px; font-weight: bold; }
+input, select { width: 100%; max-width: 300px; padding: 5px; }
+button { margin-top: 10px; }
+
+
+.suggestions-box {
+    border: 1px solid #ccc;
+    max-width: 300px;
+    background: white;
+    position: absolute;
+    z-index: 1000;
+}
+
+.suggestions-box div {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggestions-box div:hover {
+    background: #f0f0f0;
+}
+
+.city-wrapper {
+    position: relative;
+}

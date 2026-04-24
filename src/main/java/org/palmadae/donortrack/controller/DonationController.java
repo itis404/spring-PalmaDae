@@ -32,7 +32,7 @@ public class DonationController {
     public String showPage(Model model) {
         model.addAttribute("donationTypes", DonationType.values());
 
-        return "add-donation";
+        return "profile/add-donation";
     }
 
     @PostMapping
