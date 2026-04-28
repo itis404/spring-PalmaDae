@@ -1,10 +1,7 @@
 package org.palmadae.donortrack.entity.event;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.palmadae.donortrack.entity.UserEntity;
 import org.palmadae.donortrack.entity.enums.EventStatus;
 
@@ -12,7 +9,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
 @Table(name = "events")
@@ -65,7 +63,7 @@ public class EventEntity {
     private List<UserEntity> participants = new ArrayList<>();
 
     @OneToOne(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private EventChat chat;
+    private EventChatEntity chat;
 
     public void addParticipant(UserEntity user) {
         if (!participants.contains(user)) {

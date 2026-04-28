@@ -5,12 +5,12 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-@Getter
-@Setter
+@Data
 public class UserDto {
     @NotBlank(message = "Username in blank")
     @Size(min = 3, max = 16, message = "Username must be between 3 and 16 chars")

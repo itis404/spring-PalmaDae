@@ -1,4 +1,4 @@
-package org.palmadae.donortrack.service.user;
+package org.palmadae.donortrack.service;
 
 import jakarta.annotation.PostConstruct;
 import org.palmadae.donortrack.config.api.DadataConfig;

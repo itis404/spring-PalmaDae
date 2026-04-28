@@ -40,11 +40,7 @@ public class HomeController {
         String citySlug = toCitySlug(user.getCity());
 
         List<BloodStationDto> stations = null;
-        try {
-            stations = donorSearchService.getStations(citySlug);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        stations = donorSearchService.getStations(citySlug);
 
         stations = stations.stream()
                 .filter(s -> s.getClosed() == null || !s.getClosed())

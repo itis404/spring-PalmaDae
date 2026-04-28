@@ -1,24 +1,27 @@
 package org.palmadae.donortrack.controller.admin;
 
 import org.palmadae.donortrack.entity.enums.DonationStatus;
+import org.palmadae.donortrack.entity.event.EventEntity;
+import org.palmadae.donortrack.service.EventService;
 import org.palmadae.donortrack.service.donation.DonationService;
 import org.palmadae.donortrack.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+
     @Autowired
     private DonationService donationService;
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private EventService eventService;
 
     @GetMapping()
     public String showAdminPanel(Model model) {
@@ -26,6 +29,11 @@ public class AdminController {
         model.addAttribute(
                 "donations",
                 donationService.getByStatus(DonationStatus.IN_PROGRESS)
+        );
+
+        model.addAttribute(
+                "pendingEvents",
+                eventService.getPendingEvents()
         );
 
         return "admin/admin";
@@ -42,6 +50,12 @@ public class AdminController {
                 "donations",
                 donationService.getByStatus(DonationStatus.IN_PROGRESS)
         );
+
+        model.addAttribute(
+                "pendingEvents",
+                eventService.getPendingEvents()
+        );
+
         return "admin/admin";
     }
 
@@ -52,5 +66,17 @@ public class AdminController {
         donationService.updateStatus(id, status);
 
         return "redirect:/admin/in-progress";
+    }
+
+    @PostMapping("/approve-event")
+    public String approveEvent(@RequestParam Long eventId) {
+        eventService.approveEvent(eventId);
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/reject-event")
+    public String rejectEvent(@RequestParam Long eventId) {
+        eventService.rejectEvent(eventId);
+        return "redirect:/admin";
     }
 }

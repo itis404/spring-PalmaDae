@@ -8,18 +8,16 @@ import okhttp3.Response;
 import org.palmadae.donortrack.dto.donorsearch.BloodStationDto;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class DonorSearchService {
 
-    //Это в конфиг?
     private final OkHttpClient httpClient = new OkHttpClient();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public List<BloodStationDto> getStations(String citySlug) throws IOException {
+    public List<BloodStationDto> getStations(String citySlug) {
 
         String url = "https://api2.donorsearch.org/api/blood_stations/?city_slug=" + citySlug;
 
@@ -30,8 +28,9 @@ public class DonorSearchService {
                 .build();
 
         try (Response response = httpClient.newCall(request).execute()) {
-            if (!response.isSuccessful()) {
-                throw new IOException("Unexpected code " + response);
+
+            if (!response.isSuccessful() || response.body() == null) {
+                return new ArrayList<>();
             }
 
             String responseBody = response.body().string();
@@ -39,6 +38,7 @@ public class DonorSearchService {
 
             List<BloodStationDto> stations = new ArrayList<>();
             JsonNode results = root.get("results");
+
             if (results != null && results.isArray()) {
                 for (JsonNode station : results) {
                     stations.add(objectMapper.treeToValue(station, BloodStationDto.class));
@@ -46,6 +46,10 @@ public class DonorSearchService {
             }
 
             return stations;
+
+        } catch (Exception e) {
+            System.out.println("DonorSearch unavailable: " + e.getMessage());
+            return new ArrayList<>();
         }
     }
 }

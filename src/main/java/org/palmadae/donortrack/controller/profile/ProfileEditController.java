@@ -7,7 +7,7 @@ import org.palmadae.donortrack.dto.profile.EmailChangeDto;
 import org.palmadae.donortrack.dto.profile.PasswordChangeDto;
 import org.palmadae.donortrack.entity.UserEntity;
 import org.palmadae.donortrack.entity.enums.BloodType;
-import org.palmadae.donortrack.service.user.DadataService;
+import org.palmadae.donortrack.service.DadataService;
 import org.palmadae.donortrack.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
