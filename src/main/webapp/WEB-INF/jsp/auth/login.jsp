@@ -33,6 +33,8 @@
 </head>
 <body>
 
+<jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
+
 <h2>Login Form</h2>
 
 <c:if test="${param.error != null}">

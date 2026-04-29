@@ -5,6 +5,7 @@
     <title>Home</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
 <h1>Welcome, ${username}!</h1>
 <p>Your role: ${role}</p>
 
@@ -34,6 +35,5 @@
 </c:forEach>
 
 <a href="${pageContext.request.contextPath}/logout">Logout</a>
-<a href="${pageContext.request.contextPath}/profile">Go to Profile</a>
 </body>
 </html>

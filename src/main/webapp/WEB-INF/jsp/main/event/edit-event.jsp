@@ -5,6 +5,7 @@
     <title>Редактирование мероприятия</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
 
 <h2>Редактировать мероприятие</h2>
 

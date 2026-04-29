@@ -9,6 +9,7 @@
     </head>
 
     <body>
+    <jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
 
     <h1>Edit Profile</h1>
 

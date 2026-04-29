@@ -6,6 +6,7 @@
     <title>Все мероприятия</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
 
 <h2>Доступные мероприятия</h2>
 

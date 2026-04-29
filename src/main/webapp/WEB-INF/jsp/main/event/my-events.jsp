@@ -6,6 +6,7 @@
   <title>Мои мероприятия</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
 
 <h2>Мои созданные мероприятия</h2>
 

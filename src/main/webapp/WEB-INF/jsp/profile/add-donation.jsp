@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="/assets/css/shared.css">
     </head>
     <body>
+    <jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
         <c:if test="${not empty successMessage}">
             <div class="success">${successMessage}</div>
         </c:if>

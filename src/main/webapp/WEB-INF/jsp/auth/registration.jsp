@@ -38,6 +38,8 @@
 </head>
 
 <body>
+<jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
+
     <form:errors path="*" cssClass="error-block"/>
     <form:form method="post" modelAttribute="userForm" action="${pageContext.request.contextPath}/auth/registration">
         <h2>

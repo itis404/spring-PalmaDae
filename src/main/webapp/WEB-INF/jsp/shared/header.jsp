@@ -1,16 +1,13 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: palmadae
-  Date: 24.04.2026
-  Time: 14:04
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
 <head>
-    <title>Title</title>
+    <link rel="stylesheet" href="/assets/css/header.css">
 </head>
-<body>
-
-</body>
-</html>
+<header>
+    <nav class="header">
+        <ul>
+            <li><a href="/home">Home page</a></li>
+            <li><a href="/events/all">Events</a></li>
+            <li class="right"><a href="/profile">Profile</a></li>
+            <li><a>Notificaitons</a></li>
+        </ul>
+    </nav>
+</header>

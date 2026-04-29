@@ -3,18 +3,21 @@
 <html>
     <head>
         <title>Profile</title>
+        <link rel="stylesheet" href="/assets/css/profile.css">
     </head>
     <body>
-
+    <jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
+    <div id="user-info" class="profile-div">
         <h1>${username}</h1>
         <h1>${email}</h1>
         <h1>${bloodType}</h1>
         <h1>${city}</h1>
+    </div>
 
-        <p><a href="/profile/edit">Edit Profile</a></p>
-
-        <p><a href="/profile/add-donation">Add Donation</a></p>
-        <p><a href="/home">Go Home</a></p>
-        <p><a href="/events/create">Create event</a></p>
+    <div class="profile-div">
+        <a class="profile-button" href="/profile/edit">Edit Profile</a>
+        <a class="profile-button" href="/profile/add-donation">Add donation</a>
+        <a class="profile-button" href="/events/create">Create event</a>
+    </div>
     </body>
 </html>

@@ -66,6 +66,9 @@
     </style>
 </head>
 <body>
+
+<jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
+
 <div class="container">
     <h2>Confirm Registration</h2>
     <p class="info">We've sent a verification code to your email address. Please enter it below.</p>

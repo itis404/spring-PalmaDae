@@ -5,6 +5,7 @@
     <title>Создание мероприятия</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
 
 <h2>Создать мероприятие</h2>
 
