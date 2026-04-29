@@ -2,20 +2,15 @@ package org.palmadae.donortrack.controller;
 
 import org.palmadae.donortrack.dto.donorsearch.BloodStationDto;
 import org.palmadae.donortrack.entity.UserEntity;
-import org.palmadae.donortrack.service.DonorSearchService;
+import org.palmadae.donortrack.service.api.DonorSearchService;
 import org.palmadae.donortrack.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {

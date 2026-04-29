@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.palmadae.donortrack.dto.event.CreateEventDto;
 import org.palmadae.donortrack.dto.event.UpdateEventDto;
 import org.palmadae.donortrack.entity.event.EventEntity;
-import org.palmadae.donortrack.service.EventService;
+import org.palmadae.donortrack.service.event.EventService;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 

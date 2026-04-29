@@ -1,4 +1,4 @@
-package org.palmadae.donortrack.service;
+package org.palmadae.donortrack.service.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,8 +1,7 @@
 package org.palmadae.donortrack.controller.admin;
 
 import org.palmadae.donortrack.entity.enums.DonationStatus;
-import org.palmadae.donortrack.entity.event.EventEntity;
-import org.palmadae.donortrack.service.EventService;
+import org.palmadae.donortrack.service.event.EventService;
 import org.palmadae.donortrack.service.donation.DonationService;
 import org.palmadae.donortrack.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

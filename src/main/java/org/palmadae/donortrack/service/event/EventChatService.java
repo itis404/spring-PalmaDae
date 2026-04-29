@@ -1,4 +1,4 @@
-package org.palmadae.donortrack.service;
+package org.palmadae.donortrack.service.event;
 
 import org.palmadae.donortrack.dto.event.chat.ChatMessageDto;
 import org.palmadae.donortrack.entity.UserEntity;

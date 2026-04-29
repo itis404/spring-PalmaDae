@@ -1,7 +1,7 @@
 package org.palmadae.donortrack.controller.event;
 
 import org.palmadae.donortrack.dto.event.chat.SendMessageDto;
-import org.palmadae.donortrack.service.EventChatService;
+import org.palmadae.donortrack.service.event.EventChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
