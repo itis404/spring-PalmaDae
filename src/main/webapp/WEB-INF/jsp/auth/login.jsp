@@ -3,64 +3,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .error {
-            color: red;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input {
-            display: block;
-            width: 100%;
-            max-width: 300px;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
-        }
-    </style>
+    <title>Login</title>
+    <link rel="stylesheet" href="/assets/css/auth.css">
 </head>
-<body>
+<body class="auth-body">
+<div class="auth-div">
+    <h1 class="auth-h1">Donor Track</h1>
+    <h2>Впишите ваши данные для входа</h2>
 
-<jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
+    <c:if test="${param.error != null}">
+        <div class="error">
+            Invalid username or password
+        </div>
+    </c:if>
 
-<h2>Login Form</h2>
+    <form method="post" action="${pageContext.request.contextPath}/auth/login">
+        <label class="auth-label" for="auth">
+            Username:
+        </label>
+        <input type="text" id="auth" name="username"
+                placeholder="Введите ваш username" required class="auth-input">
 
-<c:if test="${param.error != null}">
-    <div class="error">
-        Invalid username or password
-    </div>
-</c:if>
+        <label class="auth-label" for="password">
+            Password:
+        </label>
+        <input type="password" id="password" name="password"
+               placeholder="Введите ваш пароль" required class="auth-input">
 
-<form method="post" action="${pageContext.request.contextPath}/auth/login">
-    <div class="form-group">
-        <label>Login:</label>
-        <input type="text" name="username"/>
-    </div>
+        <label class="checkbox">
+            <input type="checkbox" name="remember-me">
+            <span class="checkmark"></span>
+            Remember me
+        </label>
 
-    <div class="form-group">
-        <label>Password:</label>
-        <input type="password" name="password"/>
-    </div>
-
-    <label>
-        <input type="checkbox" name="remember-me"/>
-        Remember me
-    </label>
-
-    <button type="submit">Login</button>
-</form>
-
+        <div class="wrap">
+            <button class="auth-button" type="submit">Login</button>
+        </div>
+    </form>
+    <p>Не зарегистрированы?
+        <a href="${pageContext.request.contextPath}/auth/registration" style="text-decoration: none;">
+            Создать Аккаунт
+        </a>
+    </p>
+</div>
 </body>
 </html>

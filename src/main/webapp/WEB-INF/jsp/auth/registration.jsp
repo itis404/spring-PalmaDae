@@ -1,75 +1,59 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <head>
-    <style>
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .error {
-            color: red;
-            font-size: 12px;
-            display: block;
-            margin-top: 5px;
-        }
-        .error-block {
-            border: 1px solid red;
-            background-color: #ffeeee;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input {
-            display: block;
-            width: 100%;
-            max-width: 300px;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="/assets/css/auth.css">
 </head>
 
-<body>
-<jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
+<body class="auth-body">
+<div class="auth-div">
+
+    <h2 class="auth-h1">Registration Form</h2>
 
     <form:errors path="*" cssClass="error-block"/>
-    <form:form method="post" modelAttribute="userForm" action="${pageContext.request.contextPath}/auth/registration">
-        <h2>
-            Registration Form
-        </h2>
+
+    <form:form method="post"
+               modelAttribute="userForm"
+               action="${pageContext.request.contextPath}/auth/registration">
+
         <div class="form-group">
-            <label for="login">Login:</label>
-            <form:input path="username"/>
+
+            <label class="auth-label">Login:</label>
+            <form:input path="username" cssClass="auth-input"/>
             <form:errors path="username" cssClass="error"/>
+
         </div>
 
         <div class="form-group">
-            <label for="password">Password:</label>
-            <form:input path="password" type="password"/>
+
+            <label class="auth-label">Password:</label>
+            <form:input path="password" type="password" cssClass="auth-input"/>
             <form:errors path="password" cssClass="error"/>
+
         </div>
 
         <div class="form-group">
-            <label for="passCorrect">Confirm Password:</label>
-            <form:input path="passCorrect" type="password"/>
+
+            <label class="auth-label">Confirm Password:</label>
+            <form:input path="passCorrect" type="password" cssClass="auth-input"/>
             <form:errors path="passCorrect" cssClass="error"/>
+
         </div>
 
         <div class="form-group">
-            <label for="email">Email:</label>
-            <form:input path="email" type="email"/>
+
+            <label class="auth-label">Email:</label>
+            <form:input path="email" type="email" cssClass="auth-input"/>
             <form:errors path="email" cssClass="error"/>
+
         </div>
-        <button type="submit">
+
+        <button type="submit" class="auth-button">
             Registration
         </button>
+
     </form:form>
+
+</div>
+
 </body>
