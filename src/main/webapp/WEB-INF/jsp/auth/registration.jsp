@@ -18,7 +18,7 @@
 
         <div class="form-group">
 
-            <label class="auth-label">Login:</label>
+            <label class="auth-label">Username:</label>
             <form:input path="username" cssClass="auth-input"/>
             <form:errors path="username" cssClass="error"/>
 
