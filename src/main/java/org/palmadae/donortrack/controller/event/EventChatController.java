@@ -36,23 +36,26 @@ public class EventChatController {
     }
 
     @PostMapping("/{eventId}/send")
+    @ResponseBody
     public String sendMessage(@PathVariable Long eventId,
-                              @ModelAttribute SendMessageDto sendMessageDto,
-                              Authentication auth,
-                              RedirectAttributes redirectAttributes) {
-        try {
-            String username = auth.getName();
+                              @RequestParam String message,
+                              Authentication auth) {
+        String username = auth.getName();
 
-            if (sendMessageDto.getMessage() == null || sendMessageDto.getMessage().trim().isEmpty()) {
-                return "redirect:/events/chat/" + eventId;
-            }
-
-            eventChatService.sendMessage(eventId, sendMessageDto.getMessage(), username);
-
-            return "redirect:/events/chat/" + eventId;
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/events/chat/" + eventId;
+        if (message == null || message.trim().isEmpty()) {
+            return "empty";
         }
+
+        eventChatService.sendMessage(eventId, message, username);
+
+        return "ok";
+    }
+
+    @GetMapping("/{eventId}/messages")
+    @ResponseBody
+    public Object getMessages(@PathVariable Long eventId,
+                              Authentication auth) {
+        String username = auth.getName();
+        return eventChatService.getMessages(eventId, username);
     }
 }

@@ -10,20 +10,24 @@
 
     <h2>Чат мероприятия</h2>
 
-    <c:forEach var="msg" items="${messages}">
-        <p>
-            <b>${msg.senderUsername}</b>:
-                ${msg.message}
-            (${msg.sentAt})
-        </p>
-    </c:forEach>
+    <div id="chat">
+        <c:forEach var="msg" items="${messages}">
+            <p>
+                <b>${msg.senderUsername}</b>: ${msg.message}
+            </p>
+        </c:forEach>
+    </div>
 
     <hr>
 
-    <form action="/events/chat/${eventId}/send" method="post">
-        <input type="text" name="message" required>
+    <form id="chatForm">
+        <input type="text" id="messageInput" required>
         <button type="submit">Отправить</button>
     </form>
 
+    <script>
+        const eventId = "${eventId}";
+    </script>
+    <script src="/assets/js/event-chat.js"></script>
     </body>
 </html>
