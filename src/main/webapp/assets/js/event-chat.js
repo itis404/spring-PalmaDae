@@ -1,33 +1,44 @@
- document.getElementById("chatForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+document.getElementById("chatForm").addEventListener("submit", function(e) {
+e.preventDefault();
 
-    const message = document.getElementById("messageInput").value;
+const input = document.getElementById("messageInput");
+const message = input.value;
 
-     fetch("/events/chat/" + eventId + "/send", {
+fetch("/events/chat/" + eventId + "/send", {
     method: "POST",
     headers: {
-    "Content-Type": "application/x-www-form-urlencoded"
-},
+        "Content-Type": "application/x-www-form-urlencoded"
+    },
     body: "message=" + encodeURIComponent(message)
 }).then(() => {
-    document.getElementById("messageInput").value = "";
+    input.value = "";
     loadMessages();
 });
 });
 
 
-     function loadMessages() {
-         fetch("/events/chat/" + eventId + "/messages")
-         .then(res => res.json())
-         .then(data => {
-             const container = document.getElementById("chat");
-             container.innerHTML = "";
+function loadMessages() {
+ fetch("/events/chat/" + eventId + "/messages")
+     .then(res => res.json())
+     .then(data => {
+         const container = document.getElementById("chat");
 
-             data.forEach(msg => {
-                 container.innerHTML += `
-                    <p><b>${msg.senderUsername}</b>: ${msg.message}</p>
-                `;
-             });
+         container.innerHTML = "";
+
+         data.forEach(msg => {
+             container.innerHTML += renderMessage(msg);
          });
- }
- setInterval(loadMessages, 2000);
+
+         container.scrollTop = container.scrollHeight;
+     });
+}
+function renderMessage(msg) {
+ return `
+    <div class="chat-message">
+        <span class="chat-user">${msg.senderUsername}</span>
+        <span class="chat-text">${msg.message}</span>
+    </div>
+`;
+}
+loadMessages();
+setInterval(loadMessages, 2000);

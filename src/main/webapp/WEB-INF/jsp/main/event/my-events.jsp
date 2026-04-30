@@ -4,31 +4,48 @@
 <html>
 <head>
   <title>Мои мероприятия</title>
+  <link rel="stylesheet" href="/assets/css/my-events.css">
 </head>
-<body>
+<body class="my-events-body">
+
 <jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
 
-<h2>Мои созданные мероприятия</h2>
+<h2 class="my-events-title">Мои созданные мероприятия</h2>
 
-<c:forEach var="event" items="${events}">
-  <hr>
+<div class="events-container">
 
-  <p><b>Название:</b> ${event.title}</p>
-  <p><b>Описание:</b> ${event.description}</p>
-  <p><b>Дата:</b> ${event.eventDate}</p>
-  <p><b>Адрес:</b> ${event.address}</p>
-  <p><b>Статус:</b> ${event.status}</p>
-  <p><b>Участников:</b> ${event.currentParticipants} / ${event.maxParticipants}</p>
+  <c:forEach var="event" items="${events}">
 
-  <form action="/events/edit/${event.id}" method="get">
-    <button type="submit">Редактировать</button>
-  </form>
+    <div class="event-card">
 
-  <form action="/events/delete/${event.id}" method="post">
-      <button type="submit">Удалить</button>
-  </form>
+      <p><b>Название:</b> ${event.title}</p>
+      <p><b>Описание:</b> ${event.description}</p>
+      <p><b>Дата:</b> ${event.eventDate}</p>
+      <p><b>Адрес:</b> ${event.address}</p>
+      <p><b>Статус:</b> <span class="status ${event.status}">${event.status}</span></p>
+      <p><b>Участников:</b> ${event.currentParticipants} / ${event.maxParticipants}</p>
 
-</c:forEach>
+      <div class="event-buttons">
+        <form action="/events/chat/${event.id}" method="get">
+            <button class="btn chat-btn">Открыть чат</button>
+        </form>
+
+        <form action="/events/edit/${event.id}" method="get">
+          <button class="btn edit-btn" type="submit">Редактировать</button>
+        </form>
+
+        <form action="/events/delete/${event.id}" method="post">
+          <button class="btn delete-btn" type="submit">Удалить</button>
+        </form>
+
+
+      </div>
+
+    </div>
+
+  </c:forEach>
+
+</div>
 
 </body>
 </html>
