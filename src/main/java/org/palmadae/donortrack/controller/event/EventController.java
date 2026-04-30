@@ -105,4 +105,15 @@ public class EventController {
         }
         return "redirect:/events/my";
     }
+
+    @PostMapping("/delete/{eventId}")
+    public String deleteEvent(@PathVariable Long eventId, Authentication auth, RedirectAttributes redirectAttributes) {
+        try {
+            eventService.deleteEvent(eventId, auth.getName());
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
+
+        return "redirect:/events/my";
+    }
 }

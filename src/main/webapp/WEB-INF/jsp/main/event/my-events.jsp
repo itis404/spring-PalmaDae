@@ -24,6 +24,10 @@
     <button type="submit">Редактировать</button>
   </form>
 
+  <form action="/events/delete/${event.id}" method="post">
+      <button type="submit">Удалить</button>
+  </form>
+
 </c:forEach>
 
 </body>

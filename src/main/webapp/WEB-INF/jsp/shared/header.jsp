@@ -6,6 +6,7 @@
         <ul>
             <li><a href="/home">Home page</a></li>
             <li><a href="/events/all">Events</a></li>
+            <li><a href="/events/my">My events</a></li>
             <li class="right"><a href="/profile">Profile</a></li>
             <li><a>Notificaitons</a></li>
         </ul>
