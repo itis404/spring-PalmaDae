@@ -1,39 +1,43 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <title>Home</title>
+    <link rel="stylesheet" href="/assets/css/home.css">
 </head>
-<body>
+<body class="home-body">
+
 <jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
-<h1>Welcome, ${username}!</h1>
-<p>Your role: ${role}</p>
 
-<hr/>
+<h2 class="home-title">Blood donation stations in your city</h2>
 
-<h2>Blood donation stations in your city</h2>
+<div class="stations-container">
 
-<c:forEach items="${stations}" var="s">
+    <c:forEach items="${stations}" var="s">
 
-    <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px; border-radius:8px;">
+        <div class="station-card">
 
-        <h3>${s.title}</h3>
-        <p>${s.address}</p>
+            <h3 class="station-title">${s.title}</h3>
+            <p class="station-address">${s.address}</p>
 
-        <div>
-            <c:forEach items="${s.bloodGroup}" var="bg">
+            <div class="blood-groups">
 
-                <span>
-                    ${bg}
-                </span>
+                <c:forEach items="${s.bloodGroup}" var="bg">
+                    <span class="blood-badge">${bg}</span>
+                </c:forEach>
 
-            </c:forEach>
+            </div>
+
         </div>
 
-    </div>
+    </c:forEach>
 
-</c:forEach>
+</div>
 
-<a href="${pageContext.request.contextPath}/logout">Logout</a>
+<div class="logout-block">
+    <a class="logout-link" href="${pageContext.request.contextPath}/logout">Logout</a>
+</div>
+
 </body>
 </html>

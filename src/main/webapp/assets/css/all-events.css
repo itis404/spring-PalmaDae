@@ -1,0 +1,76 @@
+.events-body {
+    margin: 0;
+    font-family: sans-serif;
+    background: #f3f3f3;
+}
+
+.events-title {
+    text-align: center;
+    color: #ff0004;
+    margin: 30px 0;
+}
+
+.events-container {
+    width: 80%;
+    margin: auto;
+}
+
+.event-card {
+    background: white;
+    margin-bottom: 25px;
+    padding: 20px 25px;
+
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+
+    transition: transform 0.2s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-4px);
+}
+
+.event-card p {
+    margin: 8px 0;
+    color: #333;
+}
+
+.event-buttons {
+    margin-top: 18px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.event-btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+
+    background: #ff0004;
+    color: white;
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.event-btn:hover {
+    background: #cc0003;
+    transform: translateY(-2px);
+}
+
+.leave-btn {
+    background: #777;
+}
+
+.leave-btn:hover {
+    background: #555;
+}
+
+.chat-btn {
+    background: #8911d9;
+}
+
+.chat-btn:hover {
+    background: #6e0fb0;
+}

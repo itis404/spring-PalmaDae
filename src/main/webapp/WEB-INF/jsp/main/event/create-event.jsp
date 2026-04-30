@@ -3,40 +3,48 @@
 <html>
 <head>
     <title>Создание мероприятия</title>
+    <link rel="stylesheet" href="/assets/css/create-event.css">
 </head>
-<body>
+<body class="event-body">
+
 <jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
 
-<h2>Создать мероприятие</h2>
+<div class="event-div">
 
-<form action="/events/create" method="post">
-    <div>
-        <label>Название:</label>
-        <input type="text" name="title" required>
-    </div>
+    <h2 class="event-h2">Создать мероприятие</h2>
 
-    <div>
-        <label>Описание:</label>
-        <textarea name="description"></textarea>
-    </div>
+    <form action="/events/create" method="post">
 
-    <div>
-        <label>Дата и время:</label>
-        <input type="datetime-local" name="eventDate" required>
-    </div>
+        <div class="form-group">
+            <label class="event-label">Название:</label>
+            <input class="event-input" type="text" name="title" required>
+        </div>
 
-    <div>
-        <label>Адрес:</label>
-        <input type="text" name="address" required>
-    </div>
+        <div class="form-group">
+            <label class="event-label">Описание:</label>
+            <textarea class="event-textarea" name="description"></textarea>
+        </div>
 
-    <div>
-        <label>Макс. участников:</label>
-        <input type="number" name="maxParticipants">
-    </div>
+        <div class="form-group">
+            <label class="event-label">Дата и время:</label>
+            <input class="event-input" type="datetime-local" name="eventDate" required>
+        </div>
 
-    <button type="submit">Создать</button>
-</form>
+        <div class="form-group">
+            <label class="event-label">Адрес:</label>
+            <input class="event-input" type="text" name="address" required>
+        </div>
+
+        <div class="form-group">
+            <label class="event-label">Макс. участников:</label>
+            <input class="event-input" type="number" name="maxParticipants">
+        </div>
+
+        <button class="event-button" type="submit">Создать</button>
+
+    </form>
+
+</div>
 
 </body>
 </html>
