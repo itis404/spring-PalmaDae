@@ -22,11 +22,17 @@
             <p class="station-address">${s.address}</p>
 
             <div class="blood-groups">
+                <span class="blood-badge ${s.o_plus}">O+</span>
+                <span class="blood-badge ${s.o_minus}">O-</span>
 
-                <c:forEach items="${s.bloodGroup}" var="bg">
-                    <span class="blood-badge">${bg}</span>
-                </c:forEach>
+                <span class="blood-badge ${s.a_plus}">A+</span>
+                <span class="blood-badge ${s.a_minus}">A-</span>
 
+                <span class="blood-badge ${s.b_plus}">B+</span>
+                <span class="blood-badge ${s.b_minus}">B-</span>
+
+                <span class="blood-badge ${s.ab_plus}">AB+</span>
+                <span class="blood-badge ${s.ab_minus}">AB-</span>
             </div>
 
         </div>
