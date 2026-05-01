@@ -89,28 +89,6 @@ public class EventService {
         return true;
     }
 
-    public EventEntity updateEvent(Long eventId, CreateEventDto dto, String username) {
-        EventEntity event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new RuntimeException("Мероприятие не найдено"));
-
-        if (!event.getOrganizer().getUsername().equals(username)) {
-            throw new SecurityException("Редактировать может только создатель");
-        }
-
-        event.setTitle(dto.getTitle());
-        event.setDescription(dto.getDescription());
-        event.setEventDate(dto.getEventDate());
-        event.setAddress(dto.getAddress());
-        event.setMaxParticipants(dto.getMaxParticipants());
-
-        event.setStatus(EventStatus.PENDING);
-        event.setIsActive(false);
-
-        eventChatRepository.deactivateChatByEventId(eventId);
-
-        return eventRepository.save(event);
-    }
-
     public EventEntity joinEvent(Long eventId, String username) {
         EventEntity event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new RuntimeException("Мероприятие не найдено"));
