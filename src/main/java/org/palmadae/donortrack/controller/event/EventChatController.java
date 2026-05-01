@@ -19,20 +19,17 @@ public class EventChatController {
     @GetMapping("/{eventId}")
     public String openChat(@PathVariable Long eventId,
                            Authentication auth,
-                           Model model,
-                           RedirectAttributes redirectAttributes) {
-        try {
-            String username = auth.getName();
+                           Model model) {
 
-            model.addAttribute("eventId", eventId);
-            model.addAttribute("messages", eventChatService.getMessages(eventId, username));
-            model.addAttribute("sendMessageDto", new SendMessageDto());
+        String username = auth.getName();
 
-            return "main/event/event-chat";
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/events/all";
-        }
+        model.addAttribute("eventId", eventId);
+        model.addAttribute("messages",
+                eventChatService.getMessages(eventId, username));
+
+        model.addAttribute("sendMessageDto", new SendMessageDto());
+
+        return "main/event/event-chat";
     }
 
     @PostMapping("/{eventId}/send")

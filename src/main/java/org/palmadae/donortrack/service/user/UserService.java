@@ -7,6 +7,9 @@ import org.palmadae.donortrack.dto.profile.PasswordChangeDto;
 import org.palmadae.donortrack.entity.UserEntity;
 import org.palmadae.donortrack.entity.enums.BloodType;
 import org.palmadae.donortrack.entity.enums.UserRole;
+import org.palmadae.donortrack.exception.custom.email.EmailAlreadyExistsException;
+import org.palmadae.donortrack.exception.custom.user.InvalidOldPasswordException;
+import org.palmadae.donortrack.exception.custom.user.UserNotFoundException;
 import org.palmadae.donortrack.repository.user.UserJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -60,20 +63,24 @@ public class UserService {
     @Transactional
     public void changeEmail(String username, EmailChangeDto dto) {
         UserEntity user = jpaRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        if (!user.getEmail().equals(dto.getNewEmail()) && jpaRepository.existsByEmail(dto.getNewEmail())) {
-            throw new RuntimeException("Email already in use");
+                .orElseThrow(() -> new UserNotFoundException(username));
+
+        String newEmail = dto.getNewEmail();
+
+        if (!user.getEmail().equals(newEmail)
+                && jpaRepository.existsByEmail(newEmail)) {
+            throw new EmailAlreadyExistsException(newEmail);
         }
-        user.setEmail(dto.getNewEmail());
-        jpaRepository.save(user);
+
+        user.setEmail(newEmail);
     }
 
     @Transactional
     public void changePassword(String username, PasswordChangeDto dto) {
         UserEntity user = jpaRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException(username));
         if (!passwordEncoder.matches(dto.getOldPassword(), user.getHashPass())) {
-            throw new RuntimeException("Old password is incorrect");
+            throw new InvalidOldPasswordException();
         }
         user.setHashPass(passwordEncoder.encode(dto.getNewPassword()));
         jpaRepository.save(user);
@@ -82,7 +89,7 @@ public class UserService {
     @Transactional
     public void changeBloodType(String username, BloodType bloodType) {
         UserEntity user = jpaRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException(username));
         user.setBloodType(bloodType);
         jpaRepository.save(user);
     }
@@ -90,7 +97,7 @@ public class UserService {
     @Transactional
     public void changeCity(String username, String city) {
         UserEntity user = jpaRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException(username));
 
         user.setCity(city);
     }

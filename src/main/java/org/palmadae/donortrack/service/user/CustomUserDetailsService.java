@@ -1,6 +1,7 @@
 package org.palmadae.donortrack.service.user;
 
 import org.palmadae.donortrack.entity.UserEntity;
+import org.palmadae.donortrack.exception.custom.user.UserNotFoundException;
 import org.palmadae.donortrack.repository.user.UserJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +18,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException(username));
         String roleName = user.getRole() != null ? user.getRole().name() : "USER";
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())

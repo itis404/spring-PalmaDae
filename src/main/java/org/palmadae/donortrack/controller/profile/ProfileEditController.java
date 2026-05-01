@@ -48,12 +48,8 @@ public class ProfileEditController {
             return "redirect:/profile/edit";
         }
         String username = auth.getName();
-        try {
-            userService.changeEmail(username, dto);
-            redirectAttributes.addFlashAttribute("successMessage", "Email updated");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
-        }
+        userService.changeEmail(username, dto);
+        redirectAttributes.addFlashAttribute("successMessage", "Email updated");
         return "redirect:/profile/edit";
     }
 
@@ -67,12 +63,8 @@ public class ProfileEditController {
             return "redirect:/profile/edit";
         }
         String username = auth.getName();
-        try {
-            userService.changePassword(username, dto);
-            redirectAttributes.addFlashAttribute("successMessage", "Password changed");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
-        }
+        userService.changePassword(username, dto);
+        redirectAttributes.addFlashAttribute("successMessage", "Password changed");
         return "redirect:/profile/edit";
     }
 

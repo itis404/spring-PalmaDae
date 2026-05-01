@@ -79,16 +79,7 @@ public class AuthController {
             RedirectAttributes redirectAttributes
     ) {
 
-        try {
-            emailVerificationService.verifyCode(email, code);
-        } catch (RuntimeException e) {
-            model.addAttribute("error", "Invalid verification code. Please try again.");
-            UserDto pendingUser = (UserDto) session.getAttribute("pendingUser");
-            if (pendingUser != null) {
-                model.addAttribute("pendingUser", pendingUser);
-            }
-            return "auth/confirm-code";
-        }
+        emailVerificationService.verifyCode(email, code);
 
         UserDto userDto = (UserDto) session.getAttribute("pendingUser");
 

@@ -6,6 +6,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.palmadae.donortrack.dto.donorsearch.BloodStationDto;
+import org.palmadae.donortrack.exception.custom.api.donorsearch.DonorSearchUnavailableException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -48,8 +49,7 @@ public class DonorSearchService {
             return stations;
 
         } catch (Exception e) {
-            System.out.println("DonorSearch unavailable: " + e.getMessage());
-            return new ArrayList<>();
+            throw new DonorSearchUnavailableException("DonorSearch API failed", e);
         }
     }
 }

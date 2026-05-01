@@ -6,6 +6,8 @@ import org.palmadae.donortrack.entity.enums.EventStatus;
 import org.palmadae.donortrack.entity.event.ChatMessage;
 import org.palmadae.donortrack.entity.event.EventChatEntity;
 import org.palmadae.donortrack.entity.event.EventEntity;
+import org.palmadae.donortrack.exception.custom.event.EventNotFoundException;
+import org.palmadae.donortrack.exception.custom.user.UserNotFoundException;
 import org.palmadae.donortrack.repository.chat.ChatMessageRepository;
 import org.palmadae.donortrack.repository.event.EventChatRepository;
 import org.palmadae.donortrack.repository.event.EventJpaRepository;
@@ -35,14 +37,14 @@ public class EventChatService {
 
     public ChatMessageDto sendMessage(Long eventId, String messageText, String username) {
         EventEntity event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new RuntimeException("Мероприятие не найдено"));
+                .orElseThrow(() -> new EventNotFoundException(eventId));
 
         if (event.getStatus() != EventStatus.APPROVED) {
             throw new RuntimeException("Чат недоступен до одобрения мероприятия");
         }
 
         UserEntity sender = userService.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
+                .orElseThrow(() -> new UserNotFoundException(username));
 
         boolean isParticipant = event.getParticipants()
                 .stream()
@@ -78,10 +80,10 @@ public class EventChatService {
     @Transactional(readOnly = true)
     public List<ChatMessageDto> getMessages(Long eventId, String username) {
         EventEntity event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new RuntimeException("Мероприятие не найдено"));
+                .orElseThrow(() -> new EventNotFoundException(eventId));
 
         UserEntity user = userService.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
+                .orElseThrow(() -> new UserNotFoundException(username));
 
         boolean isParticipant = event.getParticipants()
                 .stream()

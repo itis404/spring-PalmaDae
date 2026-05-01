@@ -6,6 +6,8 @@ import org.palmadae.donortrack.entity.event.EventChatEntity;
 import org.palmadae.donortrack.entity.event.EventEntity;
 import org.palmadae.donortrack.entity.UserEntity;
 import org.palmadae.donortrack.entity.enums.EventStatus;
+import org.palmadae.donortrack.exception.custom.event.*;
+import org.palmadae.donortrack.exception.custom.user.UserNotFoundException;
 import org.palmadae.donortrack.repository.event.EventChatRepository;
 import org.palmadae.donortrack.repository.event.EventJpaRepository;
 import org.palmadae.donortrack.service.user.UserService;
@@ -32,7 +34,7 @@ public class EventService {
 
     public EventEntity createEvent(CreateEventDto dto, String username) {
         UserEntity organizer = userService.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
+                .orElseThrow(() -> new UserNotFoundException(username));
 
         List<UserEntity> participants = new ArrayList<>();
         participants.add(organizer);
@@ -83,25 +85,26 @@ public class EventService {
     @Transactional
     public boolean rejectEvent(Long eventId) {
         EventEntity event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new RuntimeException("Мероприятие не найдено"));
+                .orElseThrow(() -> new EventNotFoundException(eventId));
 
         eventRepository.delete(event);
         return true;
     }
 
     public EventEntity joinEvent(Long eventId, String username) {
+
         EventEntity event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new RuntimeException("Мероприятие не найдено"));
+                .orElseThrow(() -> new EventNotFoundException(eventId));
 
         UserEntity user = userService.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
+                .orElseThrow(() -> new UserNotFoundException(username));
 
         if (event.getStatus() != EventStatus.APPROVED) {
-            throw new RuntimeException("Нельзя вступить в неопубликованное мероприятие");
+            throw new EventNotApprovedException(eventId);
         }
 
         if (!event.hasFreeSlots()) {
-            throw new RuntimeException("Нет свободных мест");
+            throw new EventFullException(eventId);
         }
 
         event.addParticipant(user);
@@ -110,14 +113,15 @@ public class EventService {
     }
 
     public EventEntity leaveEvent(Long eventId, String username) {
+
         EventEntity event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new RuntimeException("Мероприятие не найдено"));
+                .orElseThrow(() -> new EventNotFoundException(eventId));
 
         UserEntity user = userService.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
+                .orElseThrow(() -> new UserNotFoundException(username));
 
         if (event.getOrganizer().getId().equals(user.getId())) {
-            throw new RuntimeException("Создатель не может покинуть своё мероприятие");
+            throw new OrganizerCannotLeaveEventException(eventId);
         }
 
         event.removeParticipant(user);
@@ -128,13 +132,13 @@ public class EventService {
     @Transactional
     public boolean deleteEvent(Long eventId, String username) {
         EventEntity event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new RuntimeException("Мероприятие не найдено"));
+                .orElseThrow(() -> new EventNotFoundException(eventId));
 
         UserEntity user = userService.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
+                .orElseThrow(() -> new UserNotFoundException(username));
 
         if (!event.getOrganizer().getUsername().equals(username) && !user.isAdmin()) {
-            throw new SecurityException("Нет прав для удаления мероприятия");
+            throw new EventSecurityException();
         }
 
         eventRepository.delete(event);
@@ -147,12 +151,14 @@ public class EventService {
                 java.time.LocalDateTime.now()
         );
     }
+
     public List<EventEntity> getPendingEvents() {
         return eventRepository.findByStatus(EventStatus.PENDING);
     }
+
     public List<EventEntity> getOrganizerEvents(String username) {
         UserEntity user = userService.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
+                .orElseThrow(() -> new UserNotFoundException(username));
 
         return eventRepository.findByOrganizerId(user.getId());
     }
@@ -162,7 +168,7 @@ public class EventService {
                 .orElseThrow(() -> new RuntimeException("Мероприятие не найдено"));
 
         if (!event.getOrganizer().getUsername().equals(username)) {
-            throw new SecurityException("Нет доступа");
+            throw new EventSecurityException();
         }
 
         return event;
@@ -171,10 +177,10 @@ public class EventService {
 
     public EventEntity updateEvent(Long eventId, UpdateEventDto dto, String username) {
         EventEntity event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new RuntimeException("Мероприятие не найдено"));
+                .orElseThrow(() -> new EventNotFoundException(eventId));
 
         if (!event.getOrganizer().getUsername().equals(username)) {
-            throw new SecurityException("Редактировать может только создатель");
+            throw new EventSecurityException();
         }
 
         event.setTitle(dto.getTitle());
