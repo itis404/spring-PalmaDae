@@ -25,15 +25,16 @@ public class DonationService {
             try {
                 String uploadDir = "src/main/resources/images/certificates/";
 
+                String originalFileName = certificateFile.getOriginalFilename();
 
 
-                String fileName = LocalDate.now() + "-0" +  donationEntity.getUser().getId().toString() + donationEntity.getDonationType().toString() + ".jpg";
+                String fileName = LocalDate.now() + "-0" +  donationEntity.getUser().getId().toString() + donationEntity.getDonationType().toString() + originalFileName.substring(originalFileName.lastIndexOf("."));
 
                 java.nio.file.Path path = java.nio.file.Paths.get(uploadDir + fileName);
                 java.nio.file.Files.createDirectories(path.getParent());
                 java.nio.file.Files.write(path, certificateFile.getBytes());
 
-                donationEntity.setCertificate(fileName);
+                donationEntity.setCertificate(uploadDir + fileName);
 
             } catch (Exception e) {
                 throw new RuntimeException("Certificate upload failed", e);

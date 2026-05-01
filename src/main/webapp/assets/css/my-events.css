@@ -79,16 +79,24 @@
     color: white;
 }
 
-.ACTIVE {
+.APPROVED {
     background: #1fae4b;
+}
+
+.UPDATED {
+    background: #17a2b8;
+}
+
+.PENDING {
+    background: #f39c12;
 }
 
 .REJECTED {
     background: #d93025;
 }
 
-.PENDING {
-    background: #f39c12;
+.ACTIVE {
+    background: #28a745;
 }
 
 .chat-btn {
