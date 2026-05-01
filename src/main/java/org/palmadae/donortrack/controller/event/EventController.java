@@ -27,16 +27,10 @@ public class EventController {
     public String createEvent(@ModelAttribute CreateEventDto eventDto,
                               Authentication auth,
                               RedirectAttributes redirectAttributes) {
-        try {
-            eventService.createEvent(eventDto, auth.getName());
-            redirectAttributes.addFlashAttribute("success",
+        eventService.createEvent(eventDto, auth.getName());
+        redirectAttributes.addFlashAttribute("success",
                     "Мероприятие успешно создано и отправлено на модерацию!");
-            return "redirect:/events/my";
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error",
-                    "Ошибка при создании мероприятия: " + e.getMessage());
-            return "redirect:/events/create";
-        }
+        return "redirect:/events/my";
     }
 
     @GetMapping("/all")
@@ -49,12 +43,8 @@ public class EventController {
     public String joinEvent(@PathVariable Long eventId,
                             Authentication auth,
                             RedirectAttributes redirectAttributes) {
-        try {
-            eventService.joinEvent(eventId, auth.getName());
-            redirectAttributes.addFlashAttribute("success", "Вы успешно присоединились к мероприятию");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-        }
+        eventService.joinEvent(eventId, auth.getName());
+        redirectAttributes.addFlashAttribute("success", "Вы успешно присоединились к мероприятию");
         return "redirect:/events/all";
     }
 
@@ -62,12 +52,8 @@ public class EventController {
     public String leaveEvent(@PathVariable Long eventId,
                              Authentication auth,
                              RedirectAttributes redirectAttributes) {
-        try {
-            eventService.leaveEvent(eventId, auth.getName());
-            redirectAttributes.addFlashAttribute("success", "Вы покинули мероприятие");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-        }
+        eventService.leaveEvent(eventId, auth.getName());
+        redirectAttributes.addFlashAttribute("success", "Вы покинули мероприятие");
         return "redirect:/events/all";
     }
 
@@ -82,13 +68,9 @@ public class EventController {
                                Authentication auth,
                                Model model,
                                RedirectAttributes redirectAttributes) {
-        try {
-            model.addAttribute("event", eventService.getEventForEdit(eventId, auth.getName()));
-            return "main/event/edit-event";
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/events/my";
-        }
+
+        model.addAttribute("event", eventService.getEventForEdit(eventId, auth.getName()));
+        return "main/event/edit-event";
     }
 
     @PostMapping("/edit/{eventId}")
@@ -96,24 +78,15 @@ public class EventController {
                               @ModelAttribute UpdateEventDto dto,
                               Authentication auth,
                               RedirectAttributes redirectAttributes) {
-        try {
-            eventService.updateEvent(eventId, dto, auth.getName());
-            redirectAttributes.addFlashAttribute("success",
-                    "Мероприятие обновлено и отправлено на повторную модерацию");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-        }
+        eventService.updateEvent(eventId, dto, auth.getName());
+        redirectAttributes.addFlashAttribute("success",
+                "Мероприятие обновлено и отправлено на повторную модерацию");
         return "redirect:/events/my";
     }
 
     @PostMapping("/delete/{eventId}")
     public String deleteEvent(@PathVariable Long eventId, Authentication auth, RedirectAttributes redirectAttributes) {
-        try {
-            eventService.deleteEvent(eventId, auth.getName());
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-        }
-
+        eventService.deleteEvent(eventId, auth.getName());
         return "redirect:/events/my";
     }
 }
