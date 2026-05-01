@@ -11,16 +11,21 @@ import org.palmadae.donortrack.exception.custom.email.EmailAlreadyExistsExceptio
 import org.palmadae.donortrack.exception.custom.user.InvalidOldPasswordException;
 import org.palmadae.donortrack.exception.custom.user.UserNotFoundException;
 import org.palmadae.donortrack.repository.user.UserJpaRepository;
+import org.palmadae.donortrack.repository.user.UserJpqlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserService {
     @Autowired
     private UserJpaRepository jpaRepository;
+
+    @Autowired
+    private UserJpqlRepository userJpqlRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -90,8 +95,12 @@ public class UserService {
     public void changeBloodType(String username, BloodType bloodType) {
         UserEntity user = jpaRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
-        user.setBloodType(bloodType);
-        jpaRepository.save(user);
+
+        int updated = userJpqlRepository.updateBloodType(user.getId(), bloodType);
+
+        if (updated == 0) {
+            throw new UserNotFoundException(username);
+        }
     }
 
     @Transactional
@@ -100,5 +109,9 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException(username));
 
         user.setCity(city);
+    }
+
+    public List<UserEntity> getUsersByCity(String city) {
+        return userJpqlRepository.findByCity(city);
     }
 }

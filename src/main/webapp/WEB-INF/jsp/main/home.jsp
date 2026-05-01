@@ -6,44 +6,44 @@
     <title>Home</title>
     <link rel="stylesheet" href="/assets/css/home.css">
 </head>
-<body class="home-body">
+    <body class="home-body">
 
-<jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
+        <jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
 
-<h2 class="home-title">Blood donation stations in your city</h2>
+        <h2 class="home-title">Пункты сдачи крови в вашем городе</h2>
 
-<div class="stations-container">
+        <div class="stations-container">
 
-    <c:forEach items="${stations}" var="s">
+            <c:forEach items="${stations}" var="s">
 
-        <div class="station-card">
+                <div class="station-card">
 
-            <h3 class="station-title">${s.title}</h3>
-            <p class="station-address">${s.address}</p>
+                    <h3 class="station-title">${s.title}</h3>
+                    <p class="station-address">${s.address}</p>
 
-            <div class="blood-groups">
-                <span class="blood-badge ${s.o_plus}">O+</span>
-                <span class="blood-badge ${s.o_minus}">O-</span>
+                    <div class="blood-groups">
+                        <span class="blood-badge ${s.o_plus}">O+</span>
+                        <span class="blood-badge ${s.o_minus}">O-</span>
 
-                <span class="blood-badge ${s.a_plus}">A+</span>
-                <span class="blood-badge ${s.a_minus}">A-</span>
+                        <span class="blood-badge ${s.a_plus}">A+</span>
+                        <span class="blood-badge ${s.a_minus}">A-</span>
 
-                <span class="blood-badge ${s.b_plus}">B+</span>
-                <span class="blood-badge ${s.b_minus}">B-</span>
+                        <span class="blood-badge ${s.b_plus}">B+</span>
+                        <span class="blood-badge ${s.b_minus}">B-</span>
 
-                <span class="blood-badge ${s.ab_plus}">AB+</span>
-                <span class="blood-badge ${s.ab_minus}">AB-</span>
-            </div>
+                        <span class="blood-badge ${s.ab_plus}">AB+</span>
+                        <span class="blood-badge ${s.ab_minus}">AB-</span>
+                    </div>
+
+                </div>
+
+            </c:forEach>
 
         </div>
 
-    </c:forEach>
+        <div class="logout-block">
+            <a class="logout-link" href="${pageContext.request.contextPath}/logout">Выйти</a>
+        </div>
 
-</div>
-
-<div class="logout-block">
-    <a class="logout-link" href="${pageContext.request.contextPath}/logout">Logout</a>
-</div>
-
-</body>
+    </body>
 </html>

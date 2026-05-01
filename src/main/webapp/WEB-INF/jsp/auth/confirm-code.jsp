@@ -1,77 +1,22 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>Confirm Registration</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-        }
-        .container {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .error {
-            color: red;
-            margin-bottom: 15px;
-            padding: 10px;
-            background-color: #ffeeee;
-            border: 1px solid red;
-            border-radius: 4px;
-        }
-        .info {
-            color: #666;
-            margin-bottom: 15px;
-            padding: 10px;
-            background-color: #f0f0f0;
-            border-radius: 4px;
-        }
-    </style>
+    <link rel="stylesheet" href="/assets/css/auth.css">
 </head>
-<body>
 
-<jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
+<body class="auth-body">
 
-<div class="container">
-    <h2>Confirm Registration</h2>
-    <p class="info">We've sent a verification code to your email address. Please enter it below.</p>
+<div class="auth-div">
+    <h1 class="auth-h1">Donor Track</h1>
+    <h2>Подтверждение регистрации</h2>
+
+    <p class="info">
+        Мы отправили код подтверждения на вашу почту
+    </p>
 
     <c:if test="${not empty error}">
         <div class="error">
@@ -79,16 +24,38 @@
         </div>
     </c:if>
 
-    <form action="/auth/registration/confirm" method="post">
-        <input type="hidden" name="email" value="${pendingUser.email}">
+    <form method="post" action="${pageContext.request.contextPath}/auth/registration/confirm">
 
-        <div class="form-group">
-            <label for="code">Verification Code:</label>
-            <input type="text" id="code" name="code" placeholder="Enter 6-digit code" required autofocus>
+        <input type="hidden" name="email" value="${pendingUser.email}"/>
+
+        <label class="auth-label" for="code">
+            Код подтверждения:
+        </label>
+
+        <input type="text"
+               id="code"
+               name="code"
+               placeholder="Введите 6-значный код"
+               required
+               class="auth-input"
+               autofocus>
+
+        <div class="wrap">
+            <button class="auth-button" type="submit">
+                Подтвердить
+            </button>
         </div>
-
-        <button type="submit">Verify Code</button>
     </form>
+
+    <p>
+        Вернуться к
+        <a href="${pageContext.request.contextPath}/auth/registration"
+           style="text-decoration: none;">
+            регистрации
+        </a>
+    </p>
+
 </div>
+
 </body>
 </html>

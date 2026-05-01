@@ -121,7 +121,7 @@ public class EventService {
                 .orElseThrow(() -> new UserNotFoundException(username));
 
         if (event.getOrganizer().getId().equals(user.getId())) {
-            throw new OrganizerCannotLeaveEventException(eventId);
+            throw new OrganizerCannotLeaveEventException();
         }
 
         event.removeParticipant(user);

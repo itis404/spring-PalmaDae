@@ -11,7 +11,7 @@ import org.palmadae.donortrack.exception.custom.event.chat.EventChatIsNotApprove
 import org.palmadae.donortrack.exception.custom.event.chat.EventChatNotFoundExceptiion;
 import org.palmadae.donortrack.exception.custom.event.chat.EventChatSecurityException;
 import org.palmadae.donortrack.exception.custom.user.UserNotFoundException;
-import org.palmadae.donortrack.repository.chat.ChatMessageRepository;
+import org.palmadae.donortrack.repository.chat.ChatMessageJpaRepository;
 import org.palmadae.donortrack.repository.event.EventChatRepository;
 import org.palmadae.donortrack.repository.event.EventJpaRepository;
 import org.palmadae.donortrack.service.user.UserService;
@@ -33,7 +33,7 @@ public class EventChatService {
     private EventChatRepository eventChatRepository;
 
     @Autowired
-    private ChatMessageRepository chatMessageRepository;
+    private ChatMessageJpaRepository chatMessageRepository;
 
     @Autowired
     private UserService userService;

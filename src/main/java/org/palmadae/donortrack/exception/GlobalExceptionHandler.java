@@ -10,6 +10,12 @@ import org.palmadae.donortrack.exception.custom.api.donorsearch.DonorSearchUnava
 import org.palmadae.donortrack.exception.custom.email.EmailAlreadyExistsException;
 import org.palmadae.donortrack.exception.custom.email.EmailCodeExpiredException;
 import org.palmadae.donortrack.exception.custom.email.InvalidEmailCodeException;
+import org.palmadae.donortrack.exception.custom.event.*;
+import org.palmadae.donortrack.exception.custom.event.chat.EventChatIsNotActiveException;
+import org.palmadae.donortrack.exception.custom.event.chat.EventChatIsNotApprovedException;
+import org.palmadae.donortrack.exception.custom.event.chat.EventChatNotFoundExceptiion;
+import org.palmadae.donortrack.exception.custom.event.chat.EventChatSecurityException;
+import org.palmadae.donortrack.exception.custom.user.InvalidOldPasswordException;
 import org.palmadae.donortrack.exception.custom.user.UserNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -32,22 +38,6 @@ public class GlobalExceptionHandler {
         modelAndView.addObject("exception", e);
 
         return modelAndView;
-    }
-
-    @ExceptionHandler(value = Exception.class)
-    public ResponseEntity<?> handleException(HttpServletRequest request, Exception e) {
-        if (!"XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
-            return null;
-        }
-
-        log.error("API error", e);
-
-        return ResponseEntity.status(500).body(
-                Map.of(
-                        "status", "error",
-                        "message", e.getMessage()
-                )
-        );
     }
 
     @ExceptionHandler(UserNotFoundException.class)
@@ -104,5 +94,38 @@ public class GlobalExceptionHandler {
         ra.addFlashAttribute("errorMessage", e.getMessage());
 
         return "redirect:/auth/registration";
+    }
+
+    @ExceptionHandler({
+            EventNotFoundException.class,
+            EventFullException.class,
+            EventNotApprovedException.class,
+            OrganizerCannotLeaveEventException.class,
+            EventSecurityException.class
+    })
+    public String handleEvent(BusinessException e, RedirectAttributes ra) {
+
+        ra.addFlashAttribute("errorMessage", e.getMessage());
+        return "redirect:/events/all";
+    }
+
+    @ExceptionHandler(value = {
+            EventChatNotFoundExceptiion.class,
+            EventChatIsNotActiveException.class,
+            EventChatIsNotApprovedException.class,
+            EventChatSecurityException.class
+    })
+    public String handleChat(BusinessException e, RedirectAttributes ra) {
+
+        ra.addFlashAttribute("errorMessage", e.getMessage());
+        return "redirect:/events/all";
+    }
+
+    @ExceptionHandler(InvalidOldPasswordException.class)
+    public String handlePassword(InvalidOldPasswordException e,
+                                 RedirectAttributes ra) {
+
+        ra.addFlashAttribute("errorMessage", e.getMessage());
+        return "redirect:/profile/edit";
     }
 }

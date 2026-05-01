@@ -5,46 +5,46 @@
     <title>Создание мероприятия</title>
     <link rel="stylesheet" href="/assets/css/create-event.css">
 </head>
-<body class="event-body">
+    <body class="event-body">
 
-<jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
+        <jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
 
-<div class="event-div">
+        <div class="event-div">
 
-    <h2 class="event-h2">Создать мероприятие</h2>
+            <h2 class="event-h2">Создать мероприятие</h2>
 
-    <form action="/events/create" method="post">
+            <form action="${pageContext.request.contextPath}/events/create" method="post">
 
-        <div class="form-group">
-            <label class="event-label">Название:</label>
-            <input class="event-input" type="text" name="title" required>
+                <div class="form-group">
+                    <label class="event-label">Название:</label>
+                    <input class="event-input" type="text" name="title" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="event-label">Описание:</label>
+                    <textarea class="event-textarea" name="description"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="event-label">Дата и время:</label>
+                    <input class="event-input" type="datetime-local" name="eventDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="event-label">Адрес:</label>
+                    <input class="event-input" type="text" name="address" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="event-label">Макс. участников:</label>
+                    <input class="event-input" type="number" name="maxParticipants">
+                </div>
+
+                <button class="event-button" type="submit">Создать</button>
+
+            </form>
+
         </div>
 
-        <div class="form-group">
-            <label class="event-label">Описание:</label>
-            <textarea class="event-textarea" name="description"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label class="event-label">Дата и время:</label>
-            <input class="event-input" type="datetime-local" name="eventDate" required>
-        </div>
-
-        <div class="form-group">
-            <label class="event-label">Адрес:</label>
-            <input class="event-input" type="text" name="address" required>
-        </div>
-
-        <div class="form-group">
-            <label class="event-label">Макс. участников:</label>
-            <input class="event-input" type="number" name="maxParticipants">
-        </div>
-
-        <button class="event-button" type="submit">Создать</button>
-
-    </form>
-
-</div>
-
-</body>
+    </body>
 </html>

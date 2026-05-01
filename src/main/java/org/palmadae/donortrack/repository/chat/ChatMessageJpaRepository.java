@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public interface ChatMessageRepository extends JpaRepository<ChatMessage, Long> {
+public interface ChatMessageJpaRepository extends JpaRepository<ChatMessage, Long> {
     List<ChatMessage> findByChatIdOrderBySentAtAsc(Long chatId);
     List<ChatMessage> findByChatIdOrderBySentAtDesc(Long chatId, Pageable pageable);
 

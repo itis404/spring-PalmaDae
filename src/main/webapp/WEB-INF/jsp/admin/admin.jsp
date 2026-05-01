@@ -19,7 +19,7 @@
                     <p>Date: ${d.date}</p>
                     <img src="/certificate/${d.certificate}" style="max-width:200px;">
 
-                    <form action="/admin/update-status" method="post">
+                    <form action="${pageContext.request.contextPath}/admin/update-status" method="post">
 
                         <input type="hidden" name="id" value="${d.id}"/>
 
@@ -42,7 +42,7 @@
             <h3>
                 Просмотр по дате
             </h3>
-            <form action="admin/date">
+            <form action="${pageContext.request.contextPath}/admin/date">
                 <label>
                     Date of donation
                 </label>

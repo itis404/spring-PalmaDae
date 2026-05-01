@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <head>
@@ -18,7 +19,7 @@
 
         <div class="form-group">
 
-            <label class="auth-label">Username:</label>
+            <label class="auth-label">Имя пользователя:</label>
             <form:input path="username" cssClass="auth-input"/>
             <form:errors path="username" cssClass="error"/>
 
@@ -26,7 +27,7 @@
 
         <div class="form-group">
 
-            <label class="auth-label">Password:</label>
+            <label class="auth-label">Пароль:</label>
             <form:input path="password" type="password" cssClass="auth-input"/>
             <form:errors path="password" cssClass="error"/>
 
@@ -34,7 +35,7 @@
 
         <div class="form-group">
 
-            <label class="auth-label">Confirm Password:</label>
+            <label class="auth-label">Подтвердите пароль:</label>
             <form:input path="passCorrect" type="password" cssClass="auth-input"/>
             <form:errors path="passCorrect" cssClass="error"/>
 
@@ -42,17 +43,22 @@
 
         <div class="form-group">
 
-            <label class="auth-label">Email:</label>
+            <label class="auth-label">Электронная почта:</label>
             <form:input path="email" type="email" cssClass="auth-input"/>
             <form:errors path="email" cssClass="error"/>
 
         </div>
 
         <button type="submit" class="auth-button">
-            Registration
+            Зарегистрироваться
         </button>
 
     </form:form>
+    <p>Уже зарегистрированы?
+        <a href="${pageContext.request.contextPath}/auth/login" style="text-decoration: none;">
+            Войти
+        </a>
+    </p>
 
 </div>
 

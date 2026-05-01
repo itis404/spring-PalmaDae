@@ -2,6 +2,7 @@ package org.palmadae.donortrack.controller.profile;
 
 
 import org.palmadae.donortrack.entity.UserEntity;
+import org.palmadae.donortrack.exception.custom.user.UserNotFoundException;
 import org.palmadae.donortrack.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -22,13 +23,12 @@ public class ProfileController {
 
 
     @GetMapping("")
-    public String showPage(Model model) {
-        Authentication auth =  SecurityContextHolder.getContext().getAuthentication();
+    public String showPage(Authentication auth, Model model) {
 
         String username = auth.getName();
 
         UserEntity user = userService.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException(username));
 
         String role = auth.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)

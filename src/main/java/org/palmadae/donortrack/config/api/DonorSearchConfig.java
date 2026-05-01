@@ -8,7 +8,18 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 @ConfigurationProperties(prefix = "donorsearch")
-@NoArgsConstructor
 public class DonorSearchConfig {
-    private String api;
+
+    private Api api;
+
+    @Data
+    public static class Api {
+        private String baseUrl;
+        private EndPoints endPoints;
+    }
+
+    @Data
+    public static class EndPoints {
+        private String stations;
+    }
 }

@@ -7,51 +7,51 @@
     <link rel="stylesheet" href="/assets/css/donation.css">
 </head>
 
-<body class="donation-body">
+    <body class="donation-body">
 
-<jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
+        <jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
 
-<div class="donation-div">
+        <div class="donation-div">
 
-    <h2 class="donation-title">Add donation</h2>
+            <h2 class="donation-title">Добавить донацию</h2>
 
-    <c:if test="${not empty successMessage}">
-        <div class="success">${successMessage}</div>
-    </c:if>
+            <c:if test="${not empty successMessage}">
+                <div class="success">${successMessage}</div>
+            </c:if>
 
-    <c:if test="${not empty errorMessage}">
-        <div class="error">${errorMessage}</div>
-    </c:if>
+            <c:if test="${not empty errorMessage}">
+                <div class="error">${errorMessage}</div>
+            </c:if>
 
-    <form action="/profile/add-donation" method="post" enctype="multipart/form-data">
+            <form action="${pageContext.request.contextPath}/profile/add-donation" method="post" enctype="multipart/form-data">
 
-        <div class="form-group">
-            <label class="donation-label">Date of donation</label>
-            <input class="donation-input" type="date" name="date" required>
+                <div class="form-group">
+                    <label class="donation-label">Дата донации</label>
+                    <input class="donation-input" type="date" name="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="donation-label">Тип донации</label>
+                    <select class="donation-input" name="donationType">
+                        <option value="">Не выбрано</option>
+                        <c:forEach items="${donationTypes}" var="type">
+                            <option value="${type}" ${type == currentDonationType ? 'selected' : ''}>
+                                    ${type}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="donation-label">Загрузить справку? (необязательно)</label>
+                    <input class="donation-input" type="file" name="certificateFile">
+                </div>
+
+                <button class="donation-button" type="submit">Добавить справку</button>
+
+            </form>
+
         </div>
 
-        <div class="form-group">
-            <label class="donation-label">Donation type</label>
-            <select class="donation-input" name="donationType">
-                <option value="">Не выбрано</option>
-                <c:forEach items="${donationTypes}" var="type">
-                    <option value="${type}" ${type == currentDonationType ? 'selected' : ''}>
-                            ${type}
-                    </option>
-                </c:forEach>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label class="donation-label">Certificate (optional)</label>
-            <input class="donation-input" type="file" name="certificateFile">
-        </div>
-
-        <button class="donation-button" type="submit">Add donation</button>
-
-    </form>
-
-</div>
-
-</body>
+    </body>
 </html>

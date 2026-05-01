@@ -15,7 +15,9 @@ import java.time.LocalDate;
 public class DonationDto {
     @NotNull
     private LocalDate date;
-    @NotBlank
+
+    @NotNull
     private DonationType donationType;
+
     private String certificate;
 }

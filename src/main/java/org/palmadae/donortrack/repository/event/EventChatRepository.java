@@ -16,9 +16,8 @@ public interface EventChatRepository extends JpaRepository<EventChatEntity, Long
     boolean existsByEventId(Long eventId);
 
     @Modifying
-    @Transactional
     @Query("UPDATE EventChatEntity c SET c.isActive = false WHERE c.event.id = :eventId")
-    void deactivateChatByEventId(@Param("eventId") Long eventId);
+    void deactivateChatByEventId(Long eventId);
 
     @Modifying
     @Transactional
