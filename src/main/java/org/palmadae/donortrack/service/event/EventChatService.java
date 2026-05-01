@@ -7,6 +7,9 @@ import org.palmadae.donortrack.entity.event.ChatMessage;
 import org.palmadae.donortrack.entity.event.EventChatEntity;
 import org.palmadae.donortrack.entity.event.EventEntity;
 import org.palmadae.donortrack.exception.custom.event.EventNotFoundException;
+import org.palmadae.donortrack.exception.custom.event.chat.EventChatIsNotApprovedException;
+import org.palmadae.donortrack.exception.custom.event.chat.EventChatNotFoundExceptiion;
+import org.palmadae.donortrack.exception.custom.event.chat.EventChatSecurityException;
 import org.palmadae.donortrack.exception.custom.user.UserNotFoundException;
 import org.palmadae.donortrack.repository.chat.ChatMessageRepository;
 import org.palmadae.donortrack.repository.event.EventChatRepository;
@@ -40,7 +43,7 @@ public class EventChatService {
                 .orElseThrow(() -> new EventNotFoundException(eventId));
 
         if (event.getStatus() != EventStatus.APPROVED) {
-            throw new RuntimeException("Чат недоступен до одобрения мероприятия");
+            throw new EventChatIsNotApprovedException(eventId);
         }
 
         UserEntity sender = userService.findByUsername(username)
@@ -51,14 +54,14 @@ public class EventChatService {
                 .anyMatch(user -> user.getId().equals(sender.getId()));
 
         if (!isParticipant) {
-            throw new SecurityException("Только участники мероприятия могут писать в чат");
+            throw new EventChatSecurityException();
         }
 
         EventChatEntity chat = eventChatRepository.findByEventId(eventId)
-                .orElseThrow(() -> new RuntimeException("Чат мероприятия не найден"));
+                .orElseThrow(() -> new EventChatNotFoundExceptiion(eventId));
 
         if (!chat.getIsActive()) {
-            throw new RuntimeException("Чат отключён");
+            throw new EventChatIsNotApprovedException(eventId);
         }
 
         ChatMessage message = ChatMessage.builder()
@@ -90,11 +93,11 @@ public class EventChatService {
                 .anyMatch(participant -> participant.getId().equals(user.getId()));
 
         if (!isParticipant) {
-            throw new SecurityException("Доступ к чату только для участников мероприятия");
+            throw new EventChatSecurityException();
         }
 
         EventChatEntity chat = eventChatRepository.findByEventId(eventId)
-                .orElseThrow(() -> new RuntimeException("Чат мероприятия не найден"));
+                .orElseThrow(() -> new EventChatNotFoundExceptiion(eventId));
 
         List<ChatMessage> messages = chatMessageRepository.findByChatIdOrderBySentAtAsc(chat.getId());
 
