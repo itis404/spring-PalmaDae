@@ -17,6 +17,7 @@
                     <p>ID: ${d.id}</p>
                     <p>Status: ${d.donationStatus}</p>
                     <p>Date: ${d.date}</p>
+                    <img src="/certificate/${d.certificate}" style="max-width:200px;">
 
                     <form action="/admin/update-status" method="post">
 
@@ -30,8 +31,6 @@
                             <option value="DECLINED" ${d.donationStatus == 'DECLINED' ? 'selected' : ''}>DECLINED</option>
                             <option value="WITHOUT" ${d.donationStatus == 'WITHOUT' ? 'selected' : ''}>WITHOUT</option>
                         </select>
-
-                        <img src="">
 
                         <button type="submit">Update</button>
                     </form>

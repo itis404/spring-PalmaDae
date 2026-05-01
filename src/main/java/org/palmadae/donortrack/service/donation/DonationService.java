@@ -3,6 +3,7 @@ package org.palmadae.donortrack.service.donation;
 import org.palmadae.donortrack.entity.DonationEntity;
 import org.palmadae.donortrack.entity.enums.DonationStatus;
 import org.palmadae.donortrack.repository.donation.DonationJpaRepository;
+import org.palmadae.donortrack.service.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +16,9 @@ public class DonationService {
     @Autowired
     private DonationJpaRepository jpaRepository;
 
+    @Autowired
+    private FileStorageService fileStorageService;
+
     public List<DonationEntity> getDonationsInDate(LocalDate date) {
         return jpaRepository.findAllByDate(date);
     }
@@ -22,23 +26,8 @@ public class DonationService {
     public boolean saveDonation(DonationEntity donationEntity, MultipartFile certificateFile) {
 
         if (certificateFile != null && !certificateFile.isEmpty()) {
-            try {
-                String uploadDir = "src/main/resources/images/certificates/";
-
-                String originalFileName = certificateFile.getOriginalFilename();
-
-
-                String fileName = LocalDate.now() + "-0" +  donationEntity.getUser().getId().toString() + donationEntity.getDonationType().toString() + originalFileName.substring(originalFileName.lastIndexOf("."));
-
-                java.nio.file.Path path = java.nio.file.Paths.get(uploadDir + fileName);
-                java.nio.file.Files.createDirectories(path.getParent());
-                java.nio.file.Files.write(path, certificateFile.getBytes());
-
-                donationEntity.setCertificate(uploadDir + fileName);
-
-            } catch (Exception e) {
-                throw new RuntimeException("Certificate upload failed", e);
-            }
+            String fileName = fileStorageService.upload(certificateFile);
+            donationEntity.setCertificate(fileName);
         }
 
         jpaRepository.save(donationEntity);
