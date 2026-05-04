@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
@@ -8,10 +9,7 @@
     <body>
         <div class="block">
             <h3>Просмотр справок</h3>
-            <form action="admin/certificate">
-
-            </form>
-            <c:forEach var="d" items="${donations}">
+            <c:forEach var="d" items="${inProgressDonations}">
                 <div style="border:1px solid #ddd; padding:10px; margin-top:10px">
 
                     <p>ID: ${d.id}</p>
@@ -38,19 +36,33 @@
                 </div>
             </c:forEach>
         </div>
-        <div class="block">
-            <h3>
-                Просмотр по дате
-            </h3>
-            <form action="${pageContext.request.contextPath}/admin/date">
-                <label>
-                    Date of donation
-                </label>
-                <input type="date" name="date" required>
-                <button type="submit"></button>
-            </form>
-        </div>
 
+        <div class="block">
+            <h3>Просмотр по дате</h3>
+
+            <form:form method="post"
+                       modelAttribute="dateDto"
+                       action="${pageContext.request.contextPath}/admin/date">
+
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+                <label>Date of donation</label>
+                <form:input path="date" type="date" required="true"/>
+
+                <button type="submit">Search</button>
+            </form:form>
+
+            <c:if test="${not empty donationsByDate}">
+                <c:forEach var="d" items="${donationsByDate}">
+                    <div style="border:1px solid #ddd; padding:10px; margin-top:10px">
+                        <p>ID: ${d.id}</p>
+                        <p>Status: ${d.donationStatus}</p>
+                        <p>Date: ${d.date}</p>
+                        <img src="/certificate/${d.certificate}" style="max-width:200px;">
+                    </div>
+                </c:forEach>
+            </c:if>
+        </div>
         <h2>Мероприятия на модерации</h2>
 
         <c:if test="${empty pendingEvents}">
