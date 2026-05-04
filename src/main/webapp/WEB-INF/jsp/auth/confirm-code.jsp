@@ -25,7 +25,7 @@
     </c:if>
 
     <form method="post" action="${pageContext.request.contextPath}/auth/registration/confirm">
-
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <input type="hidden" name="email" value="${pendingUser.email}"/>
 
         <label class="auth-label" for="code">

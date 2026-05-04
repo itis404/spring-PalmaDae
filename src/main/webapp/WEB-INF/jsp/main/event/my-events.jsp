@@ -35,6 +35,7 @@
                     </form>
 
                     <form action="${pageContext.request.contextPath}/events/delete/${event.id}" method="post">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                       <button class="btn delete-btn" type="submit">Удалить</button>
                     </form>
 

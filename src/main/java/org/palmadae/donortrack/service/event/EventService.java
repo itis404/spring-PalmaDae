@@ -65,6 +65,13 @@ public class EventService {
         return eventRepository.save(savedEvent);
     }
 
+    public EventEntity getByEventId(Long eventId) {
+        EventEntity event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new EventNotFoundException(eventId));
+
+        return event;
+    }
+
     public boolean approveEvent(Long eventId) {
         Optional<EventEntity> eventOpt = eventRepository.findById(eventId);
 
@@ -156,6 +163,10 @@ public class EventService {
         return eventRepository.findByStatus(EventStatus.PENDING);
     }
 
+    public List<EventEntity> getUpdatedEvents() {
+        return eventRepository.findByStatus(EventStatus.UPDATED);
+    }
+
     public List<EventEntity> getOrganizerEvents(String username) {
         UserEntity user = userService.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
@@ -188,7 +199,7 @@ public class EventService {
         event.setEventDate(dto.getEventDate());
         event.setAddress(dto.getAddress());
         event.setMaxParticipants(dto.getMaxParticipants());
-        event.setStatus(org.palmadae.donortrack.entity.enums.EventStatus.PENDING);
+        event.setStatus(EventStatus.UPDATED);
         event.setIsActive(false);
 
         eventChatRepository.deactivateChatByEventId(eventId);

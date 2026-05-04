@@ -2,6 +2,8 @@ package org.palmadae.donortrack.controller.event;
 
 import org.palmadae.donortrack.dto.event.CreateEventDto;
 import org.palmadae.donortrack.dto.event.UpdateEventDto;
+import org.palmadae.donortrack.entity.enums.EventStatus;
+import org.palmadae.donortrack.entity.event.EventEntity;
 import org.palmadae.donortrack.service.event.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -35,7 +37,8 @@ public class EventController {
 
     @GetMapping("/all")
     public String getAllEvents(Model model) {
-        model.addAttribute("events", eventService.getApprovedEvents());
+        model.addAttribute("eventsApproved", eventService.getApprovedEvents());
+        model.addAttribute("eventsUpdated", eventService.getUpdatedEvents());
         return "main/event/all-events";
     }
 
@@ -43,8 +46,19 @@ public class EventController {
     public String joinEvent(@PathVariable Long eventId,
                             Authentication auth,
                             RedirectAttributes redirectAttributes) {
-        eventService.joinEvent(eventId, auth.getName());
-        redirectAttributes.addFlashAttribute("success", "Вы успешно присоединились к мероприятию");
+
+        EventEntity event = eventService.getByEventId(eventId);
+
+        if (event.getStatus() == EventStatus.APPROVED) {
+            eventService.joinEvent(eventId, auth.getName());
+            redirectAttributes.addFlashAttribute("success",
+                    "Вы успешно присоединились к мероприятию");
+
+        } else {
+            redirectAttributes.addFlashAttribute("error",
+                    "Данное мероприятие недоступно для участия");
+        }
+
         return "redirect:/events/all";
     }
 

@@ -24,6 +24,7 @@
             </c:if>
 
             <form action="${pageContext.request.contextPath}/profile/add-donation" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                 <div class="form-group">
                     <label class="donation-label">Дата донации</label>

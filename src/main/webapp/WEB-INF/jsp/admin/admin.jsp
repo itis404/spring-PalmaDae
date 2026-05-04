@@ -18,6 +18,7 @@
                     <img src="/certificate/${d.certificate}" style="max-width:200px;">
 
                     <form action="${pageContext.request.contextPath}/admin/update-status" method="post">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                         <input type="hidden" name="id" value="${d.id}"/>
 
@@ -43,6 +44,7 @@
             <form:form method="post"
                        modelAttribute="dateDto"
                        action="${pageContext.request.contextPath}/admin/date">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
@@ -78,11 +80,39 @@
                 <p><b>Организатор:</b> ${event.organizer.username}</p>
 
                 <form action="${pageContext.request.contextPath}/admin/approve-event" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <input type="hidden" name="eventId" value="${event.id}">
                     <button type="submit">Одобрить</button>
                 </form>
 
                 <form action="${pageContext.request.contextPath}/admin/reject-event" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <input type="hidden" name="eventId" value="${event.id}">
+                    <button type="submit">Отклонить</button>
+                </form>
+
+                <hr>
+            </div>
+        </c:forEach>
+
+        <h2>Обновлённые мероприятия</h2>
+
+        <c:forEach var="event" items="${updatedEvents}">
+            <div>
+                <p><b>Название:</b> ${event.title}</p>
+                <p><b>Описание:</b> ${event.description}</p>
+                <p><b>Дата:</b> ${event.eventDate}</p>
+                <p><b>Адрес:</b> ${event.address}</p>
+                <p><b>Организатор:</b> ${event.organizer.username}</p>
+
+                <form action="${pageContext.request.contextPath}/admin/approve-event" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <input type="hidden" name="eventId" value="${event.id}">
+                    <button type="submit">Одобрить</button>
+                </form>
+
+                <form action="${pageContext.request.contextPath}/admin/reject-event" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <input type="hidden" name="eventId" value="${event.id}">
                     <button type="submit">Отклонить</button>
                 </form>

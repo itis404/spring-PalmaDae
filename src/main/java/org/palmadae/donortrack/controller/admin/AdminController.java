@@ -40,6 +40,11 @@ public class AdminController {
                 eventService.getPendingEvents()
         );
 
+        model.addAttribute(
+                "updatedEvents",
+                eventService.getUpdatedEvents()
+        );
+
         return "admin/admin";
     }
 
@@ -66,6 +71,11 @@ public class AdminController {
         model.addAttribute(
                 "pendingEvents",
                 eventService.getPendingEvents()
+        );
+
+        model.addAttribute(
+                "updatedEvents",
+                eventService.getUpdatedEvents()
         );
 
         return "admin/admin";

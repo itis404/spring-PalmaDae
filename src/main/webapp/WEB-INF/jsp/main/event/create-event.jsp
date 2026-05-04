@@ -14,6 +14,7 @@
             <h2 class="event-h2">Создать мероприятие</h2>
 
             <form action="${pageContext.request.contextPath}/events/create" method="post">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                 <div class="form-group">
                     <label class="event-label">Название:</label>

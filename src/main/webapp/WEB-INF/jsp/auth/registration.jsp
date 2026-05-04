@@ -11,11 +11,12 @@
 
     <h2 class="auth-h1">Registration Form</h2>
 
-    <form:errors path="*" cssClass="error-block"/>
-
     <form:form method="post"
                modelAttribute="userForm"
                action="${pageContext.request.contextPath}/auth/registration">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+        <form:errors path="*" cssClass="error-block"/>
 
         <div class="form-group">
 

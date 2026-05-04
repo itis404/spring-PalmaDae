@@ -26,6 +26,7 @@
                 <h3>Сменить почту</h3>
 
                 <form action="${pageContext.request.contextPath}/profile/edit/email" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                     <div class="form-group">
                         <label>Новая почта:</label>
@@ -41,6 +42,7 @@
                 <h3>Сменить пароль</h3>
 
                 <form action="${pageContext.request.contextPath}/profile/edit/password" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                     <div class="form-group">
                         <label>Старый пароль:</label>
@@ -66,6 +68,7 @@
                 <h3>Сменить группу крови</h3>
 
                 <form action="${pageContext.request.contextPath}/profile/edit/bloodtype" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                     <div class="form-group">
                         <label>Группа крови:</label>
@@ -95,6 +98,7 @@
                 </div>
 
                 <form action="${pageContext.request.contextPath}/profile/edit/city" method="post" id="cityForm">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <input type="hidden" id="cityHidden" name="city"/>
 
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

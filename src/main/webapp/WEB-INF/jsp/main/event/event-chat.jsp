@@ -27,6 +27,7 @@
             </div>
 
             <form id="chatForm" class="chat-form">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <input type="text" id="messageInput" class="chat-input" placeholder="Введите сообщение..." required>
                 <button type="submit" class="chat-button">Отправить</button>
             </form>

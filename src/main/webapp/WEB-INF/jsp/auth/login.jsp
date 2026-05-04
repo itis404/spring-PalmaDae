@@ -18,6 +18,8 @@
             </c:if>
 
             <form method="post" action="${pageContext.request.contextPath}/auth/login">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
                 <label class="auth-label" for="auth">
                     Имя пользователя:
                 </label>
