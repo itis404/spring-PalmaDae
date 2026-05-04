@@ -12,4 +12,5 @@ public interface DonationJpaRepository extends JpaRepository<DonationEntity, Lon
     List<DonationEntity> findAllByDate(LocalDate date);
     List<DonationEntity> findAllByDonationStatus(DonationStatus donationStatus);
     Optional<DonationEntity> findById(Long id);
+    List<DonationEntity> findAllByUser_Id(Long userId);
 }

@@ -101,8 +101,6 @@
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <input type="hidden" id="cityHidden" name="city"/>
 
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
                     <button class="profile-button" type="submit">Сохранить</button>
                 </form>
 

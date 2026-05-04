@@ -37,3 +37,65 @@
 .profile-div {
     text-align: center;
 }
+
+.donations-container {
+    width: 500px;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.donation-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 15px 20px;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.donation-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.donation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.donation-type {
+    font-size: 16px;
+    color: #222;
+}
+
+.donation-body {
+    font-size: 14px;
+    color: #555;
+}
+
+.donation-date {
+    margin-top: 5px;
+}
+
+.status-IN_PROGRESS {
+    color: #b7791f;
+}
+
+.status-CONFIRMED {
+    color: #2f855a;
+}
+
+.status-DECLINED {
+    color: #c53030;
+}
+
+.status-WITHOUT {
+    color: #718096;
+}

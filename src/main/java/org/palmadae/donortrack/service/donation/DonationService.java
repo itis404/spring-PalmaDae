@@ -23,6 +23,10 @@ public class DonationService {
         return jpaRepository.findAllByDate(date);
     }
 
+    public List<DonationEntity> getUserDonations(Long userId) {
+        return jpaRepository.findAllByUser_Id(userId);
+    }
+
     public boolean saveDonation(DonationEntity donationEntity, MultipartFile certificateFile) {
 
         if (certificateFile != null && !certificateFile.isEmpty()) {

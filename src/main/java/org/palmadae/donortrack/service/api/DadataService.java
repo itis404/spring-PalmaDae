@@ -1,5 +1,8 @@
 package org.palmadae.donortrack.service.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.palmadae.donortrack.config.api.DadataConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +10,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,16 +64,21 @@ public class DadataService {
 
         HttpEntity<String> entity = new HttpEntity<>(body, headers);
 
-        ResponseEntity<JsonNode> response = restTemplate.exchange(
+        ResponseEntity<String> response = restTemplate.exchange(
                 url,
                 HttpMethod.POST,
                 entity,
-                JsonNode.class
+                String.class
         );
-
         List<String> result = new ArrayList<>();
 
-        JsonNode bodyNode = response.getBody();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode bodyNode = null;
+        try {
+            bodyNode = mapper.readTree(response.getBody());
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
 
         if (bodyNode != null && bodyNode.has("suggestions")) {
             bodyNode.get("suggestions").forEach(s -> {

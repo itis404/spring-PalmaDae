@@ -53,7 +53,7 @@ public class UserService {
         String encodedPassword = passwordEncoder.encode(dto.getPassword());
 
         UserEntity user = UserEntity.builder()
-                .username(dto.getUsername())
+                .username(dto.getUsername().toLowerCase())
                 .email(dto.getEmail())
                 .hashPass(encodedPassword)
                 .role(UserRole.USER)

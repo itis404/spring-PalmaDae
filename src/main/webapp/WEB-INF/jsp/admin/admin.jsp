@@ -15,14 +15,12 @@
                     <p>ID: ${d.id}</p>
                     <p>Status: ${d.donationStatus}</p>
                     <p>Date: ${d.date}</p>
-                    <img src="/certificate/${d.certificate}" style="max-width:200px;">
+                    <img src="${pageContext.request.contextPath}/certificate/${d.certificate}">
 
                     <form action="${pageContext.request.contextPath}/admin/update-status" method="post">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                         <input type="hidden" name="id" value="${d.id}"/>
-
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                         <select name="status">
                             <option value="IN_PROGRESS" ${d.donationStatus == 'IN_PROGRESS' ? 'selected' : ''}>IN_PROGRESS</option>
@@ -44,8 +42,6 @@
             <form:form method="post"
                        modelAttribute="dateDto"
                        action="${pageContext.request.contextPath}/admin/date">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                 <label>Date of donation</label>

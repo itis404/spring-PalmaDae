@@ -1,8 +1,11 @@
 package org.palmadae.donortrack.controller.profile;
 
 
+import jakarta.validation.Valid;
+import org.palmadae.donortrack.dto.profile.ProfileDto;
 import org.palmadae.donortrack.entity.UserEntity;
 import org.palmadae.donortrack.exception.custom.user.UserNotFoundException;
+import org.palmadae.donortrack.service.donation.DonationService;
 import org.palmadae.donortrack.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -11,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.stream.Collectors;
@@ -21,6 +25,8 @@ public class ProfileController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private DonationService donationService;
 
     @GetMapping("")
     public String showPage(Authentication auth, Model model) {
@@ -30,15 +36,14 @@ public class ProfileController {
         UserEntity user = userService.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
 
-        String role = auth.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(","));
+        ProfileDto profile = ProfileDto.builder()
+                .username(user.getUsername())
+                .bloodType(user.getBloodType() != null ? user.getBloodType().name() : "не указана")
+                .city(user.getCity() != null ? user.getCity() : "не указан")
+                .donations(donationService.getUserDonations(user.getId()))
+                .build();
 
-        model.addAttribute("username", username);
-        model.addAttribute("role", role);
-        model.addAttribute("email", user.getEmail());
-        model.addAttribute("bloodType", user.getBloodType() != null ? user.getBloodType().name() : "не указана");
-        model.addAttribute("city", user.getCity() != null ? user.getCity() : "не указан");
+        model.addAttribute("profile", profile);
 
         return "profile/profile";
     }

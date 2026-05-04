@@ -30,20 +30,7 @@ public class AdminController {
 
         model.addAttribute("dateDto", new DateDto());
 
-        model.addAttribute(
-                "inProgressDonations",
-                donationService.getByStatus(DonationStatus.IN_PROGRESS)
-        );
-
-        model.addAttribute(
-                "pendingEvents",
-                eventService.getPendingEvents()
-        );
-
-        model.addAttribute(
-                "updatedEvents",
-                eventService.getUpdatedEvents()
-        );
+        fillAdminModel(model);
 
         return "admin/admin";
     }
@@ -63,20 +50,7 @@ public class AdminController {
 
     @GetMapping("/in-progress")
     public String showInProgress(Model model) {
-        model.addAttribute(
-                "inProgressDonations",
-                donationService.getByStatus(DonationStatus.IN_PROGRESS)
-        );
-
-        model.addAttribute(
-                "pendingEvents",
-                eventService.getPendingEvents()
-        );
-
-        model.addAttribute(
-                "updatedEvents",
-                eventService.getUpdatedEvents()
-        );
+        fillAdminModel(model);
 
         return "admin/admin";
     }
@@ -100,5 +74,11 @@ public class AdminController {
     public String rejectEvent(@RequestParam Long eventId) {
         eventService.rejectEvent(eventId);
         return "redirect:/admin";
+    }
+
+    private void fillAdminModel(Model model) {
+        model.addAttribute("inProgressDonations", donationService.getByStatus(DonationStatus.IN_PROGRESS));
+        model.addAttribute("pendingEvents", eventService.getPendingEvents());
+        model.addAttribute("updatedEvents", eventService.getUpdatedEvents());
     }
 }
