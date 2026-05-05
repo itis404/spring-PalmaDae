@@ -1,5 +1,6 @@
 package org.palmadae.donortrack.controller.event;
 
+import org.palmadae.donortrack.dto.event.chat.ChatMessageDto;
 import org.palmadae.donortrack.dto.event.chat.SendMessageDto;
 import org.palmadae.donortrack.service.event.EventChatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/events/chat")
@@ -53,6 +56,8 @@ public class EventChatController {
     public Object getMessages(@PathVariable Long eventId,
                               Authentication auth) {
         String username = auth.getName();
-        return eventChatService.getMessages(eventId, username);
+        List<ChatMessageDto> messages = eventChatService.getMessages(eventId, username);
+        System.out.println("Messages count: " + (messages != null ? messages.size() : 0));
+        return messages;
     }
 }

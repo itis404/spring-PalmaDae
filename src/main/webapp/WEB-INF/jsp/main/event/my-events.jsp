@@ -47,6 +47,6 @@
         </c:forEach>
 
         </div>
-
+    <script src="/assets/js/edit-profile.js"></script>
     </body>
 </html>
