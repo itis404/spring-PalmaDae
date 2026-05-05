@@ -1,120 +1,137 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
-    <head>
-        <title>Admin Panel</title>
-        <link rel="stylesheet" href="/assets/css/shared.css">
-    </head>
-    <body>
-        <div class="block">
-            <h3>Просмотр справок</h3>
-            <c:forEach var="d" items="${inProgressDonations}">
-                <div style="border:1px solid #ddd; padding:10px; margin-top:10px">
+<head>
+    <title>Admin Panel</title>
 
-                    <p>ID: ${d.id}</p>
-                    <p>Status: ${d.donationStatus}</p>
-                    <p>Date: ${d.date}</p>
-                    <img src="${pageContext.request.contextPath}/certificate/${d.certificate}">
+    <link rel="stylesheet" href="/assets/css/shared.css">
+    <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
 
-                    <form action="${pageContext.request.contextPath}/admin/update-status" method="post">
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+<body>
 
-                        <input type="hidden" name="id" value="${d.id}"/>
+<div class="block">
+    <h3>Просмотр справок</h3>
 
-                        <select name="status">
-                            <option value="IN_PROGRESS" ${d.donationStatus == 'IN_PROGRESS' ? 'selected' : ''}>IN_PROGRESS</option>
-                            <option value="CONFIRMED" ${d.donationStatus == 'CONFIRMED' ? 'selected' : ''}>CONFIRMED</option>
-                            <option value="DECLINED" ${d.donationStatus == 'DECLINED' ? 'selected' : ''}>DECLINED</option>
-                            <option value="WITHOUT" ${d.donationStatus == 'WITHOUT' ? 'selected' : ''}>WITHOUT</option>
-                        </select>
+    <c:forEach var="d" items="${inProgressDonations}">
+        <div class="donation-card">
 
-                        <button type="submit">Update</button>
-                    </form>
+            <p><b>ID:</b> ${d.id}</p>
+            <p><b>Status:</b> ${d.donationStatus}</p>
+            <p><b>Date:</b> ${d.date}</p>
 
-                </div>
-            </c:forEach>
-        </div>
+            <img src="${pageContext.request.contextPath}/certificate/${d.certificate}">
 
-        <div class="block">
-            <h3>Просмотр по дате</h3>
-
-            <form:form method="post"
-                       modelAttribute="dateDto"
-                       action="${pageContext.request.contextPath}/admin/date">
+            <form action="${pageContext.request.contextPath}/admin/update-status" method="post">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <input type="hidden" name="id" value="${d.id}"/>
 
-                <label>Date of donation</label>
-                <form:input path="date" type="date" required="true"/>
+                <select name="status">
+                    <option value="IN_PROGRESS" ${d.donationStatus == 'IN_PROGRESS' ? 'selected' : ''}>IN_PROGRESS</option>
+                    <option value="CONFIRMED" ${d.donationStatus == 'CONFIRMED' ? 'selected' : ''}>CONFIRMED</option>
+                    <option value="DECLINED" ${d.donationStatus == 'DECLINED' ? 'selected' : ''}>DECLINED</option>
+                    <option value="WITHOUT" ${d.donationStatus == 'WITHOUT' ? 'selected' : ''}>WITHOUT</option>
+                </select>
 
-                <button type="submit">Search</button>
-            </form:form>
+                <button type="submit">Update</button>
+            </form>
 
-            <c:if test="${not empty donationsByDate}">
-                <c:forEach var="d" items="${donationsByDate}">
-                    <div style="border:1px solid #ddd; padding:10px; margin-top:10px">
-                        <p>ID: ${d.id}</p>
-                        <p>Status: ${d.donationStatus}</p>
-                        <p>Date: ${d.date}</p>
-                        <img src="/certificate/${d.certificate}" style="max-width:200px;">
-                    </div>
-                </c:forEach>
-            </c:if>
         </div>
-        <h2>Мероприятия на модерации</h2>
+    </c:forEach>
+</div>
 
-        <c:if test="${empty pendingEvents}">
-            <p>Нет мероприятий на проверке</p>
-        </c:if>
 
-        <c:forEach var="event" items="${pendingEvents}">
-            <div>
-                <p><b>Название:</b> ${event.title}</p>
-                <p><b>Описание:</b> ${event.description}</p>
-                <p><b>Дата:</b> ${event.eventDate}</p>
-                <p><b>Адрес:</b> ${event.address}</p>
-                <p><b>Организатор:</b> ${event.organizer.username}</p>
+<div class="block">
+    <h3>Просмотр по дате</h3>
 
-                <form action="${pageContext.request.contextPath}/admin/approve-event" method="post">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <input type="hidden" name="eventId" value="${event.id}">
-                    <button type="submit">Одобрить</button>
-                </form>
+    <form:form method="post"
+               modelAttribute="dateDto"
+               action="${pageContext.request.contextPath}/admin/date">
 
-                <form action="${pageContext.request.contextPath}/admin/reject-event" method="post">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <input type="hidden" name="eventId" value="${event.id}">
-                    <button type="submit">Отклонить</button>
-                </form>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-                <hr>
+        <label>Дата донации</label>
+        <form:input path="date" type="date" required="true"/>
+
+        <button type="submit">Search</button>
+    </form:form>
+
+    <c:if test="${not empty donationsByDate}">
+        <c:forEach var="d" items="${donationsByDate}">
+            <div class="donation-card">
+
+                <p><b>ID:</b> ${d.id}</p>
+                <p><b>Status:</b> ${d.donationStatus}</p>
+                <p><b>Date:</b> ${d.date}</p>
+
+                <img src="${pageContext.request.contextPath}/certificate/${d.certificate}">
             </div>
         </c:forEach>
+    </c:if>
+</div>
 
-        <h2>Обновлённые мероприятия</h2>
 
-        <c:forEach var="event" items="${updatedEvents}">
-            <div>
-                <p><b>Название:</b> ${event.title}</p>
-                <p><b>Описание:</b> ${event.description}</p>
-                <p><b>Дата:</b> ${event.eventDate}</p>
-                <p><b>Адрес:</b> ${event.address}</p>
-                <p><b>Организатор:</b> ${event.organizer.username}</p>
+<div class="block">
+    <h3>Мероприятия на модерации</h3>
 
-                <form action="${pageContext.request.contextPath}/admin/approve-event" method="post">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <input type="hidden" name="eventId" value="${event.id}">
-                    <button type="submit">Одобрить</button>
-                </form>
+    <c:if test="${empty pendingEvents}">
+        <p class="empty">Нет мероприятий на проверке</p>
+    </c:if>
 
-                <form action="${pageContext.request.contextPath}/admin/reject-event" method="post">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <input type="hidden" name="eventId" value="${event.id}">
-                    <button type="submit">Отклонить</button>
-                </form>
+    <c:forEach var="event" items="${pendingEvents}">
+        <div class="event-card">
 
-                <hr>
-            </div>
-        </c:forEach>
-    </body>
+            <p><b>Название:</b> ${event.title}</p>
+            <p><b>Описание:</b> ${event.description}</p>
+            <p><b>Дата:</b> ${event.eventDate}</p>
+            <p><b>Адрес:</b> ${event.address}</p>
+            <p><b>Организатор:</b> ${event.organizer.username}</p>
+
+            <form action="${pageContext.request.contextPath}/admin/approve-event" method="post">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <input type="hidden" name="eventId" value="${event.id}">
+                <button class="approve" type="submit">Одобрить</button>
+            </form>
+
+            <form action="${pageContext.request.contextPath}/admin/reject-event" method="post">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <input type="hidden" name="eventId" value="${event.id}">
+                <button class="reject" type="submit">Отклонить</button>
+            </form>
+
+        </div>
+    </c:forEach>
+</div>
+
+<div class="block">
+    <h3>Обновлённые мероприятия</h3>
+
+    <c:forEach var="event" items="${updatedEvents}">
+        <div class="event-card">
+
+            <p><b>Название:</b> ${event.title}</p>
+            <p><b>Описание:</b> ${event.description}</p>
+            <p><b>Дата:</b> ${event.eventDate}</p>
+            <p><b>Адрес:</b> ${event.address}</p>
+            <p><b>Организатор:</b> ${event.organizer.username}</p>
+
+            <form action="${pageContext.request.contextPath}/admin/approve-event" method="post">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <input type="hidden" name="eventId" value="${event.id}">
+                <button class="approve" type="submit">Одобрить</button>
+            </form>
+
+            <form action="${pageContext.request.contextPath}/admin/reject-event" method="post">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <input type="hidden" name="eventId" value="${event.id}">
+                <button class="reject" type="submit">Отклонить</button>
+            </form>
+
+        </div>
+    </c:forEach>
+</div>
+
+</body>
 </html>

@@ -42,7 +42,10 @@
         </div>
 
         <div class="logout-block">
-            <a class="logout-link" href="${pageContext.request.contextPath}/logout">Выйти</a>
+            <form action="${pageContext.request.contextPath}/logout" method="post">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <button type="submit" class="logout-link">Выйти</button>
+            </form>
         </div>
 
     </body>

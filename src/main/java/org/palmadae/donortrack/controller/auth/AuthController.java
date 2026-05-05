@@ -91,7 +91,7 @@ public class AuthController {
 
         session.removeAttribute("pendingUser");
 
-        redirectAttributes.addFlashAttribute("successMessage", "Registration successful! Please login.");
+        redirectAttributes.addFlashAttribute("success", "Регистрация подтверждена! Можете войти в аккаунт");
         return "redirect:/auth/login";
     }
 }
