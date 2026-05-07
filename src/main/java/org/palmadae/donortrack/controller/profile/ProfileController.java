@@ -33,7 +33,7 @@ public class ProfileController {
 
         String username = auth.getName();
 
-        UserEntity user = userService.findByEmail(username)
+        UserEntity user = userService.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
 
         ProfileDto profile = ProfileDto.builder()

@@ -11,58 +11,53 @@
 
         <jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
 
-        <h1 class="profile-edit-title">Edit Profile</h1>
-
-        <c:if test="${not empty successMessage}">
-            <div class="success">${successMessage}</div>
-        </c:if>
-
-        <c:if test="${not empty errorMessage}">
-            <div class="error">${errorMessage}</div>
-        </c:if>
-
         <div class="profile-edit-container">
-            <div class="profile-card">
-                <h3>Сменить почту</h3>
 
-                <form action="${pageContext.request.contextPath}/profile/edit/email" method="post">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <c:if test="${authProvider} == 'LOCAL'">
 
-                    <div class="form-group">
-                        <label>Новая почта:</label>
-                        <input type="email" name="newEmail" required class="profile-input"/>
-                    </div>
+                <div class="profile-card">
+                    <h3>Сменить почту</h3>
 
-                    <button class="profile-button" type="submit">Update Email</button>
+                    <form action="${pageContext.request.contextPath}/profile/edit/email" method="post">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-                </form>
-            </div>
+                        <div class="form-group">
+                            <label>Новая почта:</label>
+                            <input type="email" name="newEmail" required class="profile-input"/>
+                        </div>
 
-            <div class="profile-card">
-                <h3>Сменить пароль</h3>
+                        <button class="profile-button" type="submit">Update Email</button>
 
-                <form action="${pageContext.request.contextPath}/profile/edit/password" method="post">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    </form>
+                </div>
 
-                    <div class="form-group">
-                        <label>Старый пароль:</label>
-                        <input type="password" name="oldPassword" required class="profile-input"/>
-                    </div>
+                <div class="profile-card">
+                    <h3>Сменить пароль</h3>
 
-                    <div class="form-group">
-                        <label>Новый пароль:</label>
-                        <input type="password" name="newPassword" required class="profile-input"/>
-                    </div>
+                    <form action="${pageContext.request.contextPath}/profile/edit/password" method="post">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-                    <div class="form-group">
-                        <label>Подтвердите новый пароль:</label>
-                        <input type="password" name="confirmPassword" required class="profile-input"/>
-                    </div>
+                        <div class="form-group">
+                            <label>Старый пароль:</label>
+                            <input type="password" name="oldPassword" required class="profile-input"/>
+                        </div>
 
-                    <button class="profile-button" type="submit">Сменить пароль</button>
+                        <div class="form-group">
+                            <label>Новый пароль:</label>
+                            <input type="password" name="newPassword" required class="profile-input"/>
+                        </div>
 
-                </form>
-            </div>
+                        <div class="form-group">
+                            <label>Подтвердите новый пароль:</label>
+                            <input type="password" name="confirmPassword" required class="profile-input"/>
+                        </div>
+
+                        <button class="profile-button" type="submit">Сменить пароль</button>
+
+                    </form>
+                </div>
+
+            </c:if>
 
             <div class="profile-card">
                 <h3>Сменить группу крови</h3>
@@ -88,6 +83,8 @@
                 </form>
             </div>
 
+
+
             <div class="profile-card">
                 <h3>Сменить город</h3>
 
@@ -107,6 +104,16 @@
             </div>
 
         </div>
+
+        <c:if test="${not empty successMessage}">
+        <h1 class="profile-edit-title">Edit Profile</h1>
+        </c:if>
+
+        <c:if test="${not empty errorMessage}">
+            <div class="success">${successMessage}</div>
+        </c:if>
+
+            <div class="error">${errorMessage}</div>
 
         <div class="back-link">
             <a href="/profile">Обратно в профиль</a>

@@ -15,12 +15,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserJpaRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String email) {
-        UserEntity user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException(email));
+    public UserDetails loadUserByUsername(String username) {
+        UserEntity user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
 
         return org.springframework.security.core.userdetails.User
-                .withUsername(user.getEmail())
+                .withUsername(user.getUsername())
                 .password(user.getHashPass())
                 .roles(user.getRole().name())
                 .build();

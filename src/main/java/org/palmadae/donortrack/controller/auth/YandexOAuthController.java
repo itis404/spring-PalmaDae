@@ -121,7 +121,7 @@ public class YandexOAuthController {
 
         Authentication auth =
                 new UsernamePasswordAuthenticationToken(
-                        user.getEmail(),
+                        user.getUsername(),
                         null,
                         List.of(new SimpleGrantedAuthority(user.getRole().name()))
                 );

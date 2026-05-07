@@ -77,7 +77,7 @@ public class UserService {
         return jpaRepository.findByYandexId(dto.getId())
                 .orElseGet(() -> {
                     UserEntity user = UserEntity.builder()
-                            .username(dto.getLogin())
+                            .username("ya_" + dto.getId())
                             .email(dto.getDefaultEmail())
                             .yandexId(dto.getId())
                             .provider(AuthProvider.YANDEX)

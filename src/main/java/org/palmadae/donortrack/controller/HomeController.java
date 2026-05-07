@@ -27,7 +27,7 @@ public class HomeController {
 
         String identifier = auth.getName();
 
-        UserEntity user = userService.findByEmail(identifier)
+        UserEntity user = userService.findByUsername(identifier)
                 .orElseGet(() ->
                         userService.findByYandexId(identifier)
                                 .orElseThrow(() -> new RuntimeException("User not found: " + identifier))
