@@ -47,6 +47,11 @@
                     Создать Аккаунт
                 </a>
             </p>
+            <p>Не хотите регаться?
+                <a href="${pageContext.request.contextPath}/oauth/yandex" style="text-decoration: none;">
+                    Войти через яндекс
+                </a>
+            </p>
         </div>
     </body>
 </html>

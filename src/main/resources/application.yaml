@@ -64,6 +64,10 @@ springdoc:
     path: /swagger-ui.html
     operationsSorter: method
 
+yandex:
+  client-id: 72c58ab590244406bbc405218283143d
+  client-secret: fcefaeeec31a4491b84d8b2c7f9108b8
+
 file:
   upload:
     dir: uploads/certificates/

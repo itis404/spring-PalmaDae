@@ -2,6 +2,7 @@ package org.palmadae.donortrack.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.palmadae.donortrack.entity.enums.AuthProvider;
 import org.palmadae.donortrack.entity.enums.BloodType;
 import org.palmadae.donortrack.entity.enums.UserRole;
 import org.palmadae.donortrack.entity.event.ChatMessage;
@@ -27,13 +28,14 @@ public class UserEntity {
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "hash_pass", nullable = false)
+    @Column(name = "hash_pass")
     private String hashPass;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private UserRole role;
 
     @Enumerated(EnumType.STRING)
@@ -53,6 +55,13 @@ public class UserEntity {
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
     @Builder.Default
     private List<ChatMessage> messages = new ArrayList<>();
+
+    @Column(unique = true)
+    private String yandexId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AuthProvider provider;
 
     public boolean isAdmin() {
         return role == UserRole.ADMIN;

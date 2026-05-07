@@ -43,7 +43,7 @@ public class AuthRestController {
                     .body(Map.of("email", "Email already registered"));
         }
 
-        boolean created = userService.createUser(userDto);
+        boolean created = userService.createUserLocal(userDto);
         if (!created) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("error", "User could not be created"));

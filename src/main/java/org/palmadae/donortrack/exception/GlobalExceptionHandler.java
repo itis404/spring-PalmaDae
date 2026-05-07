@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
                                      RedirectAttributes redirectAttributes) {
 
         redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
-        return "redirect:/login";
+        return "redirect:/auth/login";
     }
 
     @ExceptionHandler(EmailAlreadyExistsException.class)

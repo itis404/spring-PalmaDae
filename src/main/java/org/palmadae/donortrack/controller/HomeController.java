@@ -25,12 +25,13 @@ public class HomeController {
     @GetMapping("/home")
     public String showPage(Model model, Authentication auth) {
 
-        String username = auth.getName();
+        String identifier = auth.getName();
 
-        UserEntity user = userService.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found: " + username));
-
-        String role = String.valueOf(user.getRole());
+        UserEntity user = userService.findByEmail(identifier)
+                .orElseGet(() ->
+                        userService.findByYandexId(identifier)
+                                .orElseThrow(() -> new RuntimeException("User not found: " + identifier))
+                );
 
         String citySlug = toCitySlug(user.getCity());
 
@@ -40,9 +41,6 @@ public class HomeController {
         stations = stations.stream()
                 .filter(s -> s.getClosed() == null || !s.getClosed())
                 .toList();
-
-        model.addAttribute("username", username);
-        model.addAttribute("role", role);
         model.addAttribute("stations", stations);
 
         return "main/home";

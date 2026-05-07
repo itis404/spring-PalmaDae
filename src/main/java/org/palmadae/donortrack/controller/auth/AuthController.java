@@ -87,7 +87,7 @@ public class AuthController {
             return "redirect:/auth/registration";
         }
 
-        userService.createUser(userDto);
+        userService.createUserLocal(userDto);
 
         session.removeAttribute("pendingUser");
 

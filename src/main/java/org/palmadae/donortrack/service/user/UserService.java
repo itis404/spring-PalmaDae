@@ -2,9 +2,11 @@ package org.palmadae.donortrack.service.user;
 
 import jakarta.transaction.Transactional;
 import org.palmadae.donortrack.dto.UserDto;
+import org.palmadae.donortrack.dto.YandexUserDto;
 import org.palmadae.donortrack.dto.profile.EmailChangeDto;
 import org.palmadae.donortrack.dto.profile.PasswordChangeDto;
 import org.palmadae.donortrack.entity.UserEntity;
+import org.palmadae.donortrack.entity.enums.AuthProvider;
 import org.palmadae.donortrack.entity.enums.BloodType;
 import org.palmadae.donortrack.entity.enums.UserRole;
 import org.palmadae.donortrack.exception.custom.email.EmailAlreadyExistsException;
@@ -40,13 +42,18 @@ public class UserService {
 
     public Optional<UserEntity> findByUsername(String username) { return jpaRepository.findByUsername(username); }
 
+    public Optional<UserEntity> findByEmail(String email) { return jpaRepository.findByEmail(email); }
+
+    public Optional<UserEntity> findByYandexId(String id) { return jpaRepository.findByYandexId(id); }
+
     @Transactional
-    public boolean createUser(UserDto dto) {
+    public boolean createUserLocal(UserDto dto) {
+
         if (jpaRepository.existsByUsername(dto.getUsername())) {
             return false;
         }
 
-        if (jpaRepository.existsByEmail(dto.getUsername())) {
+        if (jpaRepository.existsByEmail(dto.getEmail())) {
             return false;
         }
 
@@ -57,13 +64,30 @@ public class UserService {
                 .email(dto.getEmail())
                 .hashPass(encodedPassword)
                 .role(UserRole.USER)
+                .provider(AuthProvider.LOCAL)
                 .build();
-
 
         jpaRepository.save(user);
         return true;
     }
 
+    @Transactional
+    public UserEntity createUserYandex(YandexUserDto dto) {
+
+        return jpaRepository.findByYandexId(dto.getId())
+                .orElseGet(() -> {
+                    UserEntity user = UserEntity.builder()
+                            .username(dto.getLogin())
+                            .email(dto.getDefaultEmail())
+                            .yandexId(dto.getId())
+                            .provider(AuthProvider.YANDEX)
+                            .role(UserRole.USER)
+                            .hashPass("")
+                            .build();
+
+                    return jpaRepository.save(user);
+                });
+    }
 
     @Transactional
     public void changeEmail(String username, EmailChangeDto dto) {
