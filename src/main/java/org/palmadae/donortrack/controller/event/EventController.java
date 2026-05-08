@@ -1,14 +1,16 @@
 package org.palmadae.donortrack.controller.event;
 
+import jakarta.validation.Valid;
 import org.palmadae.donortrack.dto.event.CreateEventDto;
 import org.palmadae.donortrack.dto.event.UpdateEventDto;
-import org.palmadae.donortrack.entity.enums.EventStatus;
+import org.palmadae.donortrack.enums.EventStatus;
 import org.palmadae.donortrack.entity.event.EventEntity;
 import org.palmadae.donortrack.service.event.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -26,9 +28,17 @@ public class EventController {
     }
 
     @PostMapping("/create")
-    public String createEvent(@ModelAttribute CreateEventDto eventDto,
-                              Authentication auth,
-                              RedirectAttributes redirectAttributes) {
+    public String createEvent(
+            @Valid @ModelAttribute("eventDto") CreateEventDto eventDto,
+            BindingResult bindingResult,
+            Authentication auth,
+            RedirectAttributes redirectAttributes
+    ) {
+
+        if (bindingResult.hasErrors()) {
+            return "main/event/create-event";
+        }
+
         eventService.createEvent(eventDto, auth.getName());
         redirectAttributes.addFlashAttribute("success",
                     "Мероприятие успешно создано и отправлено на модерацию!");

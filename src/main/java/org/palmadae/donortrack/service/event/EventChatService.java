@@ -2,8 +2,8 @@ package org.palmadae.donortrack.service.event;
 
 import org.palmadae.donortrack.dto.event.chat.ChatMessageDto;
 import org.palmadae.donortrack.entity.UserEntity;
-import org.palmadae.donortrack.entity.enums.EventStatus;
-import org.palmadae.donortrack.entity.event.ChatMessage;
+import org.palmadae.donortrack.enums.EventStatus;
+import org.palmadae.donortrack.entity.event.ChatMessageEntity;
 import org.palmadae.donortrack.entity.event.EventChatEntity;
 import org.palmadae.donortrack.entity.event.EventEntity;
 import org.palmadae.donortrack.exception.custom.event.EventNotFoundException;
@@ -64,13 +64,13 @@ public class EventChatService {
             throw new EventChatIsNotApprovedException(eventId);
         }
 
-        ChatMessage message = ChatMessage.builder()
+        ChatMessageEntity message = ChatMessageEntity.builder()
                 .chat(chat)
                 .sender(sender)
                 .message(messageText)
                 .build();
 
-        ChatMessage saved = chatMessageRepository.save(message);
+        ChatMessageEntity saved = chatMessageRepository.save(message);
 
         return ChatMessageDto.builder()
                 .id(saved.getId())
@@ -99,7 +99,7 @@ public class EventChatService {
         EventChatEntity chat = eventChatRepository.findByEventId(eventId)
                 .orElseThrow(() -> new EventChatNotFoundExceptiion(eventId));
 
-        List<ChatMessage> messages = chatMessageRepository.findByChatIdOrderBySentAtAsc(chat.getId());
+        List<ChatMessageEntity> messages = chatMessageRepository.findByChatIdOrderBySentAtAsc(chat.getId());
 
         return messages.stream()
                 .map(msg -> ChatMessageDto.builder()

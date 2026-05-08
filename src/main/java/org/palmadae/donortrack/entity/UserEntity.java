@@ -2,10 +2,10 @@ package org.palmadae.donortrack.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.palmadae.donortrack.entity.enums.AuthProvider;
-import org.palmadae.donortrack.entity.enums.BloodType;
-import org.palmadae.donortrack.entity.enums.UserRole;
-import org.palmadae.donortrack.entity.event.ChatMessage;
+import org.palmadae.donortrack.enums.AuthProvider;
+import org.palmadae.donortrack.enums.BloodType;
+import org.palmadae.donortrack.enums.UserRole;
+import org.palmadae.donortrack.entity.event.ChatMessageEntity;
 import org.palmadae.donortrack.entity.event.EventEntity;
 
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
     @Builder.Default
-    private List<ChatMessage> messages = new ArrayList<>();
+    private List<ChatMessageEntity> messages = new ArrayList<>();
 
     @Column(unique = true)
     private String yandexId;

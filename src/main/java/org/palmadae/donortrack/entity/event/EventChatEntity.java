@@ -32,7 +32,7 @@ public class EventChatEntity {
 
     @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
-    private List<ChatMessage> messages = new ArrayList<>();
+    private List<ChatMessageEntity> messages = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {

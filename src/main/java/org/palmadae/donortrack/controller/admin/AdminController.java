@@ -1,8 +1,9 @@
 package org.palmadae.donortrack.controller.admin;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.palmadae.donortrack.dto.admin.DateDto;
-import org.palmadae.donortrack.entity.enums.DonationStatus;
+import org.palmadae.donortrack.enums.DonationStatus;
 import org.palmadae.donortrack.service.event.EventService;
 import org.palmadae.donortrack.service.donation.DonationService;
 import org.palmadae.donortrack.service.user.UserService;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+@Slf4j
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -31,6 +33,7 @@ public class AdminController {
         model.addAttribute("dateDto", new DateDto());
 
         fillAdminModel(model);
+        log.info("Admin Panel has been initialized");
 
         return "admin/admin";
     }

@@ -5,7 +5,7 @@ import org.palmadae.donortrack.dto.event.UpdateEventDto;
 import org.palmadae.donortrack.entity.event.EventChatEntity;
 import org.palmadae.donortrack.entity.event.EventEntity;
 import org.palmadae.donortrack.entity.UserEntity;
-import org.palmadae.donortrack.entity.enums.EventStatus;
+import org.palmadae.donortrack.enums.EventStatus;
 import org.palmadae.donortrack.exception.custom.event.*;
 import org.palmadae.donortrack.exception.custom.user.UserNotFoundException;
 import org.palmadae.donortrack.repository.event.EventChatRepository;

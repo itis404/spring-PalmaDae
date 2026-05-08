@@ -46,6 +46,10 @@ public class DonorSearchService {
                 }
             }
 
+            stations = stations.stream()
+                    .filter(s -> s.getClosed() == null || !s.getClosed())
+                    .toList();
+
             return stations;
 
         } catch (Exception e) {

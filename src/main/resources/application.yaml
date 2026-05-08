@@ -21,7 +21,7 @@ spring:
       add-mappings: true
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
   mail:
     username: donor.track.official@gmail.com
     password: fcmcdgslqblnudlq

@@ -1,7 +1,7 @@
 package org.palmadae.donortrack.service.donation;
 
 import org.palmadae.donortrack.entity.DonationEntity;
-import org.palmadae.donortrack.entity.enums.DonationStatus;
+import org.palmadae.donortrack.enums.DonationStatus;
 import org.palmadae.donortrack.repository.donation.DonationJpaRepository;
 import org.palmadae.donortrack.service.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;

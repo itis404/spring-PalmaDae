@@ -1,6 +1,6 @@
 package org.palmadae.donortrack.service.mail;
 
-import org.palmadae.donortrack.entity.EmailVerification;
+import org.palmadae.donortrack.entity.EmailVerificationEntity;
 import org.palmadae.donortrack.exception.custom.email.EmailCodeExpiredException;
 import org.palmadae.donortrack.exception.custom.email.InvalidEmailCodeException;
 import org.palmadae.donortrack.repository.email.EmailVerificationJpaRepository;
@@ -23,7 +23,7 @@ public class EmailVerificationService {
 
         String code = CodeGenerator.generateVerificationCode();
 
-        EmailVerification verification = new EmailVerification();
+        EmailVerificationEntity verification = new EmailVerificationEntity();
         verification.setEmail(email);
         verification.setCode(code);
         verification.setExpiresAt(LocalDateTime.now().plusMinutes(10));
@@ -36,7 +36,7 @@ public class EmailVerificationService {
 
     public boolean verifyCode(String email, String code) {
 
-        EmailVerification v = repository.findByEmailAndCode(email, code)
+        EmailVerificationEntity v = repository.findByEmailAndCode(email, code)
                 .orElseThrow(InvalidEmailCodeException::new);
 
         if (v.getExpiresAt().isBefore(LocalDateTime.now())) {

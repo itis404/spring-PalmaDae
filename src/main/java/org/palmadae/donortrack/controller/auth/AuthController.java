@@ -3,7 +3,6 @@ package org.palmadae.donortrack.controller.auth;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.palmadae.donortrack.dto.UserDto;
-import org.palmadae.donortrack.entity.EmailVerification;
 import org.palmadae.donortrack.service.mail.EmailVerificationService;
 import org.palmadae.donortrack.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

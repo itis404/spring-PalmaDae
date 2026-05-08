@@ -34,15 +34,7 @@ public class HomeController {
                 );
 
         String citySlug = toCitySlug(user.getCity());
-
-        List<BloodStationDto> stations = null;
-        stations = donorSearchService.getStations(citySlug);
-
-        stations = stations.stream()
-                .filter(s -> s.getClosed() == null || !s.getClosed())
-                .toList();
-        model.addAttribute("stations", stations);
-
+        model.addAttribute("stations", donorSearchService.getStations(citySlug));
         return "main/home";
     }
 

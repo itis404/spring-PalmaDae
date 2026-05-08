@@ -8,7 +8,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 import org.palmadae.donortrack.entity.UserEntity;
-import org.palmadae.donortrack.entity.enums.BloodType;
+import org.palmadae.donortrack.enums.BloodType;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -23,12 +24,15 @@
                 <div class="error">${errorMessage}</div>
             </c:if>
 
-            <form action="${pageContext.request.contextPath}/profile/add-donation" method="post" enctype="multipart/form-data">
+            <form:form
+                    modelAttribute="donationDto"
+                    action="${pageContext.request.contextPath}/profile/add-donation" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                 <div class="form-group">
                     <label class="donation-label">Дата донации</label>
                     <input class="donation-input" type="date" name="date" required>
+                    <form:errors path="date" cssClass="error" />
                 </div>
 
                 <div class="form-group">
@@ -41,6 +45,7 @@
                             </option>
                         </c:forEach>
                     </select>
+                    <form:errors path="donationType" cssClass="error" />
                 </div>
 
                 <div class="form-group">
@@ -50,7 +55,7 @@
 
                 <button class="donation-button" type="submit">Добавить справку</button>
 
-            </form>
+            </form:form>
 
 
 

@@ -1,4 +1,4 @@
-package org.palmadae.donortrack.entity.enums;
+package org.palmadae.donortrack.enums;
 
 public enum DonationType {
     BLOOD,

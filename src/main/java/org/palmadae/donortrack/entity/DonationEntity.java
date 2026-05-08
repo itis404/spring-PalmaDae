@@ -3,8 +3,8 @@ package org.palmadae.donortrack.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.palmadae.donortrack.entity.enums.DonationStatus;
-import org.palmadae.donortrack.entity.enums.DonationType;
+import org.palmadae.donortrack.enums.DonationStatus;
+import org.palmadae.donortrack.enums.DonationType;
 
 import java.time.LocalDate;
 

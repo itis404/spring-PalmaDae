@@ -1,12 +1,11 @@
 package org.palmadae.donortrack.repository.email;
 
-import org.palmadae.donortrack.entity.DonationEntity;
-import org.palmadae.donortrack.entity.EmailVerification;
+import org.palmadae.donortrack.entity.EmailVerificationEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface EmailVerificationJpaRepository extends JpaRepository<EmailVerification, Long> {
-    Optional<EmailVerification> findByEmail(String email);
-    Optional<EmailVerification> findByEmailAndCode(String email, String code);
+public interface EmailVerificationJpaRepository extends JpaRepository<EmailVerificationEntity, Long> {
+    Optional<EmailVerificationEntity> findByEmail(String email);
+    Optional<EmailVerificationEntity> findByEmailAndCode(String email, String code);
 }

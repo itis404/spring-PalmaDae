@@ -3,7 +3,7 @@ package org.palmadae.donortrack.entity.event;
 import jakarta.persistence.*;
 import lombok.*;
 import org.palmadae.donortrack.entity.UserEntity;
-import org.palmadae.donortrack.entity.enums.EventStatus;
+import org.palmadae.donortrack.enums.EventStatus;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

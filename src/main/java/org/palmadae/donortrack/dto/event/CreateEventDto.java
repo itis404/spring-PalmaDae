@@ -1,30 +1,28 @@
 package org.palmadae.donortrack.dto.event;
 
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
 @Data
 public class CreateEventDto {
-
-    @NotBlank
+    @NotBlank(message = "Укажите название мероприятия")
     private String title;
 
-    @NotBlank
+    @NotBlank(message = "Укажите описание мероприятия")
     private String description;
 
-    @NotNull
-    @FutureOrPresent
+    @NotNull(message = "Укажите дату мероприятия")
+    @Future(message = "Дата должна быть в будущем")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime eventDate;
 
-    @NotBlank
+    @NotBlank(message = "Укажите адрес мероприятия")
     private String address;
 
-    @NotNull
-    @Min(1)
+    @NotNull(message = "Укажите количество участников")
+    @Min(value = 1, message = "Минимальное количество участников 1")
     private Integer maxParticipants;
 }
