@@ -12,20 +12,20 @@ import org.springframework.stereotype.Component;
 
 @Data
 public class UserDto {
-    @NotBlank(message = "Username in blank")
-    @Size(min = 3, max = 16, message = "Username must be between 3 and 16 chars")
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Username can only contain letters and numbers")
+    @NotBlank(message = "Имя пользователя не может быть пустое")
+    @Size(min = 3, max = 16, message = "Имя пользователя должно быть не короче 3 и не длинее 16 символов")
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Имя пользователя может содержать лишь цифры и латинские буквы")
     private String username;
 
 
-    @NotBlank(message = "Password in blank")
-    @Size(min = 6, max = 100, message = "Password must be at least 6 characters")
+    @NotBlank(message = "Пароль не может быть пустым")
+    @Size(min = 6, max = 100, message = "Пароль не должен быть короче 6 и длинее 100 символов")
     private String password;
 
-    @NotBlank(message = "Please confirm your password")
+    @NotBlank(message = "Пожалуйста подтвердите ваш пароль")
     private String passCorrect;
 
-    @NotBlank(message = "Email in blank")
-    @Email(message = "Please provide a valid email address")
+    @NotBlank(message = "Почта не может пустой")
+    @Email(message = "Пожалуйста введите корректную почту")
     private String email;
 }

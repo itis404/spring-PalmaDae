@@ -4,6 +4,6 @@ import org.palmadae.donortrack.exception.custom.BusinessException;
 
 public class UserNotFoundException extends BusinessException {
     public UserNotFoundException(String username) {
-        super("User not found: " + username);
+        super("Пользователь не найден: " + username);
     }
 }
