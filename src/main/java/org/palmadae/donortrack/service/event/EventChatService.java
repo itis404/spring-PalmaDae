@@ -1,6 +1,6 @@
 package org.palmadae.donortrack.service.event;
 
-import org.palmadae.donortrack.dto.event.chat.ChatMessageDto;
+import org.palmadae.donortrack.dto.event.ChatMessageDto;
 import org.palmadae.donortrack.entity.UserEntity;
 import org.palmadae.donortrack.enums.EventStatus;
 import org.palmadae.donortrack.entity.event.ChatMessageEntity;

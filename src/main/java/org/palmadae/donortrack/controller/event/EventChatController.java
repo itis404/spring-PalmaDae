@@ -1,14 +1,12 @@
 package org.palmadae.donortrack.controller.event;
 
-import org.palmadae.donortrack.dto.event.chat.ChatMessageDto;
-import org.palmadae.donortrack.dto.event.chat.SendMessageDto;
+import org.palmadae.donortrack.dto.event.ChatMessageDto;
 import org.palmadae.donortrack.service.event.EventChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -30,7 +28,7 @@ public class EventChatController {
         model.addAttribute("messages",
                 eventChatService.getMessages(eventId, username));
 
-        model.addAttribute("sendMessageDto", new SendMessageDto());
+        model.addAttribute("sendMessageDto", new ChatMessageDto());
 
         return "main/event/event-chat";
     }
