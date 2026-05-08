@@ -20,7 +20,7 @@
             Запрашиваемая страница не существует или была перемещена.
         </p>
 
-        <a class="notfound-button" href="${pageContext.request.contextPath}/">
+        <a class="notfound-button" href="${pageContext.request.contextPath}/home">
             Вернуться на главную
         </a>
 

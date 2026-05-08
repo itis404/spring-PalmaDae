@@ -24,13 +24,40 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.Map;
 
 @ControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+    @ExceptionHandler(NoResourceFoundException.class)
+    public String handleNotFound(NoResourceFoundException e,
+                                 HttpServletRequest request,
+                                 HttpServletResponse response) {
+        String path = (String) request.getAttribute("jakarta.servlet.forward.request_uri");
+        if (path == null) {
+            path = request.getRequestURI();
+        }
+
+        if (path != null && (path.startsWith("/assets/") ||
+                path.startsWith("/css/") ||
+                path.startsWith("/js/") ||
+                path.endsWith(".css") ||
+                path.endsWith(".js") ||
+                path.endsWith(".jpg") ||
+                path.endsWith(".png"))) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            return null;
+        }
+
+        response.setStatus(HttpStatus.NOT_FOUND.value());
+        return "shared/error/404";
+    }
+
+
     @ExceptionHandler(Exception.class)
     public ModelAndView handleException(Exception e) {
         log.error("Необработанное исключение: ", e);
@@ -48,15 +75,6 @@ public class GlobalExceptionHandler {
 
         redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         return "redirect:/auth/login";
-    }
-
-    @ExceptionHandler
-    public ModelAndView handleNotFoundException(jakarta.servlet.ServletException e,
-                                                HttpServletResponse response) {
-
-        response.setStatus(HttpStatus.NOT_FOUND.value());
-
-        return new ModelAndView("404");
     }
 
     @ExceptionHandler(EmailAlreadyExistsException.class)
