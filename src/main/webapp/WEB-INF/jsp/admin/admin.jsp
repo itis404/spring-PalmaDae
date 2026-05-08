@@ -11,8 +11,20 @@
 </head>
 
 <body>
+<c:if test="${not empty successMessage}">
+    <div style="background-color: #d4edda; color: #155724; padding: 10px; margin: 10px; border-radius: 5px;">
+            ${successMessage}
+    </div>
+</c:if>
+
+<c:if test="${not empty errorMessage}">
+    <div style="background-color: #f8d7da; color: #721c24; padding: 10px; margin: 10px; border-radius: 5px;">
+            ${errorMessage}
+    </div>
+</c:if>
 
 <div class="block">
+
     <h3>Просмотр справок</h3>
 
     <c:forEach var="d" items="${inProgressDonations}">

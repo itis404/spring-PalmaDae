@@ -50,6 +50,7 @@ public class AdminController {
 
     @GetMapping("/in-progress")
     public String showInProgress(Model model) {
+        model.addAttribute("dateDto", new DateDto());
         fillAdminModel(model);
 
         return "admin/admin";
@@ -57,10 +58,11 @@ public class AdminController {
 
     @PostMapping("/update-status")
     public String updateStatus(@RequestParam Long id,
-                               @RequestParam DonationStatus status) {
-
-        donationService.updateStatus(id, status);
-
+                               @RequestParam String status,
+                               RedirectAttributes redirectAttributes) {
+        DonationStatus donationStatus = DonationStatus.valueOf(status);
+        donationService.updateStatus(id, donationStatus);
+        redirectAttributes.addFlashAttribute("successMessage", "Статус донации успешно обновлен на " + status);
         return "redirect:/admin/in-progress";
     }
 
