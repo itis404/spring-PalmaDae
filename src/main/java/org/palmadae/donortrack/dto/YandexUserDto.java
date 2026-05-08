@@ -7,7 +7,6 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class YandexUserDto {
-
     private String id;
 
     private String login;

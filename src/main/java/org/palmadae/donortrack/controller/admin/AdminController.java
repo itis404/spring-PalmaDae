@@ -1,5 +1,6 @@
 package org.palmadae.donortrack.controller.admin;
 
+import lombok.extern.slf4j.Slf4j;
 import org.palmadae.donortrack.enums.DonationStatus;
 import org.palmadae.donortrack.service.event.EventService;
 import org.palmadae.donortrack.service.donation.DonationService;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 
+@Slf4j
 @PreAuthorize("hasRole('ADMIN')")
 @Controller
 @RequestMapping("/admin")
@@ -30,7 +32,7 @@ public class AdminController {
 
     @GetMapping()
     public String showAdminPanel(Model model) {
-
+        log.info("Admin panel accessed");
 
         fillAdminModel(model);
 
@@ -44,8 +46,12 @@ public class AdminController {
             LocalDate date,
             RedirectAttributes redirectAttributes
     ) {
-        redirectAttributes.addFlashAttribute("donationsByDate",
-                donationService.getDonationsInDate(date));
+        log.info("Filtering donations by date: {}", date);
+
+        redirectAttributes.addFlashAttribute(
+                "donationsByDate",
+                donationService.getDonationsInDate(date)
+        );
 
         redirectAttributes.addFlashAttribute("selectedDate", date);
 
@@ -54,6 +60,8 @@ public class AdminController {
 
     @GetMapping("/in-progress")
     public String showInProgress(Model model) {
+        log.info("Admin requested in-progress donations view");
+
         fillAdminModel(model);
 
         return "admin/admin";
@@ -63,26 +71,40 @@ public class AdminController {
     public String updateStatus(@RequestParam Long id,
                                @RequestParam String status,
                                RedirectAttributes redirectAttributes) {
+
+        log.info("Updating donation status: donationId={}, newStatus={}", id, status);
+
         DonationStatus donationStatus = DonationStatus.valueOf(status);
         donationService.updateStatus(id, donationStatus);
-        redirectAttributes.addFlashAttribute("successMessage", "Статус донации успешно обновлен на " + status);
+
+        redirectAttributes.addFlashAttribute(
+                "successMessage",
+                "Статус донации успешно обновлен на " + status
+        );
+
         return "redirect:/admin/in-progress";
     }
 
     @PostMapping("/approve-event")
     public String approveEvent(@RequestParam Long eventId) {
+        log.info("Approving event: eventId={}", eventId);
+
         eventService.approveEvent(eventId);
         return "redirect:/admin";
     }
 
     @PostMapping("/reject-event")
     public String rejectEvent(@RequestParam Long eventId) {
+        log.info("Rejecting event: eventId={}", eventId);
+
         eventService.rejectEvent(eventId);
         return "redirect:/admin";
     }
 
     private void fillAdminModel(Model model) {
-        model.addAttribute("inProgressDonations", donationService.getByStatus(DonationStatus.IN_PROGRESS));
+        model.addAttribute("inProgressDonations",
+                donationService.getByStatus(DonationStatus.IN_PROGRESS));
+
         model.addAttribute("pendingEvents", eventService.getPendingEvents());
         model.addAttribute("updatedEvents", eventService.getUpdatedEvents());
     }

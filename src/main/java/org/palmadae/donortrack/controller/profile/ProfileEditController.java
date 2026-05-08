@@ -1,6 +1,7 @@
 package org.palmadae.donortrack.controller.profile;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.palmadae.donortrack.dto.profile.BloodTypeChangeDto;
 import org.palmadae.donortrack.dto.profile.CityChangeDto;
 import org.palmadae.donortrack.dto.profile.EmailChangeDto;
@@ -19,9 +20,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/profile/edit")
 public class ProfileEditController {
+
     @Autowired
     private UserService userService;
 
@@ -29,16 +32,20 @@ public class ProfileEditController {
     private DadataService dadataService;
 
     @GetMapping
-    public String showPage(
-            Model model, Authentication auth
-    )
-    {
+    public String showPage(Model model, Authentication auth) {
+        log.info("Profile edit page accessed");
+
         String username = auth.getName();
         UserEntity user = userService.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> {
+                    log.warn("User not found during profile edit page access");
+                    return new RuntimeException("User not found");
+                });
+
         model.addAttribute("currentBloodType", user.getBloodType());
         model.addAttribute("bloodTypes", BloodType.values());
         model.addAttribute("authProvider", user.getProvider());
+
         return "profile/edit-profile";
     }
 
@@ -47,13 +54,21 @@ public class ProfileEditController {
                               BindingResult result,
                               RedirectAttributes redirectAttributes,
                               Authentication auth) {
+
         if (result.hasErrors()) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Invalid email");
+            log.warn("Email change validation failed");
+            redirectAttributes.addFlashAttribute("errorMessage", "Некорретктная почта");
             return "redirect:/profile/edit";
         }
+
         String username = auth.getName();
+        log.info("Email change requested");
+
         userService.changeEmail(username, dto);
-        redirectAttributes.addFlashAttribute("successMessage", "Email updated");
+
+        log.info("Email successfully updated");
+
+        redirectAttributes.addFlashAttribute("successMessage", "Почта обновлена");
         return "redirect:/profile/edit";
     }
 
@@ -62,13 +77,21 @@ public class ProfileEditController {
                                  BindingResult result,
                                  RedirectAttributes redirectAttributes,
                                  Authentication auth) {
+
         if (result.hasErrors() || !dto.getNewPassword().equals(dto.getConfirmPassword())) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Passwords do not match or invalid");
+            log.warn("Password change validation failed");
+            redirectAttributes.addFlashAttribute("errorMessage", "Пароль не совпадают");
             return "redirect:/profile/edit";
         }
+
         String username = auth.getName();
+        log.info("Password change requested");
+
         userService.changePassword(username, dto);
-        redirectAttributes.addFlashAttribute("successMessage", "Password changed");
+
+        log.info("Password successfully updated");
+
+        redirectAttributes.addFlashAttribute("successMessage", "Пароль изменён");
         return "redirect:/profile/edit";
     }
 
@@ -76,9 +99,15 @@ public class ProfileEditController {
     public String changeBloodType(@ModelAttribute BloodTypeChangeDto dto,
                                   RedirectAttributes redirectAttributes,
                                   Authentication auth) {
+
         String username = auth.getName();
+        log.info("Blood type update requested");
+
         userService.changeBloodType(username, dto.getBloodType());
-        redirectAttributes.addFlashAttribute("successMessage", "Blood type updated");
+
+        log.info("Blood type updated");
+
+        redirectAttributes.addFlashAttribute("successMessage", "Группа крови изменена");
         return "redirect:/profile/edit";
     }
 
@@ -89,11 +118,15 @@ public class ProfileEditController {
                              Authentication auth) {
 
         if (result.hasErrors()) {
-            redirectAttributes.addFlashAttribute("errorMessage", "City cannot be empty");
+            log.warn("City change validation failed");
             return "redirect:/profile/edit";
         }
 
+        log.info("City update requested");
+
         userService.changeCity(auth.getName(), dto.getCity().trim());
+
+        log.info("City updated");
 
         redirectAttributes.addFlashAttribute("successMessage", "City updated");
         return "redirect:/profile/edit";
@@ -102,6 +135,8 @@ public class ProfileEditController {
     @GetMapping("/city/search")
     @ResponseBody
     public List<String> searchCity(@RequestParam String query) {
+        log.debug("City search request received");
+
         return dadataService.suggestCities(query);
     }
 }

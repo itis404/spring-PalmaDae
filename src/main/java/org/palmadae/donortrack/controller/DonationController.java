@@ -8,6 +8,7 @@ import org.palmadae.donortrack.enums.DonationStatus;
 import org.palmadae.donortrack.enums.DonationType;
 import org.palmadae.donortrack.service.donation.DonationService;
 import org.palmadae.donortrack.service.user.UserService;
+import org.palmadae.donortrack.util.DtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ public class DonationController {
     @Autowired
     private UserService userService;
 
+    private DtoMapper dtoMapper;
 
     @GetMapping
     public String showPage(Model model) {
@@ -53,14 +55,7 @@ public class DonationController {
         UserEntity user = userService.findByUsername(name)
                 .orElseThrow(() -> new RuntimeException("User not found: " + name));
 
-        DonationEntity donationEntity = DonationEntity.builder()
-                .date(dto.getDate())
-                .donationStatus(DonationStatus.IN_PROGRESS)
-                .donationType(dto.getDonationType())
-                .user(user)
-                .build();
-
-        donationService.saveDonation(donationEntity, certificateFile);
+        donationService.saveDonation(dtoMapper.donationDtoToEntity(dto, user), certificateFile);
 
         return "redirect:/profile";
     }
