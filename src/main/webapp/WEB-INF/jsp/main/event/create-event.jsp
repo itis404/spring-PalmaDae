@@ -47,5 +47,9 @@
 
         </div>
 
+        <div class="back-link">
+            <a href="/profile">Обратно в профиль</a>
+        </div>
+
     </body>
 </html>

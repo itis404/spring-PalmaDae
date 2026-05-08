@@ -1,3 +1,9 @@
+.profile-body {
+    margin: 0;
+    font-family: sans-serif;
+    background: #f3f3f3;
+}
+
 .profile-button {
     padding: 15px;
     margin-top: 15px;
@@ -25,7 +31,6 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 
     text-align: center;
-    font-family: Arial, sans-serif;
 
     transition: transform 0.2s ease;
 }

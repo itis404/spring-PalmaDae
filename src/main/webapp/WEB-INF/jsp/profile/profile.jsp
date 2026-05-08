@@ -5,7 +5,7 @@
         <title>Profile</title>
         <link rel="stylesheet" href="/assets/css/profile.css">
     </head>
-    <body>
+    <body class="profile-body">
         <jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
         <div id="user-info" class="profile-div">
             <h1>${profile.username}</h1>

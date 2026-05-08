@@ -5,46 +5,7 @@
 <html>
 <head>
     <title>Error</title>
-    <link rel="stylesheet" href="/assets/css/auth.css">
-
-    <style>
-        .error-box {
-            text-align: center;
-            padding: 30px;
-        }
-
-        .error-title {
-            color: #ff0004;
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-
-        .error-message {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 16px;
-            word-break: break-word;
-        }
-
-        .error-details {
-            background: #f8f8f8;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 12px;
-            color: #666;
-            text-align: left;
-            max-height: 200px;
-            overflow: auto;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 20px;
-            color: #ff0004;
-            text-decoration: none;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="/assets/css/error.css">
 </head>
 
 <body class="auth-body">

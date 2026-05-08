@@ -11,6 +11,11 @@
 
         <jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
 
+        <c:if test="${not empty errorMessage}">
+            <div class="success">${successMessage}</div>
+            <div class="error">${errorMessage}</div>
+        </c:if>
+
         <div class="profile-edit-container">
 
             <c:if test="${authProvider} == 'LOCAL'">
@@ -104,16 +109,6 @@
             </div>
 
         </div>
-
-        <c:if test="${not empty successMessage}">
-        <h1 class="profile-edit-title">Edit Profile</h1>
-        </c:if>
-
-        <c:if test="${not empty errorMessage}">
-            <div class="success">${successMessage}</div>
-        </c:if>
-
-            <div class="error">${errorMessage}</div>
 
         <div class="back-link">
             <a href="/profile">Обратно в профиль</a>

@@ -126,10 +126,6 @@ public class YandexOAuthController {
                         List.of(new SimpleGrantedAuthority(user.getRole().name()))
                 );
 
-        System.out.println("AUTH CLASS = " + auth.getClass());
-        System.out.println("PRINCIPAL CLASS = " + auth.getPrincipal().getClass());
-        System.out.println("NAME = " + auth.getName());
-
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         request.getSession(true).setAttribute(
