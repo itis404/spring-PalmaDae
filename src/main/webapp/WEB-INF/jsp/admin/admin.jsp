@@ -58,17 +58,14 @@
 <div class="block">
     <h3>Просмотр по дате</h3>
 
-    <form:form method="post"
-               modelAttribute="dateDto"
-               action="${pageContext.request.contextPath}/admin/date">
+    <form method="post" action="${pageContext.request.contextPath}/admin/date">
 
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-        <label>Дата донации</label>
-        <form:input path="date" type="date" required="true"/>
+        <input type="date" name="date" value="${selectedDate}"/>
 
         <button type="submit">Search</button>
-    </form:form>
+    </form>
 
     <c:if test="${not empty donationsByDate}">
         <c:forEach var="d" items="${donationsByDate}">

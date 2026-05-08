@@ -1,13 +1,17 @@
 package org.palmadae.donortrack.dto.event;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
 @Data
-public class CreateEventDto {
+public class EventDto {
+
     @NotBlank(message = "Укажите название мероприятия")
     private String title;
 

@@ -1,7 +1,6 @@
 package org.palmadae.donortrack.service.event;
 
-import org.palmadae.donortrack.dto.event.CreateEventDto;
-import org.palmadae.donortrack.dto.event.UpdateEventDto;
+import org.palmadae.donortrack.dto.event.EventDto;
 import org.palmadae.donortrack.entity.event.EventChatEntity;
 import org.palmadae.donortrack.entity.event.EventEntity;
 import org.palmadae.donortrack.entity.UserEntity;
@@ -32,7 +31,7 @@ public class EventService {
     @Autowired
     private UserService userService;
 
-    public EventEntity createEvent(CreateEventDto dto, String username) {
+    public EventEntity createEvent(EventDto dto, String username) {
         UserEntity organizer = userService.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
 
@@ -186,7 +185,7 @@ public class EventService {
     }
 
 
-    public EventEntity updateEvent(Long eventId, UpdateEventDto dto, String username) {
+    public EventEntity updateEvent(Long eventId, EventDto dto, String username) {
         EventEntity event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new EventNotFoundException(eventId));
 

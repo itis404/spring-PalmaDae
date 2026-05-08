@@ -1,8 +1,8 @@
 package org.palmadae.donortrack.controller.event;
 
 import jakarta.validation.Valid;
-import org.palmadae.donortrack.dto.event.CreateEventDto;
-import org.palmadae.donortrack.dto.event.UpdateEventDto;
+import org.palmadae.donortrack.dto.event.EventDto;
+import org.palmadae.donortrack.dto.event.EventDto;
 import org.palmadae.donortrack.enums.EventStatus;
 import org.palmadae.donortrack.entity.event.EventEntity;
 import org.palmadae.donortrack.service.event.EventService;
@@ -23,13 +23,13 @@ public class EventController {
 
     @GetMapping("/create")
     public String showCreateForm(Model model) {
-        model.addAttribute("eventDto", new CreateEventDto());
+        model.addAttribute("eventDto", new EventDto());
         return "main/event/create-event";
     }
 
     @PostMapping("/create")
     public String createEvent(
-            @Valid @ModelAttribute("eventDto") CreateEventDto eventDto,
+            @Valid @ModelAttribute("eventDto") EventDto eventDto,
             BindingResult bindingResult,
             Authentication auth,
             RedirectAttributes redirectAttributes
@@ -99,7 +99,7 @@ public class EventController {
 
     @PostMapping("/edit/{eventId}")
     public String updateEvent(@PathVariable Long eventId,
-                              @ModelAttribute UpdateEventDto dto,
+                              @ModelAttribute EventDto dto,
                               Authentication auth,
                               RedirectAttributes redirectAttributes) {
         eventService.updateEvent(eventId, dto, auth.getName());

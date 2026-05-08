@@ -3,8 +3,7 @@ package org.palmadae.donortrack.controller.event;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.palmadae.donortrack.dto.event.CreateEventDto;
-import org.palmadae.donortrack.dto.event.UpdateEventDto;
+import org.palmadae.donortrack.dto.event.EventDto;
 import org.palmadae.donortrack.entity.event.EventEntity;
 import org.palmadae.donortrack.service.event.EventService;
 import org.springframework.security.core.Authentication;
@@ -34,14 +33,14 @@ public class EventRestController {
 
     @Operation(summary = "Создать мероприятие")
     @PostMapping
-    public EventEntity create(@RequestBody CreateEventDto dto, Authentication auth) {
+    public EventEntity create(@RequestBody EventDto dto, Authentication auth) {
         return eventService.createEvent(dto, auth.getName());
     }
 
     @Operation(summary = "Обновить мероприятие")
     @PutMapping("/{id}")
     public EventEntity update(@PathVariable Long id,
-                              @RequestBody UpdateEventDto dto,
+                              @RequestBody EventDto dto,
                               Authentication auth) {
         return eventService.updateEvent(id, dto, auth.getName());
     }
