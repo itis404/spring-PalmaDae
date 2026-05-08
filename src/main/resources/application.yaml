@@ -2,11 +2,11 @@ spring:
   application:
     name: DonorTrack
   datasource:
-    url: jdbc:postgresql://localhost:5432/donortrack
+    url: jdbc:postgresql://db:5432/donortrack
     username: postgres
     password: 010909
   redis:
-    host: localhost
+    host: redis
     port: 6379
   mvc:
     view:

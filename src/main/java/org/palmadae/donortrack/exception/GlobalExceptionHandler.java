@@ -1,6 +1,7 @@
 package org.palmadae.donortrack.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,6 +18,7 @@ import org.palmadae.donortrack.exception.custom.event.chat.EventChatNotFoundExce
 import org.palmadae.donortrack.exception.custom.event.chat.EventChatSecurityException;
 import org.palmadae.donortrack.exception.custom.user.InvalidOldPasswordException;
 import org.palmadae.donortrack.exception.custom.user.UserNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -46,6 +48,15 @@ public class GlobalExceptionHandler {
 
         redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         return "redirect:/auth/login";
+    }
+
+    @ExceptionHandler
+    public ModelAndView handleNotFoundException(jakarta.servlet.ServletException e,
+                                                HttpServletResponse response) {
+
+        response.setStatus(HttpStatus.NOT_FOUND.value());
+
+        return new ModelAndView("404");
     }
 
     @ExceptionHandler(EmailAlreadyExistsException.class)

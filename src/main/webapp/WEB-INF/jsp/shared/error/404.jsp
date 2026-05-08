@@ -1,16 +1,32 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: palmadae
-  Date: 01.05.2026
-  Time: 17:44
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
-    <title>Title</title>
+    <title>404 - Страница не найдена</title>
+    <link rel="stylesheet" href="/assets/css/404.css">
 </head>
-<body>
+
+<body class="notfound-body">
+
+<div class="notfound-wrapper">
+
+    <div class="notfound-card">
+
+        <div class="notfound-code">404</div>
+
+        <h1 class="notfound-title">Страница не найдена</h1>
+
+        <p class="notfound-text">
+            Запрашиваемая страница не существует или была перемещена.
+        </p>
+
+        <a class="notfound-button" href="${pageContext.request.contextPath}/">
+            Вернуться на главную
+        </a>
+
+    </div>
+
+</div>
 
 </body>
 </html>
