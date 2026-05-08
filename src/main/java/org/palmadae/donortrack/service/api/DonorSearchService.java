@@ -2,11 +2,14 @@ package org.palmadae.donortrack.service.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.annotation.PostConstruct;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.palmadae.donortrack.config.api.DonorSearchConfig;
 import org.palmadae.donortrack.dto.donorsearch.BloodStationDto;
 import org.palmadae.donortrack.exception.custom.api.donorsearch.DonorSearchUnavailableException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,12 +18,24 @@ import java.util.List;
 @Service
 public class DonorSearchService {
 
+    @Autowired
+    private DonorSearchConfig donorSearchConfig;
+
     private final OkHttpClient httpClient = new OkHttpClient();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    private String baseUrl;
+    private String stationsEndpoint;
+
+    @PostConstruct
+    public void init() {
+        this.baseUrl = donorSearchConfig.getApi().getBaseUrl();
+        this.stationsEndpoint = donorSearchConfig.getApi().getEndPoints().getStations();
+    }
+
     public List<BloodStationDto> getStations(String citySlug) {
 
-        String url = "https://api2.donorsearch.org/api/blood_stations/?city_slug=" + citySlug;
+        String url = baseUrl + stationsEndpoint + citySlug;
 
         Request request = new Request.Builder()
                 .url(url)
@@ -46,11 +61,9 @@ public class DonorSearchService {
                 }
             }
 
-            stations = stations.stream()
+            return stations.stream()
                     .filter(s -> s.getClosed() == null || !s.getClosed())
                     .toList();
-
-            return stations;
 
         } catch (Exception e) {
             throw new DonorSearchUnavailableException("DonorSearch API failed", e);

@@ -38,8 +38,7 @@ donorsearch:
   api:
     base-url: https://api2.donorsearch.org/api/
     end-points:
-      stations: /api/blood_stations/?city_slug=
-
+      stations: blood_stations/?city_slug=
 
 dadata:
   api-token: ec00a2192ae81fa6ae42043b223c7ede21e932ea
