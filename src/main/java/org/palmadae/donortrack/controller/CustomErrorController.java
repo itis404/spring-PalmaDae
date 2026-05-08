@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.boot.webmvc.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -36,5 +37,10 @@ public class CustomErrorController implements ErrorController {
         }
 
         return "error";
+    }
+
+    @GetMapping("/error/403")
+    public String forbidden() {
+        return "shared/error/403";
     }
 }

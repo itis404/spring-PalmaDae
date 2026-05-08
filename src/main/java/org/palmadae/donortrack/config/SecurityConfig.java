@@ -44,6 +44,7 @@ public class SecurityConfig {
                         .requestMatchers("/WEB-INF/jsp/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/oauth/yandex/**").permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers(
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
@@ -63,6 +64,9 @@ public class SecurityConfig {
                             .key("donortrack-remember-me")
                             .tokenValiditySeconds(60*60*24*30)
                             .rememberMeParameter("remember-me")
+                )
+                .exceptionHandling(ex -> ex
+                        .accessDeniedPage("/error/403")
                 )
                 .csrf(Customizer.withDefaults());
         return http.build();

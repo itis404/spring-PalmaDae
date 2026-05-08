@@ -58,6 +58,7 @@ public class GlobalExceptionHandler {
     }
 
 
+
     @ExceptionHandler(Exception.class)
     public ModelAndView handleException(Exception e) {
         log.error("Необработанное исключение: ", e);
