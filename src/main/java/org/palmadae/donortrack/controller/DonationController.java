@@ -2,9 +2,7 @@ package org.palmadae.donortrack.controller;
 
 import jakarta.validation.Valid;
 import org.palmadae.donortrack.dto.DonationDto;
-import org.palmadae.donortrack.entity.DonationEntity;
 import org.palmadae.donortrack.entity.UserEntity;
-import org.palmadae.donortrack.enums.DonationStatus;
 import org.palmadae.donortrack.enums.DonationType;
 import org.palmadae.donortrack.service.donation.DonationService;
 import org.palmadae.donortrack.service.user.UserService;
@@ -27,12 +25,12 @@ public class DonationController {
     @Autowired
     private UserService userService;
 
+    @Autowired
     private DtoMapper dtoMapper;
 
     @GetMapping
     public String showPage(Model model) {
-        model.addAttribute("donationTypes", DonationType.values());
-        model.addAttribute("donationDto", new DonationDto());
+        fillDonationModel(model);
         return "profile/add-donation";
     }
 
@@ -52,11 +50,15 @@ public class DonationController {
 
         String name = auth.getName();
 
-        UserEntity user = userService.findByUsername(name)
-                .orElseThrow(() -> new RuntimeException("User not found: " + name));
+        UserEntity user = userService.findByUsername(name);
 
         donationService.saveDonation(dtoMapper.donationDtoToEntity(dto, user), certificateFile);
 
         return "redirect:/profile";
+    }
+
+    private void fillDonationModel(Model model) {
+        model.addAttribute("donationTypes", DonationType.values());
+        model.addAttribute("donationDto", new DonationDto());
     }
 }

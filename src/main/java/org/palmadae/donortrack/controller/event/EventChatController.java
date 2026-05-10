@@ -8,12 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/events/chat")
 public class EventChatController {
-
     @Autowired
     private EventChatService eventChatService;
 
@@ -22,13 +19,7 @@ public class EventChatController {
                            Authentication auth,
                            Model model) {
 
-        String username = auth.getName();
-
-        model.addAttribute("eventId", eventId);
-        model.addAttribute("messages",
-                eventChatService.getMessages(eventId, username));
-
-        model.addAttribute("sendMessageDto", new ChatMessageDto());
+        fillEventChatModel(model, auth, eventId);
 
         return "main/event/event-chat";
     }
@@ -45,7 +36,6 @@ public class EventChatController {
         }
 
         eventChatService.sendMessage(eventId, message, username);
-
         return "ok";
     }
 
@@ -54,8 +44,14 @@ public class EventChatController {
     public Object getMessages(@PathVariable Long eventId,
                               Authentication auth) {
         String username = auth.getName();
-        List<ChatMessageDto> messages = eventChatService.getMessages(eventId, username);
-        System.out.println("Messages count: " + (messages != null ? messages.size() : 0));
-        return messages;
+        return eventChatService.getMessages(eventId, username);
+    }
+
+    private void fillEventChatModel(Model model, Authentication auth, Long eventId) {
+        String username = auth.getName();
+        model.addAttribute("eventId", eventId);
+        model.addAttribute("messages",
+                eventChatService.getMessages(eventId, username));
+        model.addAttribute("sendMessageDto", new ChatMessageDto());
     }
 }

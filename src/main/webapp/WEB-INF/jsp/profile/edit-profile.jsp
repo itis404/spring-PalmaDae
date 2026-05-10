@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -10,7 +11,6 @@
 <body class="profile-edit-body">
 
 <jsp:include page="/WEB-INF/jsp/shared/header.jsp" />
-
 
 <c:if test="${not empty successMessage}">
     <div class="success-message" style="background-color: #d4edda; color: #155724; padding: 10px; margin: 10px auto; width: 80%; border-radius: 5px; text-align: center;">
@@ -30,48 +30,52 @@
         <div class="profile-card">
             <h3>Сменить почту</h3>
 
-            <form action="${pageContext.request.contextPath}/profile/edit/email" method="post">
+            <form:form action="${pageContext.request.contextPath}/profile/edit/email" method="post" modelAttribute="emailChangeDto">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                 <div class="form-group">
                     <label>Новая почта:</label>
-                    <input type="email" name="newEmail" required class="profile-input"/>
+                    <form:input type="email" path="newEmail" cssClass="profile-input"/>
+                    <form:errors path="newEmail" cssClass="error" />
                 </div>
 
                 <button class="profile-button" type="submit">Обновить почту</button>
-            </form>
+            </form:form>
         </div>
 
         <div class="profile-card">
             <h3>Сменить пароль</h3>
 
-            <form action="${pageContext.request.contextPath}/profile/edit/password" method="post">
+            <form:form action="${pageContext.request.contextPath}/profile/edit/password" method="post" modelAttribute="passwordChangeDto">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                 <div class="form-group">
                     <label>Старый пароль:</label>
-                    <input type="password" name="oldPassword" required class="profile-input"/>
+                    <form:password path="oldPassword" cssClass="profile-input"/>
+                    <form:errors path="oldPassword" cssClass="error" />
                 </div>
 
                 <div class="form-group">
                     <label>Новый пароль:</label>
-                    <input type="password" name="newPassword" required class="profile-input"/>
+                    <form:password path="newPassword" cssClass="profile-input"/>
+                    <form:errors path="newPassword" cssClass="error" />
                 </div>
 
                 <div class="form-group">
                     <label>Подтвердите новый пароль:</label>
-                    <input type="password" name="confirmPassword" required class="profile-input"/>
+                    <form:password path="confirmPassword" cssClass="profile-input"/>
+                    <form:errors path="confirmPassword" cssClass="error" />
                 </div>
 
                 <button class="profile-button" type="submit">Сменить пароль</button>
-            </form>
+            </form:form>
         </div>
     </c:if>
 
     <div class="profile-card">
         <h3>Сменить группу крови</h3>
 
-        <form action="${pageContext.request.contextPath}/profile/edit/bloodtype" method="post">
+        <form:form action="${pageContext.request.contextPath}/profile/edit/bloodtype" method="post" modelAttribute="bloodTypeChangeDto">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
             <div class="form-group">
@@ -80,30 +84,31 @@
                     <option value="">-- Не выбрана --</option>
                     <c:forEach items="${bloodTypes}" var="type">
                         <option value="${type}" ${type == currentBloodType ? 'selected' : ''}>
-                                ${type}
+                                ${type.displayName}
                         </option>
                     </c:forEach>
                 </select>
             </div>
 
             <button class="profile-button" type="submit">Обновить группу крови</button>
-        </form>
+        </form:form>
     </div>
 
     <div class="profile-card">
         <h3>Сменить город</h3>
 
-        <div class="form-group">
-            <label>Введите город:</label>
-            <input type="text" id="cityInput" autocomplete="off" class="profile-input"/>
-            <div id="suggestions" class="suggestions-box"></div>
-        </div>
-
-        <form action="${pageContext.request.contextPath}/profile/edit/city" method="post" id="cityForm">
+        <form:form action="${pageContext.request.contextPath}/profile/edit/city" method="post" id="cityForm" modelAttribute="cityChangeDto">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <input type="hidden" id="cityHidden" name="city"/>
+
+            <div class="form-group">
+                <label>Введите город:</label>
+                <form:input path="city" id="cityInput" autocomplete="off" cssClass="profile-input"/>
+                <form:errors path="city" cssClass="error" />
+                <div id="suggestions" class="suggestions-box"></div>
+            </div>
+
             <button class="profile-button" type="submit">Сохранить</button>
-        </form>
+        </form:form>
     </div>
 </div>
 

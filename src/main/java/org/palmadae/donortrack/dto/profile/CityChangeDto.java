@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Data
 public class CityChangeDto {
-    @NotBlank
+    @NotBlank(message = "Город не должен быть пустым")
     private String city;
 }

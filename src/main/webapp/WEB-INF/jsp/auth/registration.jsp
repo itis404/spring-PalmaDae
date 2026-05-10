@@ -7,60 +7,77 @@
 </head>
 
 <body class="auth-body">
-<div class="auth-div">
+    <div class="auth-div">
 
-    <h2 class="auth-h1">Registration Form</h2>
+        <h2 class="auth-h1">Registration Form</h2>
 
-    <form:form method="post"
-               modelAttribute="userForm"
-               action="${pageContext.request.contextPath}/auth/registration">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <form:form method="post"
+                   modelAttribute="userDto"
+                   action="${pageContext.request.contextPath}/auth/registration">
 
-        <form:errors path="*" cssClass="error-block"/>
+            <input type="hidden"
+                   name="${_csrf.parameterName}"
+                   value="${_csrf.token}"/>
+            <div class="form-group">
 
-        <div class="form-group">
+                <label class="auth-label">Имя пользователя:</label>
 
-            <label class="auth-label">Имя пользователя:</label>
-            <form:input path="username" cssClass="auth-input"/>
-            <form:errors path="username" cssClass="error"/>
+                <form:input path="username"
+                            cssClass="auth-input"
+                            placeholder="Введите имя пользователя"/>
 
-        </div>
+                <form:errors path="username" />
 
-        <div class="form-group">
+            </div>
 
-            <label class="auth-label">Пароль:</label>
-            <form:input path="password" type="password" cssClass="auth-input"/>
-            <form:errors path="password" cssClass="error"/>
+            <div class="form-group">
 
-        </div>
+                <label class="auth-label">Пароль:</label>
 
-        <div class="form-group">
+                <form:password path="password"
+                               cssClass="auth-input"
+                               placeholder="Введите пароль"/>
 
-            <label class="auth-label">Подтвердите пароль:</label>
-            <form:input path="passCorrect" type="password" cssClass="auth-input"/>
-            <form:errors path="passCorrect" cssClass="error"/>
+                <form:errors path="password" />
 
-        </div>
+            </div>
 
-        <div class="form-group">
+            <div class="form-group">
 
-            <label class="auth-label">Электронная почта:</label>
-            <form:input path="email" type="email" cssClass="auth-input"/>
-            <form:errors path="email" cssClass="error"/>
+                <label class="auth-label">Подтвердите пароль:</label>
 
-        </div>
+                <form:password path="passCorrect"
+                               cssClass="auth-input"
+                               placeholder="Повторите пароль"/>
 
-        <button type="submit" class="auth-button">
-            Зарегистрироваться
-        </button>
+                <form:errors path="passCorrect" />
 
-    </form:form>
-    <p>Уже зарегистрированы?
-        <a href="${pageContext.request.contextPath}/auth/login" style="text-decoration: none;">
-            Войти
-        </a>
-    </p>
+            </div>
 
-</div>
+            <div class="form-group">
+
+                <label class="auth-label">Электронная почта:</label>
+
+                <form:input path="email"
+                            type="email"
+                            cssClass="auth-input"
+                            placeholder="Введите email"/>
+
+                <form:errors path="email" />
+
+            </div>
+
+            <button type="submit" class="auth-button">
+                Зарегистрироваться
+            </button>
+
+        </form:form>
+        <p>Уже зарегистрированы?
+            <a href="${pageContext.request.contextPath}/auth/login" style="text-decoration: none;">
+                Войти
+            </a>
+        </p>
+
+    </div>
 
 </body>

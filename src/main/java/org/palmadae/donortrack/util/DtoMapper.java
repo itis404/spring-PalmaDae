@@ -6,12 +6,11 @@ import org.palmadae.donortrack.entity.DonationEntity;
 import org.palmadae.donortrack.entity.UserEntity;
 import org.palmadae.donortrack.entity.event.EventEntity;
 import org.palmadae.donortrack.enums.DonationStatus;
+import org.palmadae.donortrack.enums.EventStatus;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DtoMapper {
-    public EventEntity eventDtoToEntity(EventDto eventDto) {
-
-    }
-
     public DonationEntity donationDtoToEntity(DonationDto donationDto, UserEntity user) {
         DonationEntity donationEntity = DonationEntity.builder()
                 .date(donationDto.getDate())
@@ -31,5 +30,20 @@ public class DtoMapper {
                 .build();
 
         return donationEntity;
+    }
+
+    public EventDto eventEntityToDto(EventEntity eventEntity) {
+        if (eventEntity == null) {
+            return null;
+        }
+
+        return EventDto.builder()
+                .id(eventEntity.getId())
+                .title(eventEntity.getTitle())
+                .description(eventEntity.getDescription())
+                .address(eventEntity.getAddress())
+                .eventDate(eventEntity.getEventDate())
+                .maxParticipants(eventEntity.getMaxParticipants())
+                .build();
     }
 }

@@ -10,6 +10,6 @@ import org.springframework.stereotype.Component;
 @Data
 public class EmailChangeDto {
     @NotBlank
-    @Email
+    @Email(message = "Почта должна быть корректной")
     private String newEmail;
 }

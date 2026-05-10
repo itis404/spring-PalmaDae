@@ -21,20 +21,9 @@ public class HomeController {
     @Autowired
     private DonorSearchService donorSearchService;
 
-
     @GetMapping("/home")
     public String showPage(Model model, Authentication auth) {
-
-        String identifier = auth.getName();
-
-        UserEntity user = userService.findByUsername(identifier)
-                .orElseGet(() ->
-                        userService.findByYandexId(identifier)
-                                .orElseThrow(() -> new RuntimeException("User not found: " + identifier))
-                );
-
-        String citySlug = toCitySlug(user.getCity());
-        model.addAttribute("stations", donorSearchService.getStations(citySlug));
+        fillProfileModel(model, auth);
         return "main/home";
     }
 
@@ -47,5 +36,12 @@ public class HomeController {
             case "санкт-петербург" -> "saint-petersburg";
             default -> city.toLowerCase();
         };
+    }
+
+    private void fillProfileModel(Model model, Authentication auth) {
+        String identifier = auth.getName();
+        UserEntity user = userService.findUserByIdentifier(identifier);
+        String citySlug = toCitySlug(user.getCity());
+        model.addAttribute("stations", donorSearchService.getStations(citySlug));
     }
 }

@@ -2,7 +2,7 @@
 
 <html>
 <head>
-    <title>404 - Страница не найдена</title>
+    <title>403 - Доступ запрешён</title>
     <link rel="stylesheet" href="/assets/css/404.css">
 </head>
 

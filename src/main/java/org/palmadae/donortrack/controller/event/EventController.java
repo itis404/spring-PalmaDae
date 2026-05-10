@@ -5,6 +5,7 @@ import org.palmadae.donortrack.dto.event.EventDto;
 import org.palmadae.donortrack.enums.EventStatus;
 import org.palmadae.donortrack.entity.event.EventEntity;
 import org.palmadae.donortrack.service.event.EventService;
+import org.palmadae.donortrack.util.DtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -18,9 +19,11 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/events")
 public class EventController {
-
     @Autowired
     private EventService eventService;
+
+    @Autowired
+    private DtoMapper dtoMapper;
 
     @GetMapping("/create")
     public String showCreateForm(Model model) {
@@ -37,12 +40,10 @@ public class EventController {
             Authentication auth,
             RedirectAttributes redirectAttributes
     ) {
-
         if (bindingResult.hasErrors()) {
             log.warn("Event creation validation failed");
             return "main/event/create-event";
         }
-
         log.info("Event creation requested");
 
         eventService.createEvent(eventDto, auth.getName());
@@ -76,24 +77,7 @@ public class EventController {
 
         EventEntity event = eventService.getByEventId(eventId);
 
-        if (event.getStatus() == EventStatus.APPROVED) {
-            eventService.joinEvent(eventId, auth.getName());
-
-            log.info("User joined event: eventId={}", eventId);
-
-            redirectAttributes.addFlashAttribute(
-                    "success",
-                    "Вы успешно присоединились к мероприятию"
-            );
-
-        } else {
-            log.warn("Attempt to join unavailable event: eventId={}, status={}", eventId, event.getStatus());
-
-            redirectAttributes.addFlashAttribute(
-                    "error",
-                    "Данное мероприятие недоступно для участия"
-            );
-        }
+        handleJoinEvent(event, eventId, auth.getName(), redirectAttributes);
 
         return "redirect:/events/all";
     }
@@ -129,19 +113,28 @@ public class EventController {
 
         log.debug("Event edit form requested: eventId={}", eventId);
 
-        model.addAttribute("event",
-                eventService.getEventForEdit(eventId, auth.getName()));
+        EventEntity event = eventService.getEventForEdit(eventId, auth.getName());
+
+        EventDto eventDto = dtoMapper.eventEntityToDto(event);
+        model.addAttribute("eventDto", eventDto);
 
         return "main/event/edit-event";
     }
 
     @PostMapping("/edit/{eventId}")
     public String updateEvent(@PathVariable Long eventId,
-                              @ModelAttribute EventDto dto,
+                              @Valid @ModelAttribute("eventDto") EventDto dto,
+                              BindingResult bindingResult,
                               Authentication auth,
-                              RedirectAttributes redirectAttributes) {
+                              RedirectAttributes redirectAttributes
+    ) {
 
         log.info("Event update requested: eventId={}", eventId);
+
+        if (bindingResult.hasErrors()) {
+            log.warn("Event creation validation failed");
+            return "main/event/edit-event";
+        }
 
         eventService.updateEvent(eventId, dto, auth.getName());
 
@@ -167,5 +160,18 @@ public class EventController {
         log.info("Event deleted: eventId={}", eventId);
 
         return "redirect:/events/my";
+    }
+
+    private void handleJoinEvent(EventEntity event, Long eventId, String username, RedirectAttributes redirectAttributes) {
+        boolean isAvailable = event.getStatus() == EventStatus.APPROVED;
+
+        if (isAvailable) {
+            eventService.joinEvent(eventId, username);
+            log.info("User joined event: eventId={}", eventId);
+            redirectAttributes.addFlashAttribute("success", "Вы успешно присоединились к мероприятию");
+        } else {
+            log.warn("Attempt to join unavailable event: eventId={}, status={}", eventId, event.getStatus());
+            redirectAttributes.addFlashAttribute("error", "Данное мероприятие недоступно для участия");
+        }
     }
 }

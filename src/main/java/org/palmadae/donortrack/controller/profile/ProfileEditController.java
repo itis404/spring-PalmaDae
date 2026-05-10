@@ -34,30 +34,19 @@ public class ProfileEditController {
     @GetMapping
     public String showPage(Model model, Authentication auth) {
         log.info("Profile edit page accessed");
-
-        String username = auth.getName();
-        UserEntity user = userService.findByUsername(username)
-                .orElseThrow(() -> {
-                    log.warn("User not found during profile edit page access");
-                    return new RuntimeException("User not found");
-                });
-
-        model.addAttribute("currentBloodType", user.getBloodType());
-        model.addAttribute("bloodTypes", BloodType.values());
-        model.addAttribute("authProvider", user.getProvider());
-
+        fillProfileModel(model, auth);
         return "profile/edit-profile";
     }
 
     @PostMapping("/email")
-    public String changeEmail(@Valid @ModelAttribute EmailChangeDto dto,
+    public String changeEmail(@Valid @ModelAttribute("emailChangeDto") EmailChangeDto dto,
                               BindingResult result,
                               RedirectAttributes redirectAttributes,
                               Authentication auth) {
 
         if (result.hasErrors()) {
-            log.warn("Email change validation failed");
-            redirectAttributes.addFlashAttribute("errorMessage", "Некорретктная почта");
+            log.warn("Email change validation failed: {}", result.getAllErrors());
+            redirectAttributes.addFlashAttribute("errorMessage", "Некорректная почта");
             return "redirect:/profile/edit";
         }
 
@@ -67,30 +56,36 @@ public class ProfileEditController {
         userService.changeEmail(username, dto);
 
         log.info("Email successfully updated");
-
         redirectAttributes.addFlashAttribute("successMessage", "Почта обновлена");
         return "redirect:/profile/edit";
     }
 
     @PostMapping("/password")
-    public String changePassword(@Valid @ModelAttribute PasswordChangeDto dto,
+    public String changePassword(@Valid @ModelAttribute("passwordChangeDto") PasswordChangeDto dto,
                                  BindingResult result,
                                  RedirectAttributes redirectAttributes,
                                  Authentication auth) {
+        if (!dto.getNewPassword().equals(dto.getConfirmPassword())) {
+            result.rejectValue("confirmPassword", "error.confirmPassword", "Пароли не совпадают");
+        }
 
-        if (result.hasErrors() || !dto.getNewPassword().equals(dto.getConfirmPassword())) {
-            log.warn("Password change validation failed");
-            redirectAttributes.addFlashAttribute("errorMessage", "Пароль не совпадают");
+        if (result.hasErrors()) {
+            log.warn("Password change validation failed: {}", result.getAllErrors());
+            redirectAttributes.addFlashAttribute("errorMessage", "Проверьте правильность заполнения полей");
             return "redirect:/profile/edit";
         }
 
         String username = auth.getName();
         log.info("Password change requested");
 
-        userService.changePassword(username, dto);
+        try {
+            userService.changePassword(username, dto);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Неверный старый пароль");
+            return "redirect:/profile/edit";
+        }
 
         log.info("Password successfully updated");
-
         redirectAttributes.addFlashAttribute("successMessage", "Пароль изменён");
         return "redirect:/profile/edit";
     }
@@ -138,5 +133,18 @@ public class ProfileEditController {
         log.debug("City search request received");
 
         return dadataService.suggestCities(query);
+    }
+
+    private void fillProfileModel(Model model, Authentication auth) {
+        String username = auth.getName();
+        UserEntity user = userService.findByUsername(username);
+
+        model.addAttribute("currentBloodType", user.getBloodType());
+        model.addAttribute("bloodTypes", BloodType.values());
+        model.addAttribute("authProvider", user.getProvider());
+        model.addAttribute("emailChangeDto", new EmailChangeDto());
+        model.addAttribute("passwordChangeDto", new PasswordChangeDto());
+        model.addAttribute("bloodTypeChangeDto", new BloodTypeChangeDto());
+        model.addAttribute("cityChangeDto", new CityChangeDto());
     }
 }

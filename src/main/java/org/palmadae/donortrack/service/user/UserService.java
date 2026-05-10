@@ -40,11 +40,22 @@ public class UserService {
         return jpaRepository.existsByEmail(email);
     }
 
-    public Optional<UserEntity> findByUsername(String username) { return jpaRepository.findByUsername(username); }
+    public UserEntity findByUsername(String username) {
+        return jpaRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
+    }
 
     public Optional<UserEntity> findByEmail(String email) { return jpaRepository.findByEmail(email); }
 
     public Optional<UserEntity> findByYandexId(String id) { return jpaRepository.findByYandexId(id); }
+
+    public UserEntity findUserByIdentifier(String identifier) {
+        return jpaRepository.findByUsername(identifier)
+                .orElseGet(() -> jpaRepository.findByYandexId(identifier)
+                        .orElseThrow(() -> new RuntimeException("User not found: " + identifier))
+                );
+    }
+
 
     @Transactional
     public boolean createUserLocal(UserDto dto) {

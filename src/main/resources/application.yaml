@@ -21,7 +21,7 @@ spring:
       add-mappings: true
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
   mail:
     username: donor.track.official@gmail.com
     password: fcmcdgslqblnudlq
@@ -56,6 +56,10 @@ logging:
     org.springframework.web: DEBUG
     org.springframework.security.web.access: DEBUG
     org.springframework.security.web.util.matcher: DEBUG
+    org.palmadae.donortrack: DEBUG
+    org.palmadae.donortrack.controller: DEBUG
+    org.palmadae.donortrack.service: DEBUG
+    org.palmadae.donortrack.aspect: DEBUG
 
 springdoc:
   api-docs:

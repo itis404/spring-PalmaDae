@@ -46,8 +46,7 @@ public class EventChatService {
             throw new EventChatIsNotApprovedException(eventId);
         }
 
-        UserEntity sender = userService.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException(username));
+        UserEntity sender = userService.findByUsername(username);
 
         boolean isParticipant = event.getParticipants()
                 .stream()
@@ -85,8 +84,7 @@ public class EventChatService {
         EventEntity event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new EventNotFoundException(eventId));
 
-        UserEntity user = userService.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException(username));
+        UserEntity user = userService.findByUsername(username);
 
         boolean isParticipant = event.getParticipants()
                 .stream()

@@ -32,8 +32,7 @@ public class EventService {
     private UserService userService;
 
     public EventEntity createEvent(EventDto dto, String username) {
-        UserEntity organizer = userService.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException(username));
+        UserEntity organizer = userService.findByUsername(username);
 
         List<UserEntity> participants = new ArrayList<>();
         participants.add(organizer);
@@ -102,8 +101,7 @@ public class EventService {
         EventEntity event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new EventNotFoundException(eventId));
 
-        UserEntity user = userService.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException(username));
+        UserEntity user = userService.findByUsername(username);
 
         if (event.getStatus() != EventStatus.APPROVED) {
             throw new EventNotApprovedException(eventId);
@@ -118,13 +116,13 @@ public class EventService {
         return eventRepository.save(event);
     }
 
+
     public EventEntity leaveEvent(Long eventId, String username) {
 
         EventEntity event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new EventNotFoundException(eventId));
 
-        UserEntity user = userService.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException(username));
+        UserEntity user = userService.findByUsername(username);
 
         if (event.getOrganizer().getId().equals(user.getId())) {
             throw new OrganizerCannotLeaveEventException();
@@ -140,8 +138,7 @@ public class EventService {
         EventEntity event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new EventNotFoundException(eventId));
 
-        UserEntity user = userService.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException(username));
+        UserEntity user = userService.findByUsername(username);
 
         if (!event.getOrganizer().getUsername().equals(username) && !user.isAdmin()) {
             throw new EventSecurityException();
@@ -167,8 +164,7 @@ public class EventService {
     }
 
     public List<EventEntity> getOrganizerEvents(String username) {
-        UserEntity user = userService.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException(username));
+        UserEntity user = userService.findByUsername(username);
 
         return eventRepository.findByOrganizerId(user.getId());
     }
