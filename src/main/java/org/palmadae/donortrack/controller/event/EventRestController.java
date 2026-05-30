@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.palmadae.donortrack.dto.event.EventDto;
 import org.palmadae.donortrack.entity.event.EventEntity;
 import org.palmadae.donortrack.service.event.EventService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,8 @@ import java.util.List;
 @Tag(name = "Event REST API", description = "API для управления мероприятиями")
 public class EventRestController {
 
-    private final EventService eventService;
+    @Autowired
+    private EventService eventService;
 
     @Operation(summary = "Получить все одобренные мероприятия")
     @GetMapping
