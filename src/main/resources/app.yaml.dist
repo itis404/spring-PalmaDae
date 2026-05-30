@@ -1,0 +1,77 @@
+spring:
+  application:
+    name: DonorTrack
+  datasource:
+    url: ССЫЛКА_НА_ВАШУ_БД_ПОСТГРЕС
+    username: ЛОГИН_ОТ_БД
+    password: ПАРОЛЬ_ОТ_БД
+  redis:
+    host: ХОСТ_ДЛЯ_REDIS (например, localhost или redis)
+    port: 6379
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      static-locations:
+        - classpath:/static/
+        - file:./src/main/webapp/
+      add-mappings: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+  mail:
+    username: ВАША_ПОЧТА_ДЛЯ_ОТПРАВКИ_ПИСЕМ@gmail.com
+    password: ПАРОЛЬ_ПРИЛОЖЕНИЯ_ОТ_ПОЧТЫ
+    host: smtp.gmail.com
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+donorsearch:
+  api:
+    base-url: https://api2.donorsearch.org/api/
+    end-points:
+      stations: blood_stations/?city_slug=
+
+dadata:
+  api-token: ВАШ_API_ТОКЕН_DADATA
+  secret-key: ВАШ_СЕКРЕТНЫЙ_КЛЮЧ_DADATA
+
+info:
+  app:
+    name: ${spring.application.name}
+    version: 0.0.1
+    description: DonorSearch fork
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security.web.access: DEBUG
+    org.springframework.security.web.util.matcher: DEBUG
+    org.palmadae.donortrack: DEBUG
+    org.palmadae.donortrack.controller: DEBUG
+    org.palmadae.donortrack.service: DEBUG
+    org.palmadae.donortrack.aspect: DEBUG
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+yandex:
+  client-id: ВАШ_CLIENT_ID_ЯНДЕКС_OAUTH
+  client-secret: ВАШ_CLIENT_SECRET_ЯНДЕКС_OAUTH
+
+file:
+  upload:
+    dir: uploads/certificates/

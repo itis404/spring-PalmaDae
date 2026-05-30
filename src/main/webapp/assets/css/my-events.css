@@ -1,0 +1,108 @@
+.my-events-body {
+    margin: 0;
+    font-family: sans-serif;
+    background: #f3f3f3;
+}
+
+.my-events-title {
+    text-align: center;
+    color: #ff0004;
+    margin: 30px 0;
+}
+
+.events-container {
+    width: 80%;
+    margin: auto;
+}
+
+.event-card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+
+    transition: transform 0.2s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-4px);
+}
+
+.event-card p {
+    margin: 8px 0;
+    color: #333;
+}
+
+.event-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+
+.edit-btn {
+    background: #8911d9;
+}
+
+.edit-btn:hover {
+    background: #6e0fb0;
+}
+
+.delete-btn {
+    background: #d93025;
+}
+
+.delete-btn:hover {
+    background: #b52018;
+}
+
+.status {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    color: white;
+}
+
+.APPROVED {
+    background: #1fae4b;
+}
+
+.UPDATED {
+    background: #17a2b8;
+}
+
+.PENDING {
+    background: #f39c12;
+}
+
+.REJECTED {
+    background: #d93025;
+}
+
+.ACTIVE {
+    background: #28a745;
+}
+
+.chat-btn {
+    background: #11d9bb;
+}
+
+.chat-btn:hover {
+    background: #0fa3b0;
+}

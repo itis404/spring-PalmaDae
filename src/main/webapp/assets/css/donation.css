@@ -1,0 +1,105 @@
+.donation-body {
+    margin: 0;
+    font-family: sans-serif;
+    background: #f3f3f3;
+}
+
+.donation-div {
+    width: 500px;
+    margin: 40px auto;
+
+    background: white;
+    padding: 30px;
+
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.donation-title {
+    text-align: center;
+    color: #ff0004;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.donation-label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #555;
+}
+
+.donation-input {
+    width: 100%;
+    padding: 12px;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.donation-input:focus {
+    outline: none;
+    border-color: #ff0004;
+    box-shadow: 0 0 0 3px rgba(255,0,4,0.15);
+}
+
+
+.donation-button {
+    width: 100%;
+    padding: 14px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #ff0004;
+    color: white;
+    font-size: 16px;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.donation-button:hover {
+    background: #cc0003;
+    transform: translateY(-2px);
+}
+
+
+.success {
+    background: #1fae4b;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.error {
+    background: #d93025;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.back-link {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.back-link a {
+    text-decoration: none;
+    color: white;
+    background: #777;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+.back-link a:hover {
+    background: #555;
+}

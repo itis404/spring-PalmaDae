@@ -1,0 +1,77 @@
+spring:
+  application:
+    name: DonorTrack
+  datasource:
+    url: jdbc:postgresql://db:5432/donortrack
+    username: postgres
+    password: 010909
+  redis:
+    host: redis
+    port: 6379
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      static-locations:
+        - classpath:/static/
+        - file:./src/main/webapp/
+      add-mappings: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+  mail:
+    username: donor.track.official@gmail.com
+    password: fcmcdgslqblnudlq
+    host: smtp.gmail.com
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+donorsearch:
+  api:
+    base-url: https://api2.donorsearch.org/api/
+    end-points:
+      stations: blood_stations/?city_slug=
+
+dadata:
+  api-token: ec00a2192ae81fa6ae42043b223c7ede21e932ea
+  secret-key: 0748dd0ccdbddb2657542fabf1dce88554ff9bc
+
+info:
+  app:
+    name: ${spring.application.name}
+    version: 0.0.1
+    description: DonorSearch fork
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security.web.access: DEBUG
+    org.springframework.security.web.util.matcher: DEBUG
+    org.palmadae.donortrack: DEBUG
+    org.palmadae.donortrack.controller: DEBUG
+    org.palmadae.donortrack.service: DEBUG
+    org.palmadae.donortrack.aspect: DEBUG
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+yandex:
+  client-id: 72c58ab590244406bbc405218283143d
+  client-secret: fcefaeeec31a4491b84d8b2c7f9108b8
+
+file:
+  upload:
+    dir: uploads/certificates/

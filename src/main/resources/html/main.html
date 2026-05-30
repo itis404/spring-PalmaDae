@@ -1,0 +1,44 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html xmlns:jsp="http://java.sun.com/JSP/Page">
+<head>
+    <title>Profile</title>
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+
+<header>
+    <nav class="header">
+        <ul>
+            <li><a href="">Home page</a></li>
+            <li><a>Events</a></li>
+            <li class="right"><a>Profile</a></li>
+            <li><a>Notificaitons</a></li>
+        </ul>
+
+    </nav>
+</header>
+
+<div id="user-info" class="profile-div">
+    <h1>${username}</h1>
+    <h1>${email}</h1>
+    <h1>${bloodType}</h1>
+    <h1>${city}</h1>
+</div>
+
+<div class="profile-div">
+    <a class="profile-button">Edit Profile</a>
+    <a class="profile-button">Add donation</a>
+    <a class="profile-button">Create event</a>
+</div>
+
+
+
+
+<p><a href="/profile/edit">Edit Profile</a></p>
+
+<p><a href="/profile/add-donation">Add Donation</a></p>
+<p><a href="/home">Go Home</a></p>
+<p><a href="/events/create">Create event</a></p>
+</body>
+</html>

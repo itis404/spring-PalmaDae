@@ -1,0 +1,106 @@
+.profile-body {
+    margin: 0;
+    font-family: sans-serif;
+    background: #f3f3f3;
+}
+
+.profile-button {
+    padding: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    background-color: #ff0004;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.profile-button:hover {
+    background-color: #cd231d;
+}
+
+#user-info {
+    width: 320px;
+    margin: 40px auto;
+    padding: 25px;
+
+    background: #fff;
+    border-radius: 16px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+    text-align: center;
+
+    transition: transform 0.2s ease;
+}
+
+#user-info:hover {
+    transform: translateY(-5px);
+}
+
+.profile-div {
+    text-align: center;
+}
+
+.donations-container {
+    width: 500px;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.donation-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 15px 20px;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.donation-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.donation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.donation-type {
+    font-size: 16px;
+    color: #222;
+}
+
+.donation-body {
+    font-size: 14px;
+    color: #555;
+}
+
+.donation-date {
+    margin-top: 5px;
+}
+
+.status-IN_PROGRESS {
+    color: #b7791f;
+}
+
+.status-CONFIRMED {
+    color: #2f855a;
+}
+
+.status-DECLINED {
+    color: #c53030;
+}
+
+.status-WITHOUT {
+    color: #718096;
+}
